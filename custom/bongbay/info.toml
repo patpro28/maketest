@@ -1,0 +1,13 @@
+title = 'A + B'
+timelimit = 2.0
+
+[[tests]]
+    name = "random.cpp"
+    number = 10
+
+[[solutions]]
+    type = "correct"
+    name = "correct.py"
+
+[params]
+    A_AND_B_MAX = 1_000_000_000

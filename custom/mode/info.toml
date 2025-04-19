@@ -1,0 +1,16 @@
+title = 'A + B'
+timelimit = 2.0
+forum = "https://github.com/yosupo06/library-checker-problems/issues/32"
+
+
+[[tests]]
+    name = "random.cpp"
+    number = 10
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+
+[params]
+    N_MAX = 400000
+    Q_MAX = 400000

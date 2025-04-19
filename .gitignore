@@ -1,0 +1,27 @@
+*
+
+!.gitignore
+!Dockerfile
+!LICENSE
+
+!*/
+!*.sh
+!*.yml
+!*.yaml
+!*.toml
+!*.cpp
+!*.h
+!*.hpp
+!*.md
+!*.py
+!*.in
+
+!requirements.txt
+!hash.json
+
+params.h
+in/
+
+.venv/
+venv/
+# custom/

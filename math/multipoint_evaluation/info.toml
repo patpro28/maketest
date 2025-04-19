@@ -1,0 +1,17 @@
+title = 'Multipoint Evaluation'
+timelimit = 10.0
+forum = "https://github.com/yosupo06/library-checker-problems/issues/45"
+
+[[tests]]
+    name = "example.in"
+    number = 2
+[[tests]]
+    name = "random.cpp"
+    number = 3
+[[tests]]
+    name = "max_random.cpp"
+    number = 2
+[[tests]]
+    name = "zero.in"
+    number = 1
+
