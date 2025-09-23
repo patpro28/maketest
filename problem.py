@@ -58,6 +58,7 @@ def compile(src: Path, rootdir: Path):
             cxxflags_default += ' -fsplit-stack'
         cxxflags = getenv('CXXFLAGS', cxxflags_default).split()
         cxxflags.extend(['-I', str(rootdir / 'common')])
+        cxxflags.extend(['-I', str(rootdir / 'atcoder')])
         args = [cxx] + cxxflags + \
             ['-o', str(src.with_suffix(suffix))] + [str(src)]
         # print(args)
@@ -492,8 +493,6 @@ class Problem:
             shutil.rmtree(self.basedir / 'in')
         if (self.basedir / 'out').exists():
             shutil.rmtree(self.basedir / 'out')
-        if (self.basedir / f'{self.basedir.name}.zip').exists():
-            os.remove(self.basedir / f'{self.basedir.name}.zip')
 
     class Mode(Enum):
         DEFAULT = 1
