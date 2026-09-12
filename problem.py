@@ -44,7 +44,7 @@ def param_to_str(key: str, value: object):
 
 def compile(src: Path, rootdir: Path):
     if src.suffix == '.cpp':
-        cxx = getenv('CXX', 'g++-14')
+        cxx = getenv('CXX', 'g++-15')
         cxxflags_default = '-O2 -std=c++17 -Wall -Wextra -Werror -Wno-unused-result'
         suffix = '.exe' if platform.system() == 'Windows' else ''
         if platform.system() == 'Darwin':

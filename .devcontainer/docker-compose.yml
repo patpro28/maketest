@@ -1,0 +1,12 @@
+services:
+  dev:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ..:/workspaces:cached
+    ulimits:
+      stack:
+        soft: 256000
+        hard: 256000
+    command: sleep infinity

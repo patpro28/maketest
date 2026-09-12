@@ -7,7 +7,10 @@ forum = "https://github.com/yosupo06/library-checker-problems/issues/32"
     number = 4
 [[tests]]
     name = "random.cpp"
-    number = 36
+    number = 18
+[[tests]]
+    name = "few_test.cpp"
+    number = 18
 
 [[solutions]]
     type = "correct"

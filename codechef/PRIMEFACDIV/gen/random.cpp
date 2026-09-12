@@ -38,7 +38,7 @@ bool test(ll a, ll n, ll k, ll m)
 
 bool is_prime(ll n)
 {
-    vector<ll> bases = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
+    vector<ll> bases = {2, 3, 5, 7, 11, 13, 17, 19};
     if (count(bases.begin(), bases.end(), n))
         return true;
     if (n < 3e9)
@@ -70,7 +70,8 @@ int main(int, char *argv[])
 
     int t = gen.uniform(1, 100000);
     cout << t << endl;
-    for (int i = 0; i < t; ++i)
+    cout << 900000 << ' ' << 24300 << '\n';
+    for (int i = 1; i < t; ++i)
     {
         long long a = gen.uniform<long long>(1, MAX);
         long long b = gen.uniform<long long>(1, MAX);
@@ -98,7 +99,7 @@ int main(int, char *argv[])
             while (true)
             {
                 ll p = primes[gen.uniform(0, 3)];
-                if (b > MAX / p)
+                if (b >= a / p)
                     break;
                 b *= p;
             }

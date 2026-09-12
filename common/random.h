@@ -93,10 +93,10 @@ struct Random {
     }
 
     // generate random lower string that length = n
-    std::string lower_string(size_t n) {
+    std::string lower_string(size_t n, char lower = 'a', char upper = 'z') {
         std::string res = "";
         for (size_t i = 0; i < n; i++) {
-            res += uniform('a', 'z');
+            res += uniform(lower, upper);
         }
         return res;
     }
@@ -148,6 +148,18 @@ struct Random {
     }
 
     template <class T>
+    std::vector<std::pair<T, T>> tree_depth(size_t n, bool base = false, int depth_limit = 10) {
+        std::vector<T> perm = this->perm<T>(n);
+        if (base)
+            for (size_t i = 0; i < n; i++) perm[i] += 1;
+        std::vector<std::pair<T, T>> edges;
+        for (size_t i = 1; i < n; i++) {
+            edges.emplace_back(perm[i], perm[uniform<size_t>(std::max(0, (int) i - depth_limit), i - 1)]);
+        }
+        return edges;
+    }
+
+    template <class T>
     std::vector<std::pair<T, T>> binary_perfect_tree(size_t n, bool base = false) {
         std::vector<T> perm = this->perm<T>(n);
         if (base)
@@ -168,13 +180,22 @@ struct Random {
         sum -= t * lower;
         for (int i = 0; i < sum; ++i) {
             int idx = uniform(0, t - 1);
-            if (res[idx] == upper) {
+            if (upper > 0 and res[idx] == upper) {
                 i--;
                 continue;
             }
             res[idx] ++;
         }
         return res;
+    }
+
+    template <class T>
+    std::vector<T> gen_distinct(size_t n, T lower, T upper)
+    {
+        assert(T(n) <= upper - lower + 1);
+        std::set<T> res;
+        while (res.size() < n) res.insert(uniform(lower, upper));
+        return {res.begin(), res.end()};
     }
 
 } global_gen;
