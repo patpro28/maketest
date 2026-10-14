@@ -1,0 +1,26 @@
+title = 'KNAPSACK11 - Hai tuyến xe buýt'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 2
+[[tests]]
+    name = "edge.cpp"
+    number = 10
+[[tests]]
+    name = "small.cpp"
+    number = 6
+[[tests]]
+    name = "random.cpp"
+    number = 8
+[[tests]]
+    name = "max.cpp"
+    number = 6
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+
+[params]
+    N_MAX = 200
+    SUM_MAX = 20000

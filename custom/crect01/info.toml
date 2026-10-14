@@ -1,0 +1,26 @@
+title = 'Hình chữ nhật toàn số 1'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 1
+[[tests]]
+    name = "edge.cpp"
+    number = 12
+[[tests]]
+    name = "random.cpp"
+    number = 20
+[[tests]]
+    name = "max.cpp"
+    number = 12
+
+[[solutions]]
+    name = "correct.cpp"
+    type = "correct"
+[[solutions]]
+    name = "boundaries.cpp"
+    type = "correct"
+
+[params]
+    M_MAX = 1000
+    N_MAX = 1000

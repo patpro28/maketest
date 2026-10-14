@@ -1,0 +1,28 @@
+title = 'KNAPSACK13 - Mua vé đạt đủ điểm'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 2
+[[tests]]
+    name = "edge.cpp"
+    number = 10
+[[tests]]
+    name = "small.cpp"
+    number = 6
+[[tests]]
+    name = "random.cpp"
+    number = 8
+[[tests]]
+    name = "max.cpp"
+    number = 9
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+
+[params]
+    N_MAX = 200
+    X_MAX = 20000
+    C_MAX = 1000000000
+    P_MAX = 20000

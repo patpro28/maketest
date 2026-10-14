@@ -1,0 +1,12 @@
+title = 'Phân phối số nguyên'
+timelimit = 3.0
+tests = []
+
+[[solutions]]
+    name = "correct.cpp"
+    type = "correct"
+
+[params]
+    N_MIN = 2
+    N_MAX = 200_000
+    MOD = 1_000_000_007

@@ -1,0 +1,26 @@
+title = 'Conan'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 1
+[[tests]]
+    name = "edge.cpp"
+    number = 16
+[[tests]]
+    name = "random.cpp"
+    number = 20
+[[tests]]
+    name = "max.cpp"
+    number = 12
+
+[[solutions]]
+    name = "correct.cpp"
+    type = "correct"
+[[solutions]]
+    name = "greedy.cpp"
+    type = "correct"
+
+[params]
+    N_MAX = 300_000
+    A_MAX = 1_000_000_000

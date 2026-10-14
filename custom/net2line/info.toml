@@ -1,0 +1,27 @@
+title = 'NET2LINE - Kết nối hai hàng máy tính'
+timelimit = 3.0
+
+[[tests]]
+    name = "example.in"
+    number = 1
+[[tests]]
+    name = "small.cpp"
+    number = 9
+[[tests]]
+    name = "even.cpp"
+    number = 10
+[[tests]]
+    name = "medium.cpp"
+    number = 10
+[[tests]]
+    name = "large.cpp"
+    number = 10
+
+[[solutions]]
+    name = "correct.cpp"
+    type = "correct"
+
+[params]
+    N_MAX = 100000
+    T_MAX = 20
+    COST_MAX = 10000

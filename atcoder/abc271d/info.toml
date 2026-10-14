@@ -1,0 +1,27 @@
+title = 'Chọn mặt thẻ'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 2
+[[tests]]
+    name = "edge.cpp"
+    number = 16
+[[tests]]
+    name = "random.cpp"
+    number = 24
+[[tests]]
+    name = "max.cpp"
+    number = 12
+
+[[solutions]]
+    name = "correct.cpp"
+    type = "correct"
+[[solutions]]
+    name = "suffix.cpp"
+    type = "correct"
+
+[params]
+    N_MAX = 100
+    S_MAX = 10000
+    VALUE_MAX = 100

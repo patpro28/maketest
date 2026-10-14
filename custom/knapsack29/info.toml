@@ -1,0 +1,29 @@
+title = 'KNAPSACK29 - Ghép đường ray dài tới 10^18'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 2
+[[tests]]
+    name = "edge.cpp"
+    number = 10
+[[tests]]
+    name = "small.cpp"
+    number = 6
+[[tests]]
+    name = "random.cpp"
+    number = 8
+[[tests]]
+    name = "max.cpp"
+    number = 6
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+
+[params]
+    N_MAX = 50
+    Q_MAX = 100000
+    A_MAX = 1000000
+    MIN_MAX = 5000
+    X_MAX = 1000000000000000000

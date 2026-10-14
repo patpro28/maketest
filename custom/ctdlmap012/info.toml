@@ -1,0 +1,18 @@
+title = 'Hai cặp lõi năng lượng có tổng bằng nhau'
+timelimit = 2.0
+
+[[tests]]
+    name = "small.cpp"
+    number = 8
+[[tests]]
+    name = "random.cpp"
+    number = 12
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+
+[params]
+    N_MIN = 4
+    N_MAX = 1000
+    A_MAX = 1_000_000_000

@@ -1,0 +1,27 @@
+title = 'FIXSUM - Tổng cố định'
+timelimit = 2.0
+
+[[tests]]
+name = 'example.in'
+number = 1
+
+[[tests]]
+name = 'small.cpp'
+number = 1
+
+[[tests]]
+name = 'boundary.cpp'
+number = 1
+
+[[tests]]
+name = 'random.cpp'
+number = 10
+
+[[solutions]]
+name = 'correct.cpp'
+type = 'correct'
+
+[params]
+T_MAX = 10_000
+N_MAX = 1_000_000_000
+S_MAX = 1_000_000_000
