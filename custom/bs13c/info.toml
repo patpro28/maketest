@@ -1,0 +1,24 @@
+title = 'BS13C - Chọn phòng phù hợp'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 2
+
+[[tests]]
+    name = "subtask1.cpp"
+    number = 20
+
+[[tests]]
+    name = "subtask2.cpp"
+    number = 20
+
+[[solutions]]
+    name = "correct.cpp"
+    type = "correct"
+
+[[solutions]]
+    name = "reference.cpp"
+    type = "correct"
+
+[params]

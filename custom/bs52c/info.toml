@@ -1,0 +1,20 @@
+title = 'BS52C - Mức đánh giá đại diện'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 2
+
+[[tests]]
+    name = "subtask1.cpp"
+    number = 40
+
+[[solutions]]
+    name = "correct.cpp"
+    type = "correct"
+
+[[solutions]]
+    name = "reference.cpp"
+    type = "correct"
+
+[params]

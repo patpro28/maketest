@@ -1,0 +1,32 @@
+title = 'DPUPSTAIR03A - Những bước nhảy dài'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 3
+[[tests]]
+    name = "edge.cpp"
+    number = 16
+[[tests]]
+    name = "small.cpp"
+    number = 16
+[[tests]]
+    name = "random.cpp"
+    number = 12
+[[tests]]
+    name = "max.cpp"
+    number = 8
+[[tests]]
+    name = "zero.cpp"
+    number = 6
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+[[solutions]]
+    type = "correct"
+    name = "backward.cpp"
+
+[params]
+    N_MAX = 100000
+    M_MAX = 30

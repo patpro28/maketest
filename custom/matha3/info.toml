@@ -1,0 +1,28 @@
+title = 'MATHA3 - Lịch bật đèn'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 2
+
+[[tests]]
+    name = "subtask1.cpp"
+    number = 24
+
+[[tests]]
+    name = "subtask2.cpp"
+    number = 12
+
+[[tests]]
+    name = "subtask3.cpp"
+    number = 4
+
+[[solutions]]
+    name = "correct.cpp"
+    type = "correct"
+
+[[solutions]]
+    name = "reference.cpp"
+    type = "correct"
+
+[params]

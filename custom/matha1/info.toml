@@ -1,0 +1,37 @@
+title = 'MATHA1 - Chia hết và không chia hết'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 2
+[[tests]]
+    name = "edge.cpp"
+    number = 3
+[[tests]]
+    name = "small.cpp"
+    number = 4
+[[tests]]
+    name = "random.cpp"
+    number = 4
+[[tests]]
+    name = "max.cpp"
+    number = 3
+
+[[tests]]
+    name = "subtask1.cpp"
+    number = 5
+[[tests]]
+    name = "subtask2.cpp"
+    number = 3
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+[[solutions]]
+    type = "correct"
+    name = "quotients.cpp"
+
+[params]
+    T_MAX = 100000
+    LR_MAX = 1000000000000000000
+    A_MAX = 1000000

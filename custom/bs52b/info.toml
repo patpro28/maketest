@@ -1,0 +1,36 @@
+title = 'BS14 - Chỉ số nhóm cao nhất'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 2
+[[tests]]
+    name = "edge.cpp"
+    number = 8
+[[tests]]
+    name = "small.cpp"
+    number = 4
+[[tests]]
+    name = "random.cpp"
+    number = 6
+[[tests]]
+    name = "max.cpp"
+    number = 6
+[[tests]]
+    name = "many.cpp"
+    number = 2
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+[[solutions]]
+    type = "correct"
+    name = "prefix.cpp"
+
+[params]
+    T_MAX = 1000
+    N_MAX = 300000
+    Q_MAX = 300000
+    SUM_N_MAX = 300000
+    SUM_Q_MAX = 300000
+    A_MAX = 1000000000

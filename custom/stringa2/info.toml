@@ -1,0 +1,35 @@
+title = 'STRINGA2 - Đoạn số dài nhất'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 3
+[[tests]]
+    name = "edge.cpp"
+    number = 45
+[[tests]]
+    name = "small.cpp"
+    number = 9
+[[tests]]
+    name = "random.cpp"
+    number = 18
+[[tests]]
+    name = "max.cpp"
+    number = 36
+[[tests]]
+    name = "subtask1.cpp"
+    number = 9
+[[tests]]
+    name = "subtask2.cpp"
+    number = 18
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+[[solutions]]
+    type = "correct"
+    name = "divisibility_rules.cpp"
+
+[params]
+    N_MAX = 100000
+    K_MAX = 9

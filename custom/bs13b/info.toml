@@ -1,0 +1,34 @@
+title = 'BS13B - Cắt thanh gỗ'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 2
+[[tests]]
+    name = "edge.cpp"
+    number = 8
+[[tests]]
+    name = "small.cpp"
+    number = 6
+[[tests]]
+    name = "random.cpp"
+    number = 6
+[[tests]]
+    name = "max.cpp"
+    number = 6
+
+[[tests]]
+    name = "subtask1.cpp"
+    number = 6
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+[[solutions]]
+    type = "correct"
+    name = "binary_search.cpp"
+
+[params]
+    N_MAX = 200000
+    Q_MAX = 200000
+    VALUE_MAX = 1000000000
