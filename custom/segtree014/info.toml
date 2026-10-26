@@ -1,0 +1,36 @@
+title = 'SEGTREE014 - Ghi nhận doanh số'
+timelimit = 1.0
+
+[[tests]]
+    name = "example.in"
+    number = 2
+[[tests]]
+    name = "edge.cpp"
+    number = 12
+[[tests]]
+    name = "small.cpp"
+    number = 8
+[[tests]]
+    name = "random.cpp"
+    number = 8
+[[tests]]
+    name = "max.cpp"
+    number = 6
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+
+[params]
+    N_MAX = 200000
+    Q_MAX = 200000
+    VALUE_MIN = 0
+    VALUE_MAX = 1000000000
+
+[upload]
+    time_limit = 1.0
+    group = '03'
+    classes = 'D'
+    types = ['segtree']
+    allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+    partial = true

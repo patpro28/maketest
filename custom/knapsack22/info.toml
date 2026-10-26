@@ -26,3 +26,11 @@ timelimit = 2.0
     K_MAX = 40
     A_MAX = 50
     MOD = 1000000007
+
+[upload]
+    time_limit = 0.5
+    group = '04'
+    classes = 'D'
+    types = ['dp_knapsack']
+    allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+    partial = true

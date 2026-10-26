@@ -1,23 +1,21 @@
-# Lời giải — Dấu của tích
+# Lời giải — Đếm bội số
 
-### Thông tin lưu tại mỗi nút
+### Thông tin tại mỗi nút
 
-Thay mỗi phần tử bằng dấu của nó: $-1$ nếu âm, $0$ nếu bằng $0$, $1$ nếu dương. Mỗi nút lưu tích các dấu trong đoạn.
+Mỗi lá lưu $1$ nếu phần tử tương ứng chia hết cho $K$, ngược lại lưu $0$. Mỗi nút lưu tổng các giá trị lá trong đoạn.
 
 ### Phép ghép
 
-Ghép hai nút bằng phép nhân. Mọi giá trị được lưu đều thuộc tập $\{-1,0,1\}$ nên không tràn số.
+Ghép hai nút bằng phép cộng. Giá trị trung hòa là $0$.
 
-### Cập nhật và truy vấn
+### Xử lý thao tác
 
-Dựng segment tree trên dãy ban đầu. Khi cập nhật một vị trí, sửa lá tương ứng rồi tính lại các nút trên đường từ lá đến gốc. Khi truy vấn đoạn $[l,r]$, ghép thông tin của các đoạn con được cây tách ra.
-
-Giá trị trung hòa là $1$. Đổi kết quả $-1,0,1$ thành các ký tự `-`, `0`, `+` tương ứng. Không nhân trực tiếp các giá trị ban đầu.
+Khi gán một phần tử, tính lại điều kiện `x % K == 0` rồi cập nhật lá. Điều kiện này đúng cả với số âm và số $0$; không cần lưu giá trị của phần tử trong các nút trên cây.
 
 ### Tính đúng đắn
 
-Thông tin tại mỗi lá đúng theo định nghĩa. Nếu thông tin của hai nút con đúng, phép ghép ở trên cho đúng thông tin của đoạn cha. Vì vậy, bằng quy nạp theo chiều cao cây, mọi nút đều lưu đúng thông tin sau khi dựng cây. Mỗi cập nhật tính lại tất cả nút bị ảnh hưởng nên duy trì tính chất này. Truy vấn ghép các đoạn con rời nhau theo đúng thứ tự để thu được thông tin của toàn bộ đoạn cần hỏi; do đó đáp án được in là đúng.
+Thông tin tại mỗi lá đúng theo định nghĩa. Phép ghép cho đúng thông tin của đoạn cha khi hai nút con đúng. Bằng quy nạp theo chiều cao cây, mọi nút đều đúng sau khi dựng cây. Mỗi cập nhật tính lại toàn bộ nút bị ảnh hưởng nên duy trì tính chất đó. Truy vấn ghép các đoạn con rời nhau phủ đúng đoạn cần hỏi. Kết hợp với công thức trả lời ở trên, kết quả được in là đúng.
 
 ### Độ phức tạp
 
-Dựng cây mất $O(N)$ thời gian. Mỗi cập nhật hoặc truy vấn mất $O(\log N)$ thời gian. Tổng thời gian là $O(N+Q\log N)$, bộ nhớ $O(N)$.
+Dựng cây mất $O(N)$ thời gian. Mỗi cập nhật hoặc truy vấn mất $O(\log N)$ thời gian. Tổng thời gian $O(N+Q\log N)$, bộ nhớ $O(N)$.

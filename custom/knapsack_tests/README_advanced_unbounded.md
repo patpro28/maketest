@@ -50,3 +50,9 @@ Các thuật toán kiểm chứng:
 - **29:** Đồ thị số dư dùng một chiều dài có sẵn lớn hơn khi có thể, cùng kiểm tra tổng nhỏ và các công thức chia hết.
 
 Đầu vào/đầu ra đã sinh nằm trong `in/` và `out/`, được bỏ qua bởi Git theo cấu hình dự án. Xem các bộ trước: [0–1 nền tảng](README_basic.md), [vô hạn nền tảng](README_unbounded.md), [các bài biến đổi KNAPSACK10–19](README.md).
+
+## Bài mở rộng KNAPSACK30
+
+[KNAPSACK30 — Phá khiên trong đúng K lượt](../knapsack30/task.md) bổ sung điều kiện dùng đúng K lần phép. DP phải giữ thông tin đã đủ sát thương qua các lượt tiếp theo; bỏ tổng chính xác vượt 2X có thể làm mất nghiệm. Đề không có mục Subtask. Phần `[upload]` được sao chép nguyên vẹn từ KNAPSACK19.
+
+Bài có 37 cặp test, lời giải, verifier/checker và bộ kiểm thử riêng. Chạy `python3 custom/knapsack30/tests/check.py` để sinh và kiểm tra; thêm `--update-hashes` khi chủ động đổi dữ liệu. Bộ kiểm thử đối chiếu bằng DP sát thương còn thiếu, 748 trường hợp vét cạn/ngẫu nhiên nhỏ và các công thức biên; xác nhận bắt được lỗi bỏ tổng vượt 2X và lỗi dừng trước K lượt. Không xuất HTML.

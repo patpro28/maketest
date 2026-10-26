@@ -89,8 +89,16 @@ def main(args: List[str]):
     parser.add_argument('--only-html', action='store_true', help='HTML generator Mode')
     parser.add_argument('-n', '--new', nargs='*', help='Create new custom problem', default=[])
     parser.add_argument('-z', '--zip', nargs='*', help='Zip testcase', default=[])
+    parser.add_argument('-u', '--upload', nargs='*', default=None,
+                        help='Upload problems to HOST using PROBLEM_IMPORT_API_KEY; '
+                             'without names, upload problems selected by -p or TOML paths')
 
     opts = parser.parse_args(args)
+
+    if opts.upload is not None and (opts.new or opts.zip or opts.clean or opts.only_html
+                                    or opts.htmldir or opts.dev or opts.test):
+        parser.error('--upload cannot be combined with --new, --zip, --clean, '
+                     '--only-html, --htmldir, --dev or --test')
 
     if opts.dev + opts.test + opts.clean + opts.only_html >= 2:
         raise ValueError('at most one of --dev, --test, --clean, --only-html can be used')
@@ -120,14 +128,30 @@ def main(args: List[str]):
         return
 
     for tomlpath in opts.toml:
-        tomlfile = toml.load(opts.toml)
         problems.append(Problem(rootdir, Path(tomlpath).parent))
 
-    for problem_name in opts.problem:
+    for problem_name in opts.problem + (opts.upload or []):
         problem_dir = find_problem_dir(rootdir, problem_name)
         if problem_dir is None:
             raise ValueError('Cannot find problem: {}'.format(problem_name))
         problems.append(Problem(rootdir, problem_dir))
+
+    uploads = {}
+    if opts.upload is not None:
+        from problem_upload import ProblemUpload, UploadClient, UploadError
+
+        if not problems:
+            parser.error('--upload requires problem names, -p or TOML paths')
+        try:
+            client = UploadClient.from_env()
+            # Validate local metadata for every problem before generating or uploading.
+            for problem in problems:
+                path = problem.basedir.resolve()
+                if path not in uploads:
+                    uploads[path] = ProblemUpload(problem)
+        except (UploadError, OSError, ValueError) as exc:
+            parser.error(str(exc))
+        problems = list({p.basedir.resolve(): p for p in problems}.values())
 
     if len(problems) == 0:
         logger.warning('No problems')
@@ -154,6 +178,11 @@ def main(args: List[str]):
 
     for problem in problems:
         problem.generate(mode, Path(opts.htmldir) if opts.htmldir else None)
+        if opts.upload is not None:
+            try:
+                uploads[problem.basedir.resolve()].upload(client)
+            except (UploadError, OSError, ValueError, RuntimeError) as exc:
+                parser.exit(1, 'Upload failed for {}: {}\n'.format(problem.basedir.name, exc))
 
 if __name__ == '__main__':
     main(sys.argv[1:])

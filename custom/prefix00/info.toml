@@ -1,0 +1,18 @@
+title = "PREFIX00 - Kho hàng theo ngày"
+timelimit = 2.0
+
+[[tests]]
+name = "example.in"
+number = 2
+
+[[tests]]
+name = "cases.cpp"
+number = 24
+
+[[solutions]]
+name = "correct.cpp"
+type = "correct"
+
+[params]
+N_MAX = 200000
+A_MAX = 1000000000

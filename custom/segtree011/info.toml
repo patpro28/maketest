@@ -1,0 +1,28 @@
+title = 'SEGTREE011 - Kho hàng'
+timelimit = 2.0
+
+[[tests]]
+    name = "example.in"
+    number = 2
+[[tests]]
+    name = "edge.cpp"
+    number = 12
+[[tests]]
+    name = "small.cpp"
+    number = 8
+[[tests]]
+    name = "random.cpp"
+    number = 8
+[[tests]]
+    name = "max.cpp"
+    number = 6
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+
+[params]
+    N_MAX = 200000
+    Q_MAX = 200000
+    VALUE_MIN = 0
+    VALUE_MAX = 1000000000

@@ -1,0 +1,59 @@
+#include <algorithm>
+#include <iostream>
+#include <limits>
+#include <numeric>
+#include <vector>
+
+struct Node {
+    long long value = 0;
+};
+Node leaf(long long x) {
+    return {x};
+}
+Node merge(const Node &a, const Node &b) {
+    return {a.value + b.value};
+}
+
+class SegmentTree {
+    std::vector<Node> tree;
+    void build(int v, int l, int r, const std::vector<long long> &a) {
+        if (l == r) { tree[v] = leaf(a[l]); return; }
+        int m = (l + r) / 2;
+        build(v * 2, l, m, a);
+        build(v * 2 + 1, m + 1, r, a);
+        tree[v] = merge(tree[v * 2], tree[v * 2 + 1]);
+    }
+public:
+    explicit SegmentTree(const std::vector<long long> &a) : tree(4 * a.size()) {
+        build(1, 1, int(a.size()) - 1, a);
+    }
+
+    Node query(int v, int l, int r, int ql, int qr) const {
+        if (qr < l || r < ql) return Node{};
+        if (ql <= l && r <= qr) return tree[v];
+        int m = (l + r) / 2;
+        return merge(query(v * 2, l, m, ql, qr),
+                     query(v * 2 + 1, m + 1, r, ql, qr));
+    }
+};
+
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    int n, q;
+    std::cin >> n >> q;
+    long long k;
+    std::cin >> k;
+    std::vector<long long> a(n + 1);
+    for (int i = 1; i <= n; ++i) {
+        std::cin >> a[i];
+        a[i] = (a[i] >= k);
+    }
+    SegmentTree tree(a);
+    while (q--) {
+        int l, r;
+        std::cin >> l >> r;
+        Node result = tree.query(1, 1, n, l, r);
+        std::cout << result.value << '\n';
+    }
+}

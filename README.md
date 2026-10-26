@@ -39,6 +39,73 @@ cat datastructure/unionfind/task.html # statement
 ./generate.py $(find . -name "info.toml" -not -path "./test/*") # generate all testcases
 ```
 
+### Tải bài lên qua Problem Import API
+
+Khai báo máy chủ và khóa API qua biến môi trường:
+
+```sh
+export HOST='https://judge.example.com'
+export PROBLEM_IMPORT_API_KEY='<khóa nhập đề>'
+
+./generate.py -u knapsack00 knapsack01
+# Hoặc dùng danh sách bài / đường dẫn info.toml như khi sinh test:
+./generate.py -p knapsack00 --upload
+./generate.py custom/knapsack00/info.toml -u
+```
+
+`HOST` nhận URL máy chủ, có thể kèm `/api/v3/problem-import`. Nếu chỉ ghi tên
+miền, công cụ dùng HTTPS. Khóa được gửi trong header `Authorization: Bearer`.
+
+Thêm bảng sau vào `info.toml` của từng bài. Các giá trị phải khớp danh mục đã có
+trên máy chủ; ví dụ dưới đây cần được thay bằng danh mục thực tế:
+
+```toml
+[upload]
+group = 'basic'
+classes = 'beginner'
+types = ['implementation']
+allowed_languages = ['PY3', 'CPP17']
+# Các trường tùy chọn:
+memory_limit = 65536  # KiB
+points = 100
+partial = true
+checker = 'standard'
+```
+
+- Mã bài là tên thư mục chuyển sang chữ thường; chỉ nhận chữ cái và chữ số,
+  tối đa 20 ký tự theo API.
+- Tên bài lấy từ heading cấp một (`# ...`) đầu tiên trong `task.md`. Dòng này
+  được bỏ khỏi nội dung đề gửi lên; các dòng còn lại giữ nguyên Markdown.
+  Nếu không có heading cấp một, tên bài lấy từ `title` trong `info.toml`.
+- Giới hạn thời gian lấy từ `timelimit`, có thể ghi đè bằng `[upload].time_limit`.
+  Các trường tùy chọn khác gồm `short_circuit`, `is_public`, `summary`.
+  Đề mới mặc định riêng tư theo API.
+- Công cụ sinh hoặc dùng lại testcase, đối chiếu `hash.json`, rồi gửi ZIP chứa
+  các cặp `.in`/`.out` theo thứ tự trong `[[tests]]`. Mỗi lần upload thay toàn bộ
+  testcase trên máy chủ. Dữ liệu `in/`, `out/` cục bộ được giữ lại.
+- Editorial lấy từ `editorial.md`, hoặc `solution.md` nếu không có `editorial.md`.
+  Có thể đặt `[upload].editorial = 'đường/dẫn.md'` tính từ thư mục bài. Editorial
+  được gửi với trạng thái riêng tư mặc định của API; không có file thì bỏ qua bước này.
+- Nếu mã bài đã tồn tại (HTTP 409 khi tạo), công cụ cập nhật đề bằng `PATCH`.
+  Nếu một bước lỗi, công cụ dừng và báo bước lỗi; các bước đã thành công trên
+  máy chủ vẫn được giữ. Có thể chạy lại cùng lệnh sau khi sửa lỗi.
+- Upload không xuất HTML và không dùng cùng `--dev`, `--test`, `--clean`,
+  `--only-html`, `--htmldir`, `--new` hoặc `--zip`.
+
+API chỉ nhận các checker tích hợp được liệt kê trong
+[PROBLEM_IMPORT_API.md](PROBLEM_IMPORT_API.md), không tải custom checker C++ lên.
+`checker` mặc định là `standard`; chọn checker phù hợp cho từng bài.
+Để đặt điểm, pretest, subtask hoặc tùy chọn checker, đặt
+`[upload].manifest = 'manifest.json'`. Nội dung JSON tuân theo tài liệu API,
+ghi đè manifest mặc định. Đường dẫn testcase trong manifest là tên file phẳng
+trong ZIP, ví dụ `example_00.in`, `example_00.out`, `random_00.in`.
+
+Kiểm thử chức năng upload bằng máy chủ giả lập cục bộ:
+
+```sh
+python3 -m unittest problem_upload_test
+```
+
 ## Test your solutions in local / CI
 
 - If you want to test your solutions on your computer, [Online Judge Tools](https://github.com/online-judge-tools/oj) is useful.
@@ -84,3 +151,17 @@ We are welcome any issues and PRs! Except minor change (e.g. add test cases, fix
 
 We use [testlib](https://github.com/MikeMirzayanov/testlib) for verifier(input-checker) and output-checker.
 We use [toml](https://github.com/uiri/toml) as toml paser.
+
+
+docker run --rm \
+  --network host \
+  -v /opt/db-backups/laptrinhphothong:/backup \
+  -v "$HOME/.config/mydumper/source.cnf:/run/db.cnf:ro" \
+  --entrypoint mydumper \
+  mydumper/mydumper:latest \
+  --defaults-file=/run/db.cnf \
+  --database=laptrinhphothong \
+  --outputdir=/backup \
+  --threads=4 \
+  --compress=zstd \
+  --verbose=3

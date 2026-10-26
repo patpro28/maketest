@@ -15,7 +15,10 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from problem import Problem, compile as compile_source
 
-NAMES = ['segtree020', 'segtree010', 'segtree050', 'segtree060', 'segtree051', 'segtree090']
+NAMES = ['segtree020', 'segtree010', 'segtree050', 'segtree060', 'segtree082', 'segtree090']
+# The fixture kind is independent of the current problem code.
+CASE_KINDS = {'segtree020': 20, 'segtree010': 10, 'segtree050': 50,
+              'segtree060': 60, 'segtree082': 51, 'segtree090': 90}
 ORACLE = Path(__file__).with_name('oracle')
 
 
@@ -60,17 +63,21 @@ def brute(kind, data):
     return out
 
 
-def audit_statement(p):
+def audit_statement(p, with_subtask=True):
     text = (p / 'task.md').read_text()
     assert text.splitlines()[0].startswith(f'# {p.name.upper()} — ')
     headings = re.findall(r'^### (.+)$', text, re.M)
-    assert headings == ['Đề bài', 'Dữ liệu vào', 'Dữ liệu ra', 'Ràng buộc', 'Subtask',
-                        'Sample Input 1', 'Sample Output 1', 'Sample Input 2', 'Sample Output 2', 'Giải thích']
+    expected_headings = ['Đề bài', 'Dữ liệu vào', 'Dữ liệu ra', 'Ràng buộc']
+    if with_subtask:
+        expected_headings.append('Subtask')
+    expected_headings += ['Sample Input 1', 'Sample Output 1', 'Sample Input 2', 'Sample Output 2', 'Giải thích']
+    assert headings == expected_headings
     assert len(re.findall(r'^#+ ', text, re.M)) == len(headings) + 1
-    assert '| Subtask | Tỉ lệ | Ràng buộc bổ sung |' in text
-    percentages = re.findall(r'^\| \d+ \| (\d+)% \| (.+) \|$', text, re.M)
-    assert sum(int(x) for x, _ in percentages) == 100
-    assert percentages == [('100', 'Không có ràng buộc bổ sung')]
+    if with_subtask:
+        assert '| Subtask | Tỉ lệ | Ràng buộc bổ sung |' in text
+        percentages = re.findall(r'^\| \d+ \| (\d+)% \| (.+) \|$', text, re.M)
+        assert sum(int(x) for x, _ in percentages) == 100
+        assert percentages == [('100', 'Không có ràng buộc bổ sung')]
     for i in range(2):
         for label, folder, extension in [('Input', 'in', 'in'), ('Output', 'out', 'out')]:
             found = re.search(rf'### Sample {label} {i+1}\n\n```text\n(.*?)```', text, re.S)
@@ -188,13 +195,13 @@ def main():
     for problem in problems:
         started = time.monotonic()
         p = problem.basedir
-        kind = int(p.name[7:])
+        kind = CASE_KINDS[p.name]
         problem.make_inputs()
         problem.verify_inputs()
         problem.make_outputs(True)
         problem.judge(p / 'sol/correct.cpp', {})
         assert problem.check_all_solutions_used()
-        audit_statement(p)
+        audit_statement(p, with_subtask=p.name != 'segtree082')
         audit_coverage(p)
         for test in problem.config['tests']:
             if not test['name'].endswith('.cpp'): continue

@@ -1,16 +1,20 @@
 #include <algorithm>
+#include <cstdlib>
 #include <iostream>
 #include <limits>
+#include <numeric>
 #include <vector>
 
+long long divisor;
+
 struct Node {
-    int sign = 1;
+    long long value = 0;
 };
 Node leaf(long long x) {
-    return {int(x > 0) - int(x < 0)};
+    return {int(x % divisor == 0)};
 }
 Node merge(const Node &a, const Node &b) {
-    return {a.sign * b.sign};
+    return {a.value + b.value};
 }
 
 class SegmentTree {
@@ -46,9 +50,12 @@ int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
     int n, q;
-    std::cin >> n >> q;
+    std::cin >> n >> q >> divisor;
+
     std::vector<long long> a(n + 1);
-    for (int i = 1; i <= n; ++i) std::cin >> a[i];
+    for (int i = 1; i <= n; ++i) {
+        std::cin >> a[i];
+    }
     SegmentTree tree(a);
     while (q--) {
         int type, i;
@@ -61,7 +68,7 @@ int main() {
             int r;
             std::cin >> r;
             Node result = tree.query(1, 1, n, i, r);
-            std::cout << (result.sign < 0 ? '-' : result.sign > 0 ? '+' : '0') << '\n';
+            std::cout << result.value << '\n';
         }
     }
 }
