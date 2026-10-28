@@ -1,0 +1,218 @@
+{
+  "checker": "standard",
+  "cases": [
+    {
+      "type": "S",
+      "points": 30
+    },
+    {
+      "input_file": "example_00.in",
+      "output_file": "example_00.out"
+    },
+    {
+      "input_file": "example_01.in",
+      "output_file": "example_01.out"
+    },
+    {
+      "input_file": "example_02.in",
+      "output_file": "example_02.out"
+    },
+    {
+      "input_file": "edge_00.in",
+      "output_file": "edge_00.out"
+    },
+    {
+      "input_file": "edge_01.in",
+      "output_file": "edge_01.out"
+    },
+    {
+      "input_file": "edge_02.in",
+      "output_file": "edge_02.out"
+    },
+    {
+      "input_file": "edge_03.in",
+      "output_file": "edge_03.out"
+    },
+    {
+      "input_file": "edge_04.in",
+      "output_file": "edge_04.out"
+    },
+    {
+      "input_file": "edge_05.in",
+      "output_file": "edge_05.out"
+    },
+    {
+      "input_file": "edge_06.in",
+      "output_file": "edge_06.out"
+    },
+    {
+      "input_file": "edge_07.in",
+      "output_file": "edge_07.out"
+    },
+    {
+      "input_file": "edge_08.in",
+      "output_file": "edge_08.out"
+    },
+    {
+      "input_file": "edge_09.in",
+      "output_file": "edge_09.out"
+    },
+    {
+      "input_file": "edge_10.in",
+      "output_file": "edge_10.out"
+    },
+    {
+      "input_file": "edge_11.in",
+      "output_file": "edge_11.out"
+    },
+    {
+      "input_file": "sub1_00.in",
+      "output_file": "sub1_00.out"
+    },
+    {
+      "input_file": "sub1_01.in",
+      "output_file": "sub1_01.out"
+    },
+    {
+      "input_file": "sub1_02.in",
+      "output_file": "sub1_02.out"
+    },
+    {
+      "input_file": "sub1_03.in",
+      "output_file": "sub1_03.out"
+    },
+    {
+      "input_file": "sub1_04.in",
+      "output_file": "sub1_04.out"
+    },
+    {
+      "input_file": "sub1_05.in",
+      "output_file": "sub1_05.out"
+    },
+    {
+      "input_file": "sub1_06.in",
+      "output_file": "sub1_06.out"
+    },
+    {
+      "input_file": "sub1_07.in",
+      "output_file": "sub1_07.out"
+    },
+    {
+      "type": "E"
+    },
+    {
+      "type": "S",
+      "points": 30
+    },
+    {
+      "input_file": "sub2_00.in",
+      "output_file": "sub2_00.out"
+    },
+    {
+      "input_file": "sub2_01.in",
+      "output_file": "sub2_01.out"
+    },
+    {
+      "input_file": "sub2_02.in",
+      "output_file": "sub2_02.out"
+    },
+    {
+      "input_file": "sub2_03.in",
+      "output_file": "sub2_03.out"
+    },
+    {
+      "input_file": "sub2_04.in",
+      "output_file": "sub2_04.out"
+    },
+    {
+      "input_file": "sub2_05.in",
+      "output_file": "sub2_05.out"
+    },
+    {
+      "input_file": "sub2_06.in",
+      "output_file": "sub2_06.out"
+    },
+    {
+      "input_file": "sub2_07.in",
+      "output_file": "sub2_07.out"
+    },
+    {
+      "input_file": "stress_00.in",
+      "output_file": "stress_00.out"
+    },
+    {
+      "input_file": "stress_01.in",
+      "output_file": "stress_01.out"
+    },
+    {
+      "type": "E"
+    },
+    {
+      "type": "S",
+      "points": 40
+    },
+    {
+      "input_file": "sub3_00.in",
+      "output_file": "sub3_00.out"
+    },
+    {
+      "input_file": "sub3_01.in",
+      "output_file": "sub3_01.out"
+    },
+    {
+      "input_file": "sub3_02.in",
+      "output_file": "sub3_02.out"
+    },
+    {
+      "input_file": "sub3_03.in",
+      "output_file": "sub3_03.out"
+    },
+    {
+      "input_file": "sub3_04.in",
+      "output_file": "sub3_04.out"
+    },
+    {
+      "input_file": "sub3_05.in",
+      "output_file": "sub3_05.out"
+    },
+    {
+      "input_file": "sub3_06.in",
+      "output_file": "sub3_06.out"
+    },
+    {
+      "input_file": "sub3_07.in",
+      "output_file": "sub3_07.out"
+    },
+    {
+      "input_file": "sub3_08.in",
+      "output_file": "sub3_08.out"
+    },
+    {
+      "input_file": "sub3_09.in",
+      "output_file": "sub3_09.out"
+    },
+    {
+      "input_file": "sub3_10.in",
+      "output_file": "sub3_10.out"
+    },
+    {
+      "input_file": "sub3_11.in",
+      "output_file": "sub3_11.out"
+    },
+    {
+      "input_file": "sub3_12.in",
+      "output_file": "sub3_12.out"
+    },
+    {
+      "input_file": "sub3_13.in",
+      "output_file": "sub3_13.out"
+    },
+    {
+      "input_file": "stress_02.in",
+      "output_file": "stress_02.out"
+    },
+    {
+      "type": "E"
+    }
+  ]
+}

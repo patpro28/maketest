@@ -41,3 +41,5 @@ python3 custom/prefix09/tests/check.py
 Bộ sinh có các trường hợp nhỏ nhất, dãy bằng nhau, toàn 0, toàn dương/âm, xen kẽ hai cực trị, tăng/giảm, và phần tử cực trị ở đầu/cuối. Tám test mỗi bài có kích thước tối đa. Với PREFIX00 có truy vấn cả dãy và một phần tử; PREFIX07 có `K = 1`, `K = N` và độ dài trung gian; PREFIX08 có `M = 1` và `M = 200000`; PREFIX09 có mọi trạm hợp lệ, không trạm hợp lệ và các trường hợp phải đi qua điểm nối vòng.
 
 Bộ bài tổng tiền tố cơ bản tiếp theo: [PREFIX10–PREFIX19](README_sum.md).
+
+Bộ bài đếm phần tử thỏa điều kiện: [PREFIX001–PREFIX009](README_count.md).

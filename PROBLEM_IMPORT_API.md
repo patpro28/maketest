@@ -119,12 +119,15 @@ Tên file trong manifest phải khớp chính xác đường dẫn trong ZIP.
 
 `S` bắt đầu subtask, `E` kết thúc; `C` là testcase thông thường (mặc định).
 Điểm của subtask được đặt ở dòng `S`. Pretest trong subtask theo dòng `S`.
-Checker hỗ trợ: `standard`, `floats`, `floatsabs`, `floatsrel`, `rstripped`, `sorted`,
+Checker tích hợp hỗ trợ: `standard`, `floats`, `floatsabs`, `floatsrel`, `rstripped`, `sorted`,
 `identical`, `linecount`. Từng testcase/subtask có thể đặt `checker`, `checker_args` riêng.
+Custom checker được tải qua trường `custom_checker` hoặc endpoint `/checker` bên dưới.
 Manifest cũng nhận `output_prefix`, `output_limit` là số nguyên không âm.
 
 API dùng bộ biên dịch testcase hiện có để tạo `init.yml`, giữ cấu hình file I/O hiện tại,
-thay generator bằng dữ liệu tĩnh. Không nhập mã generator/custom checker qua ZIP.
+thay generator bằng dữ liệu tĩnh. Không nhập mã generator/custom checker qua các file bên trong ZIP;
+custom checker được gửi bằng một file multipart riêng. Nếu đã có custom checker và
+manifest không ghi đè checker, lần nhập ZIP tiếp theo giữ cấu hình checker đó.
 Đề `is_manually_managed=True` bị từ chối để tránh ghi đè dữ liệu quản lý thủ công.
 File ZIP lỗi, thiếu cặp, đường dẫn không an toàn, tên trùng, symlink và file mã hóa đều bị từ chối.
 Kiểm tra CRC bằng cách đọc theo từng khối, không giải nén ra thư mục.
@@ -140,6 +143,43 @@ Giới hạn mặc định (có thể đổi trong `local_settings.py`):
 
 Request multipart được dành thêm 1 MiB cho manifest và header; các API khác giữ giới hạn cũ.
 Cần đồng bộ giới hạn upload ở reverse proxy nếu triển khai qua proxy.
+
+## Upload hoặc thay custom checker
+
+`POST /api/v3/problem-import/problems/{code}/checker` — multipart form, trả `200`.
+
+```sh
+curl "$BASE_URL/api/v3/problem-import/problems/sumdemo001/checker" \
+  -H "Authorization: Bearer $IMPORT_KEY" \
+  -F 'upload=@checker.cpp' \
+  -F 'checker_args={"time_limit":3}'
+```
+
+- `upload`: mã nguồn `.cpp` (checker C++ theo chuẩn testlib) hoặc `.py` (hàm `check` của DMOJ).
+- `checker_args`: JSON object tùy chọn, mặc định `{}`. Khi thay file, args cũ được thay bằng args này.
+- Mã nguồn phải là UTF-8, không rỗng, không chứa byte NUL; dung lượng tối đa mặc định 1 MiB.
+- API lưu file với tên riêng, kích hoạt `ProblemData.checker="bridged"` và tạo lại `init.yml`.
+  Checker C++ mặc định có `lang="CPP17"`, `type="testlib"`; `files` luôn trỏ đến file vừa lưu.
+  Checker Python được tham chiếu trực tiếp theo tên file trong `init.yml`, cùng args nếu có.
+- Upload checker giữ nguyên ZIP, danh sách testcase và cấu hình file I/O hiện tại.
+  Có thể upload checker trước testcase; lần nhập ZIP tiếp theo sẽ giữ checker đó.
+- File checker cũ chỉ được dọn sau khi lưu thành công. Nếu có lỗi, SQL và cấu hình chấm được
+  khôi phục; file checker mới được xóa. Đề quản lý thủ công bị từ chối bằng `409`.
+- API chỉ lưu và cấu hình checker; không chạy/biên dịch mã nguồn trên web server.
+  Judge thực hiện bước đó khi chấm bài; hệ thống judge cần hỗ trợ ngôn ngữ/thư viện tương ứng.
+
+Upload ZIP và checker trong cùng request:
+
+```sh
+curl "$BASE_URL/api/v3/problem-import/problems/sumdemo001/testcases" \
+  -H "Authorization: Bearer $IMPORT_KEY" \
+  -F 'upload=@testcases.zip' \
+  -F 'custom_checker=@checker.cpp' \
+  -F 'manifest={"checker":"bridged","checker_args":{"time_limit":3}}'
+```
+
+Công cụ `generate.py -u` trong dự án dùng hai request: tải checker qua `/checker`
+trước, rồi nhập ZIP với manifest không ghi đè checker. Cấu hình được hướng dẫn trong `README.md`.
 
 ## Tạo hoặc thay editorial
 

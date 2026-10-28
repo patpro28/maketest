@@ -17,7 +17,7 @@ from unittest.mock import patch
 
 import generate
 from problem import Problem
-from problem_upload import ProblemUpload, UploadClient, UploadError
+from problem_upload import MAX_CHECKER_BYTES, ProblemUpload, UploadClient, UploadError
 
 
 class ProblemUploadTests(unittest.TestCase):
@@ -136,6 +136,30 @@ memory_limit = 65536
             ('POST', '/api/v3/problem-import/problems/demo001/testcases')])
         self.assertNotIn('code', json.loads(self.requests[1][3]))
 
+    def test_skip_statement_uploads_only_testcases_and_editorial(self):
+        (self.directory / 'task.md').unlink()
+        (self.directory / 'solution.md').write_text('Updated editorial')
+        self.problem.config['upload'] = {'checker': 'identical'}
+        ProblemUpload(self.problem, skip_statement=True).upload(self.client)
+        self.assertEqual([(r[0], r[1]) for r in self.requests], [
+            ('POST', '/api/v3/problem-import/problems/demo001/testcases'),
+            ('PUT', '/api/v3/problem-import/problems/demo001/editorial')])
+        parts = self.multipart(self.requests[0])
+        self.assertEqual(json.loads(parts['manifest'])['checker'], 'identical')
+        with zipfile.ZipFile(io.BytesIO(parts['upload'])) as archive:
+            self.assertEqual(len(archive.namelist()), 4)
+            self.assertEqual(archive.read('example_00.out'), b'3\n')
+        self.assertEqual(json.loads(self.requests[1][3]), {'content': 'Updated editorial'})
+
+    def test_skip_statement_missing_remote_problem_stops_without_creating(self):
+        (self.directory / 'solution.md').write_text('Editorial')
+        self.statuses = [404]
+        with self.assertRaises(UploadError) as caught:
+            ProblemUpload(self.problem, skip_statement=True).upload(self.client)
+        self.assertEqual(caught.exception.status, 404)
+        self.assertEqual([(r[0], r[1]) for r in self.requests], [
+            ('POST', '/api/v3/problem-import/problems/demo001/testcases')])
+
     def test_editorial_takes_priority(self):
         (self.directory / 'solution.md').write_text('fallback')
         (self.directory / 'editorial.md').write_text('preferred')
@@ -152,6 +176,177 @@ memory_limit = 65536
         self.problem.write_hashes()
         ProblemUpload(self.problem).upload(self.client)
         self.assertEqual(json.loads(self.multipart(self.requests[1])['manifest']), manifest)
+
+    def custom_checker(self, extension='.cpp', source=None, **settings):
+        if source is None:
+            source = b'// UTF-8 checker: \xc4\x91\xc3\xbang\nint main() { return 0; }\n'
+        path = self.directory / ('checker' + extension)
+        path.write_bytes(source)
+        self.problem.config['upload'].update(checker='custom', **settings)
+        if extension != '.cpp':
+            self.problem.config['upload']['custom_checker'] = path.name
+        return path, source
+
+    def test_custom_cpp_checker_uploaded_before_testcases(self):
+        checker, source = self.custom_checker(checker_args={'time_limit': 3})
+        (self.directory / 'solution.md').write_text('Editorial')
+        ProblemUpload(self.problem).upload(self.client)
+        self.assertEqual([(r[0], r[1]) for r in self.requests], [
+            ('POST', '/api/v3/problem-import/problems'),
+            ('POST', '/api/v3/problem-import/problems/demo001/checker'),
+            ('POST', '/api/v3/problem-import/problems/demo001/testcases'),
+            ('PUT', '/api/v3/problem-import/problems/demo001/editorial')])
+        self.assertTrue(all(r[2]['Authorization'] == 'Bearer test-api-key' for r in self.requests))
+        fields = self.multipart(self.requests[1])
+        self.assertEqual(set(fields), {'upload', 'checker_args'})
+        self.assertEqual(fields['upload'], source)
+        self.assertEqual(json.loads(fields['checker_args']), {'time_limit': 3})
+        self.assertIn(b'filename="checker.cpp"', self.requests[1][3])
+        manifest = json.loads(self.multipart(self.requests[2])['manifest'])
+        self.assertNotIn('checker', manifest)
+        self.assertNotIn('checker_args', manifest)
+        self.assertEqual(len(manifest['cases']), 2)
+        self.assertNotIn('checker_args', json.loads(self.requests[0][3]))
+        self.assertNotIn('custom_checker', json.loads(self.requests[0][3]))
+        with zipfile.ZipFile(io.BytesIO(self.multipart(self.requests[2])['upload'])) as archive:
+            self.assertEqual(len(archive.namelist()), 4)
+            self.assertNotIn(checker.name, archive.namelist())
+
+    def test_custom_python_checker_uses_python_filename_and_empty_args(self):
+        _, source = self.custom_checker('.py', b'def check(process_output, judge_output, **kwargs):\n    return True\n')
+        ProblemUpload(self.problem).upload(self.client)
+        fields = self.multipart(self.requests[1])
+        self.assertIn(b'filename="checker.py"', self.requests[1][3])
+        self.assertEqual(fields['upload'], source)
+        self.assertEqual(json.loads(fields['checker_args']), {})
+        self.assertNotIn('checker', json.loads(self.multipart(self.requests[2])['manifest']))
+
+    def test_custom_checker_uses_problem_checker_path(self):
+        path = self.directory / 'gen' / 'output.cpp'
+        path.write_text('int main() {}\n')
+        self.problem.checker = path
+        self.problem.config['upload']['checker'] = 'bridged'
+        upload = ProblemUpload(self.problem)
+        self.assertEqual(upload.custom_checker, path)
+        self.assertEqual(upload.checker_source, path.read_bytes())
+
+    def test_explicit_custom_checker_path_without_checker_name(self):
+        path, _ = self.custom_checker()
+        del self.problem.config['upload']['checker']
+        self.problem.config['upload']['custom_checker'] = path.name
+        upload = ProblemUpload(self.problem)
+        self.assertEqual(upload.custom_checker, path)
+        self.assertNotIn('checker', upload.manifest)
+
+    def test_custom_checker_manifest_preserves_cases_and_overrides_args(self):
+        self.custom_checker(checker_args={'time_limit': 2})
+        manifest = {'checker': 'bridged', 'checker_args': {'time_limit': 3},
+                    'output_limit': 64, 'cases': [
+                        {'type': 'S', 'points': 100},
+                        {'input_file': 'example_01.in', 'output_file': 'example_01.out'},
+                        {'input_file': 'example_00.in', 'output_file': 'example_00.out',
+                         'checker': 'identical'}, {'type': 'E'}]}
+        (self.directory / 'manifest.json').write_text(json.dumps(manifest))
+        self.problem.config['upload']['manifest'] = 'manifest.json'
+        ProblemUpload(self.problem).upload(self.client)
+        self.assertEqual(json.loads(self.multipart(self.requests[1])['checker_args']), {'time_limit': 3})
+        sent = json.loads(self.multipart(self.requests[2])['manifest'])
+        self.assertEqual(sent, {key: value for key, value in manifest.items()
+                                if key not in ('checker', 'checker_args')})
+        self.assertEqual(json.loads((self.directory / 'manifest.json').read_text()), manifest)
+
+    def test_skip_statement_also_uploads_custom_checker(self):
+        self.custom_checker()
+        (self.directory / 'task.md').unlink()
+        ProblemUpload(self.problem, skip_statement=True).upload(self.client)
+        self.assertEqual([r[1] for r in self.requests], [
+            '/api/v3/problem-import/problems/demo001/checker',
+            '/api/v3/problem-import/problems/demo001/testcases'])
+
+    def test_checker_failure_stops_before_testcases_and_editorial(self):
+        self.custom_checker()
+        (self.directory / 'solution.md').write_text('Editorial')
+        self.statuses = [201, 409]
+        with self.assertRaises(UploadError) as caught:
+            ProblemUpload(self.problem).upload(self.client)
+        self.assertEqual(caught.exception.status, 409)
+        self.assertEqual(len(self.requests), 2)
+        self.assertTrue(self.requests[-1][1].endswith('/checker'))
+
+    def test_custom_checker_update_follows_problem_conflict(self):
+        self.custom_checker()
+        self.statuses = [409, 200, 200, 200]
+        ProblemUpload(self.problem).upload(self.client)
+        self.assertEqual([r[0] for r in self.requests], ['POST', 'PATCH', 'POST', 'POST'])
+        self.assertTrue(self.requests[2][1].endswith('/checker'))
+
+    def test_invalid_custom_checker_rejected_before_requests(self):
+        path, _ = self.custom_checker()
+        for content, message in [(b'', 'empty'), (b' \n', 'empty'), (b'\xff', 'UTF-8'),
+                                 (b'int main() {}\x00', 'NUL'),
+                                 (b'x'*(MAX_CHECKER_BYTES+1), '1 MiB')]:
+            with self.subTest(message=message):
+                path.write_bytes(content)
+                with self.assertRaisesRegex(UploadError, message):
+                    ProblemUpload(self.problem)
+        path.unlink()
+        with self.assertRaisesRegex(UploadError, 'Cannot read custom checker'):
+            ProblemUpload(self.problem)
+        path = self.directory / 'checker.txt'
+        path.write_text('content')
+        self.problem.config['upload']['custom_checker'] = path.name
+        with self.assertRaisesRegex(UploadError, r'\.cpp or \.py'):
+            ProblemUpload(self.problem)
+        self.assertEqual(self.requests, [])
+
+    def test_custom_checker_accepts_source_at_size_limit(self):
+        path, source = self.custom_checker(source=b'x'*MAX_CHECKER_BYTES)
+        upload = ProblemUpload(self.problem)
+        self.assertEqual(upload.custom_checker, path)
+        self.assertEqual(upload.checker_source, source)
+
+    def test_invalid_checker_settings_rejected_before_requests(self):
+        self.custom_checker()
+        settings = self.problem.config['upload']
+        for args in (None, [], 'args', {'time_limit': float('nan')}, {'bad': b'bytes'}):
+            with self.subTest(args=args):
+                settings['checker_args'] = args
+                with self.assertRaisesRegex(UploadError, 'JSON object'):
+                    ProblemUpload(self.problem)
+        settings.pop('checker_args')
+        for source in ('', False, []):
+            with self.subTest(source=source):
+                settings['custom_checker'] = source
+                with self.assertRaisesRegex(UploadError, 'source file path'):
+                    ProblemUpload(self.problem)
+        settings.pop('custom_checker')
+        for checker in ([], {}, 3, 'unknown'):
+            with self.subTest(checker=checker):
+                settings['checker'] = checker
+                with self.assertRaises(UploadError):
+                    ProblemUpload(self.problem)
+        self.assertEqual(self.requests, [])
+
+    def test_custom_source_conflicts_with_builtin_checker(self):
+        path, _ = self.custom_checker()
+        self.problem.config['upload'].update(checker='standard', custom_checker=path.name)
+        with self.assertRaisesRegex(UploadError, 'conflicts'):
+            ProblemUpload(self.problem)
+
+    def test_custom_manifest_cannot_reset_the_uploaded_checker(self):
+        self.custom_checker()
+        (self.directory / 'manifest.json').write_text(json.dumps({'checker': 'standard', 'cases': []}))
+        self.problem.config['upload']['manifest'] = 'manifest.json'
+        with self.assertRaisesRegex(UploadError, 'conflicts'):
+            ProblemUpload(self.problem)
+
+    def test_builtin_checker_args_do_not_upload_a_source(self):
+        self.problem.config['upload'].update(checker='floats', checker_args={'precision': 6})
+        ProblemUpload(self.problem).upload(self.client)
+        self.assertEqual(len(self.requests), 2)
+        manifest = json.loads(self.multipart(self.requests[1])['manifest'])
+        self.assertEqual(manifest['checker'], 'floats')
+        self.assertEqual(manifest['checker_args'], {'precision': 6})
 
     def test_http_failure_stops_and_redacts_key(self):
         self.statuses = [401]
@@ -178,8 +373,10 @@ memory_limit = 65536
 
     def test_stale_hash_rejected_before_requests(self):
         (self.directory / 'out' / 'example_00.out').write_text('wrong\n')
-        with self.assertRaisesRegex(RuntimeError, 'hashes are different'):
-            ProblemUpload(self.problem).upload(self.client)
+        for skip_statement in (False, True):
+            with self.subTest(skip_statement=skip_statement), \
+                    self.assertRaisesRegex(RuntimeError, 'hashes are different'):
+                ProblemUpload(self.problem, skip_statement=skip_statement).upload(self.client)
         self.assertEqual(self.requests, [])
 
     def test_missing_testcase_rejected_before_requests(self):
@@ -247,6 +444,32 @@ memory_limit = 65536
         self.assertFalse((self.directory / 'task.html').exists())
         self.problem.assert_hashes()
 
+    def test_cli_skip_statement_generates_and_uploads_without_local_statement(self):
+        (self.directory / 'task.md').unlink()
+        self.problem.clean()
+        result = self.run_cli(str(self.directory / 'info.toml'), '-u', '--skip-statement')
+        self.assertEqual(result.returncode, 0, result.stderr.decode())
+        self.assertEqual([(r[0], r[1]) for r in self.requests], [
+            ('POST', '/api/v3/problem-import/problems/demo001/testcases')])
+        self.assertFalse((self.directory / 'task.html').exists())
+        self.problem.assert_hashes()
+
+    def test_cli_custom_checker_upload_with_skip_statement(self):
+        self.custom_checker()
+        config = self.directory / 'info.toml'
+        config.write_text(config.read_text().replace('[upload]',
+                          "[upload]\nchecker = 'custom'\nchecker_args = {time_limit = 3}"))
+        (self.directory / 'task.md').unlink()
+        self.problem.clean()
+        result = self.run_cli(str(config), '-u', '--skip-statement')
+        self.assertEqual(result.returncode, 0, result.stderr.decode())
+        self.assertEqual([r[1] for r in self.requests], [
+            '/api/v3/problem-import/problems/demo001/checker',
+            '/api/v3/problem-import/problems/demo001/testcases'])
+        self.assertEqual(json.loads(self.multipart(self.requests[0])['checker_args']), {'time_limit': 3})
+        self.problem.assert_hashes()
+        self.assertFalse((self.directory / 'task.html').exists())
+
     def test_cli_missing_key_fails_before_generating(self):
         self.problem.clean()
         result = self.run_cli(str(self.directory / 'info.toml'), '--upload', key='')
@@ -265,7 +488,8 @@ memory_limit = 65536
 
     def test_cli_rejects_conflicting_modes_and_empty_selection(self):
         for args in (['-u'], ['-u', '--clean'], ['-u', '--dev'], ['-u', '--test'],
-                     ['-u', '--only-html'], ['-u', '-z', 'DEMO001']):
+                     ['-u', '--only-html'], ['-u', '-z', 'DEMO001'],
+                     ['--skip-statement'], ['-p', 'DEMO001', '--skip-statement']):
             with self.subTest(args=args):
                 result = self.run_cli(*args)
                 self.assertNotEqual(result.returncode, 0)

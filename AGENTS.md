@@ -19,6 +19,11 @@
 - Khi chuyển bài từ PDF hoặc nguồn khác, giữ nguyên ý nghĩa, giới hạn và ví dụ, đồng thời chuyển cách trình bày sang cấu trúc trên. Có thể thêm mục `### Nguồn` sau `### Giải thích` để ghi xuất xứ.
 - Trước khi hoàn tất, đối chiếu `task.md` với mẫu knapsack để kiểm tra tiêu đề, cấp heading, thứ tự mục và định dạng ví dụ; chỉ kiểm tra bảng subtask khi người dùng yêu cầu có mục này. Quy tắc này áp dụng cho các bài trong mọi thư mục của dự án.
 
+## Nội dung lời giải
+
+- `solution.md` không được có mục kiểm thử, kiểm chứng bằng test hoặc nội dung mô tả bộ sinh, oracle, verifier, checker, benchmark và kết quả chạy test. Lưu các nội dung này trong tài liệu kiểm thử riêng, chẳng hạn `tests/README.md` hoặc README của bộ kiểm thử dùng chung.
+- Lời giải tập trung vào ý tưởng, thuật toán, chứng minh tính đúng đắn, độ phức tạp và lưu ý cài đặt. Chứng minh tính đúng đắn của thuật toán vẫn được phép và cần phân biệt với kiểm chứng bằng test.
+
 ## Đề bài và kiểm thử
 
 - Khi tạo hoặc cập nhật bài tập, lưu đề bài trong `task.md` và bỏ qua bước xuất HTML đề bài, trừ khi người dùng yêu cầu rõ ràng.

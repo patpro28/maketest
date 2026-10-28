@@ -204,7 +204,7 @@ def checker_checks(p):
 def generated_checks(problem, kind):
     p = problem.basedir
     files = sorted((p / "in").glob("*.in"))
-    assert len(files) == 45
+    assert len(files) == sum(test["number"] for test in problem.config["tests"])
     for path in files:
         try:
             expected = run(ORACLE, path.read_text(), kind, timeout=90).split()
@@ -212,9 +212,35 @@ def generated_checks(problem, kind):
             raise AssertionError((str(path), error.stderr)) from error
         actual = (p / "out" / path.with_suffix(".out").name).read_text().split()
         assert expected == actual, (path, expected, actual)
-    for name in ("edge", "small", "random", "max"):
+    for test in problem.config["tests"]:
+        if not test["name"].endswith(".cpp"):
+            continue
+        name = Path(test["name"]).stem
         original = (p / "in" / f"{name}_00.in").read_text()
         assert run(p / "gen" / name, "", 0) == original, (p.name, "Nondeterministic generator", name)
+    if p.name == "doituyen":
+        cases = [(0, "different_lines", 1000000002), (1, "same_line", 2),
+                 (2, "self_loops", 1), (5, "hub_self_loops", 2000000001)]
+        for seed, name, answer in cases:
+            stem = f"stress_{seed:02}"
+            original = (p / "in" / f"{stem}.in").read_text()
+            assert run(p / "gen/stress", "", seed) == original
+            assert original == (p / "tests/counterexamples" / f"{name}.in").read_text()
+            assert int((p / "out" / f"{stem}.out").read_text()) == answer
+        for seed, answer in [(3, 1000000102), (4, 2000000002)]:
+            stem = f"stress_{seed:02}"
+            data = (p / "in" / f"{stem}.in").read_text()
+            assert run(p / "gen/stress", "", seed) == data
+            rows = data.splitlines()
+            n, m, s, t = map(int, rows[0].split())
+            assert n == 133334 and m == 199998 and s != t
+            pairs = set()
+            for row in rows[2:]:
+                u, v, _, _ = map(int, row.split())
+                assert u != v and (u, v) not in pairs
+                pairs.add((u, v))
+            assert len(pairs) == m
+            assert int((p / "out" / f"{stem}.out").read_text()) == answer
     return len(files)
 
 

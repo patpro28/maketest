@@ -51,6 +51,8 @@ export PROBLEM_IMPORT_API_KEY='<khóa nhập đề>'
 # Hoặc dùng danh sách bài / đường dẫn info.toml như khi sinh test:
 ./generate.py -p knapsack00 --upload
 ./generate.py custom/knapsack00/info.toml -u
+# Tải lại test và lời giải, giữ nguyên đề và thông tin bài trên máy chủ:
+./generate.py -u knapsack00 --skip-statement
 ```
 
 `HOST` nhận URL máy chủ, có thể kèm `/api/v3/problem-import`. Nếu chỉ ghi tên
@@ -89,15 +91,46 @@ checker = 'standard'
 - Nếu mã bài đã tồn tại (HTTP 409 khi tạo), công cụ cập nhật đề bằng `PATCH`.
   Nếu một bước lỗi, công cụ dừng và báo bước lỗi; các bước đã thành công trên
   máy chủ vẫn được giữ. Có thể chạy lại cùng lệnh sau khi sửa lỗi.
+- Thêm `--skip-statement` khi chạy lại `-u` để bỏ qua tạo/cập nhật đề, giữ nguyên
+  nội dung, tên và cấu hình bài trên máy chủ. Bộ test vẫn được thay toàn bộ và
+  checker riêng cùng editorial vẫn được cập nhật nếu có cấu hình/file. Chế độ này không cần `task.md` hay
+  các trường thông tin đề trong `[upload]`; vẫn dùng cấu hình checker/manifest.
+  Bài phải tồn tại trên máy chủ, nếu chưa có thì API báo lỗi `404`.
+  Tùy chọn này chỉ dùng cùng `-u` / `--upload`.
 - Upload không xuất HTML và không dùng cùng `--dev`, `--test`, `--clean`,
   `--only-html`, `--htmldir`, `--new` hoặc `--zip`.
 
-API chỉ nhận các checker tích hợp được liệt kê trong
-[PROBLEM_IMPORT_API.md](PROBLEM_IMPORT_API.md), không tải custom checker C++ lên.
-`checker` mặc định là `standard`; chọn checker phù hợp cho từng bài.
+`checker` mặc định là `standard`. Ngoài các checker tích hợp được liệt kê trong
+[PROBLEM_IMPORT_API.md](PROBLEM_IMPORT_API.md), `-u` hỗ trợ tải checker C++ testlib
+hoặc checker Python của DMOJ. Thêm vào bảng `[upload]` của bài:
+
+```toml
+checker = 'custom'
+# Mặc định dùng checker của bài (thường là checker.cpp).
+# Có thể chỉ định file khác, đường dẫn tính từ thư mục bài:
+custom_checker = 'checker.cpp'
+checker_args = {time_limit = 3}
+```
+
+Ví dụ `./generate.py -u dpstr101` sẽ gửi `checker.cpp` của bài lên
+`/problems/dpstr101/checker`, rồi gửi ZIP test và editorial. `--skip-statement`
+cũng tải lại checker. `checker = 'bridged'` là cách viết tương đương `custom`;
+chỉ đặt `custom_checker = 'judge.py'` cũng bật upload checker riêng.
+File phải có đuôi `.cpp` hoặc `.py`, là UTF-8 không rỗng, không chứa NUL,
+không vượt 1 MiB. Công cụ kiểm tra file trước khi gửi request và không chạy
+hoặc biên dịch checker để upload; judge sẽ xử lý mã nguồn khi chấm.
+
+`checker_args` là một JSON object, mặc định `{}`; mỗi lần tải checker sẽ thay
+args cũ bằng giá trị này. Sau khi gửi checker, công cụ bỏ `checker` và
+`checker_args` ở cấp ngoài cùng của manifest ZIP để giữ cấu hình checker vừa
+cài, bao gồm tên file do máy chủ tạo. Không đặt checker tích hợp mâu thuẫn với
+checker riêng trong cấu hình hoặc manifest. Nếu bước tải checker lỗi, công cụ
+dừng trước khi gửi ZIP và editorial; các request đã thành công vẫn được giữ.
+
 Để đặt điểm, pretest, subtask hoặc tùy chọn checker, đặt
 `[upload].manifest = 'manifest.json'`. Nội dung JSON tuân theo tài liệu API,
-ghi đè manifest mặc định. Đường dẫn testcase trong manifest là tên file phẳng
+ghi đè manifest mặc định; `checker_args` trong file này được ưu tiên hơn giá trị
+trong TOML. Đường dẫn testcase trong manifest là tên file phẳng
 trong ZIP, ví dụ `example_00.in`, `example_00.out`, `random_00.in`.
 
 Kiểm thử chức năng upload bằng máy chủ giả lập cục bộ:

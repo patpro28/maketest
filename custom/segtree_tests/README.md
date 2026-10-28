@@ -246,3 +246,33 @@ Các lời giải mẫu dùng tìm kiếm trực tiếp trên cây cùng cập n
 Có thêm 4.042 trường hợp đối chiếu bằng duyệt trực tiếp. Các kiểm tra bổ sung liệt kê mọi hoán vị độ dài 1–6 và tự tính số nghịch thế ban đầu; liệt kê mọi mảng nhỏ, các đoạn và nhiều ngưỡng rồi kiểm tra lại sau cập nhật. Bài 132 đối chiếu bằng cách thử mọi cặp vị trí cắt. Bài hộp mô phỏng trực tiếp từng hộp, bãi xe mô phỏng thứ tự vòng tròn, bài chuỗi dùng tập ký tự. Mỗi bài có thêm 150 trường hợp ngẫu nhiên; có ca biên khối 450/451 và các ca riêng về LCM lớn hơn 64 bit, ngưỡng bằng đúng LCM, giảm LCM sau cập nhật, tiền tố nhảy qua ngưỡng và cặp cắt nhỏ nhất khi có nhiều số 0.
 
 Toàn bộ test chính được đối chiếu bằng lời giải độc lập; các ví dụ, test biên và test nhỏ còn được đối chiếu bằng duyệt trực tiếp. Các test lớn kiểm tra vị trí cuối, thất bại, tổng vượt 32 bit, bảng đủ 26 ký tự, vòng qua đầu bãi xe, sức chứa chuyển xuống 0, nhiều hộp cùng mức và chuỗi chỉ cập nhật hoặc chỉ tìm kiếm. Bộ kiểm tra thử verifier bằng dữ liệu sai giới hạn, thiếu/thừa token, ký tự sai và chuỗi sai độ dài; thử checker bằng đáp án sai/thiếu/thừa và khoảng trắng thay đổi; đồng thời đối chiếu cấu trúc đề, hai ví dụ, upload, khả năng tái lập bộ sinh và mọi hash.
+
+## Tám bài bổ sung trong SEG100–SEG129
+
+| Mã | Tên bài | Phân nhóm chính |
+| --- | --- | --- |
+| segtree103 | Giá trị phổ biến nhất | Basic Tree Search |
+| segtree104 | Thiết bị thiếu tính năng | Basic Tree Search |
+| segtree113 | Đỉnh núi đầu tiên | First Position |
+| segtree114 | Tiền tố chung của hai bản ghi | First Position |
+| segtree115 | Hai đầu bảng thành tích | First Position |
+| segtree123 | Trung vị trên băng chuyền | K-th Element |
+| segtree124 | Giá trị phân biệt thứ k | K-th Element |
+| segtree125 | Ký tự thứ k trong văn bản nén | K-th Element |
+
+Chạy cả nhóm hoặc một bài:
+
+```sh
+python3 custom/segtree_tests/check_search_early.py
+python3 custom/segtree125/tests/check.py
+```
+
+Dùng `--update-hashes` khi chủ động thay đổi dữ liệu hoặc đáp án chuẩn. Mỗi bài có 36 test: 2 ví dụ, 12 biên, 8 nhỏ, 8 ngẫu nhiên và 6 lớn; tổng cộng 288 test chính. Toàn bộ `[upload]` tiếp tục được sao chép từ `segtree000`, gồm `time_limit = 0.5`, `group = '04'`, lớp D, loại segtree, danh sách ngôn ngữ và chấm điểm từng phần. Giới hạn kiểm tra lời giải tại máy cũng là 0,5 giây. Không thêm Subtask và không xuất HTML.
+
+Các lời giải mẫu đều tìm kiếm trực tiếp trên cây và chỉ cập nhật điểm. Bài 103 ưu tiên giá trị nhỏ nhất khi tần suất hòa, trả về −1 cho đa tập rỗng. Bài 104 dùng AND để bỏ qua đoạn mà mọi thiết bị đều đủ yêu cầu. Bài 113 xét đỉnh nghiêm ngặt và cập nhật tối đa ba dấu hiệu; hai đầu không phải đỉnh. Bài 114 cập nhật một trong hai chuỗi, trả về độ dài tiền tố chung từ 0 đến N. Bài 115 tìm hai đầu cực đại bằng hai hướng đi xuống, hỗ trợ cả điểm âm. Bài 123 tìm trung vị dưới, kể cả cửa sổ chẵn và phần tử lặp. Bài 124 lưu dấu hiện diện thay vì tần suất thực. Bài 125 lưu độ dài 64 bit, giữ chỉ số của khối rỗng và khối kề nhau cùng ký tự, in ký tự cùng chỉ số khối và thứ tự nội bộ.
+
+`oracle_search_early.cpp` đối chiếu bằng các cấu trúc độc lập: tập cặp (âm tần suất, giá trị) cho mode; chia khối AND cho thiết bị; tập có thứ tự các đỉnh hoặc vị trí khác nhau cho hai bài tiếp theo; map từ điểm tới tập vị trí cho hai đầu cực đại. Trung vị cửa sổ dùng hai multiset được cân bằng, độc lập với cây tần suất của lời giải mẫu. Hai bài cuối dùng Fenwick cho số giá trị hiện diện hoặc tổng độ dài, kết hợp tìm theo thứ hạng.
+
+Có thêm 4.513 trường hợp đối chiếu bằng duyệt trực tiếp. Kiểm tra bổ sung liệt kê các mảng nhỏ và thao tác cập nhật từng vị trí, mọi cặp chuỗi nhị phân nhỏ, mọi cửa sổ trên các dãy ngắn và nhiều cấu hình khối nén gồm ký tự cùng độ dài 0–2. Mỗi bài có thêm 150 trường hợp ngẫu nhiên. Có ca tại biên khối 450/451, số lần lặp và tổng vượt 32 bit, thứ hạng đúng ranh giới hai khối cùng ký tự, các khối rỗng và thứ hạng vượt tổng. Bài trung vị có ca riêng cửa sổ chẵn để phân biệt trung vị dưới với trung vị trên.
+
+Toàn bộ test chính được đối chiếu với lời giải độc lập; các ví dụ, test biên và test nhỏ còn được đối chiếu bằng duyệt trực tiếp hoặc sắp xếp từng cửa sổ. Verifier được thử với xóa giá trị vắng mặt, sai thứ hạng, sai giới hạn, chuỗi sai độ dài, ký tự sai và dữ liệu thiếu/thừa. Bài 125 có checker riêng so sánh đúng ký tự và các trường số; bộ kiểm tra sửa riêng từng trường để xác nhận checker từ chối đáp án sai, đồng thời kiểm tra thiếu/thừa và khoảng trắng. Cấu trúc đề, hai ví dụ, upload, khả năng tái lập bộ sinh và toàn bộ hash đều được đối chiếu.

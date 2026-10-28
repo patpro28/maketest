@@ -83,22 +83,41 @@ void route_oracle() {
     vector<ll> fee(n);
     for (auto &x : fee) cin >> x;
     struct Edge { int u, v, c, w; };
-    vector<Edge> edges(m);
+    vector<Edge> edges;
+    edges.reserve(m);
     vector<vector<int>> outgoing(n);
     for (int i = 0; i < m; ++i) {
-        auto &e = edges[i];
+        Edge e;
         cin >> e.u >> e.v >> e.c >> e.w;
         --e.u; --e.v;
-        outgoing[e.u].push_back(i);
+        // A positive-length self-loop never improves a route: deleting it
+        // cannot increase the number of line changes at that city.
+        if (e.u == e.v) continue;
+        outgoing[e.u].push_back(int(edges.size()));
+        edges.push_back(e);
     }
+    m = int(edges.size());
     if (s == t) { cout << 0 << '\n'; return; }
-    if (n > 5000 && !outgoing[s].empty()) {
+    if (m > 5000) {
+        bool only_source_loops_or_direct = true;
+        ll direct = INF;
+        for (auto e : edges) {
+            only_source_loops_or_direct &= e.u == s && (e.v == s || e.v == t);
+            if (e.u == s && e.v == t) direct = min(direct, ll(e.w));
+        }
+        if (only_source_loops_or_direct) {
+            // Positive travel times make all source loops unnecessary.
+            cout << (direct == INF ? -1 : direct) << '\n';
+            return;
+        }
+    }
+    if ((n > 5000 || m > 5000) && !outgoing[s].empty()) {
         int hub = edges[outgoing[s][0]].v;
         bool two_hop = hub != s && hub != t;
         for (auto e : edges)
             two_hop &= (e.u == s && e.v == hub) || (e.u == hub && e.v == t);
         if (two_hop) {
-            // Direct two-chapter journey formula for the quadratic hub stress.
+            // Direct two-leg journey formula for the quadratic hub stress.
             map<int, ll> incoming;
             ll cheapest = INF, best = INF;
             for (int i : outgoing[s]) {
@@ -113,6 +132,37 @@ void route_oracle() {
                 if (incoming.count(e.c)) best = min(best, incoming[e.c] + e.w);
             }
             cout << (best == INF ? -1 : best) << '\n';
+            return;
+        }
+    }
+    if (m > 5000) {
+        // Independent DP on an original acyclic graph: process all incoming
+        // line costs before considering any outgoing edge of a city.
+        vector<int> indegree(n), order;
+        for (auto e : edges) ++indegree[e.v];
+        for (int u = 0; u < n; ++u) if (indegree[u] == 0) order.push_back(u);
+        for (int i = 0; i < int(order.size()); ++i)
+            for (int e : outgoing[order[i]])
+                if (--indegree[edges[e].v] == 0) order.push_back(edges[e].v);
+        if (int(order.size()) == n) {
+            vector<map<int, ll>> arrival(n);
+            vector<ll> cheapest(n, INF);
+            cheapest[s] = 0;
+            for (int u : order) {
+                if (cheapest[u] == INF) continue;
+                for (int i : outgoing[u]) {
+                    auto e = edges[i];
+                    ll cost = cheapest[u] + (u == s ? 0 : fee[u]);
+                    auto it = arrival[u].find(e.c);
+                    if (it != arrival[u].end()) cost = min(cost, it->second);
+                    cost += e.w;
+                    auto dest = arrival[e.v].find(e.c);
+                    if (dest == arrival[e.v].end()) arrival[e.v][e.c] = cost;
+                    else dest->second = min(dest->second, cost);
+                    cheapest[e.v] = min(cheapest[e.v], cost);
+                }
+            }
+            cout << (cheapest[t] == INF ? -1 : cheapest[t]) << '\n';
             return;
         }
     }

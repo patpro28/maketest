@@ -26,20 +26,24 @@ void dfs(int u, int p) {
     }
 }
 
+int cnt[200], a[200];
+
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
-    int n, r;
-    cin >> n >> r;
+
+    int n, q; cin >> n >> q;
+
+    // Chuẩn bị trước
     for (int i = 1; i <= n; ++i) {
-        cin >> type[i];
-        if (type[i] == 0) {
-            cin >> C[i][0] >> C[i][1] >> C[i][2];
-            isleaf[i] = true;
-        } else {
-            cin >> L[i] >> R[i];
-        }
+        cin >> a[i];
+        cnt[i] = cnt[i - 1] + (a[i] > 0);
     }
-    dfs(1);
-    cout << dp[1][r] << '\n';
+
+    // Vào phòng thi
+    while (q--) {
+        int l, r;
+        cin >> l >> r;
+        cout << cnt[r] - cnt[l - 1] << '\n';
+    }
 }

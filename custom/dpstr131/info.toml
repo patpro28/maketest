@@ -1,0 +1,42 @@
+title = 'DPSTR131 - Bảo tồn ký tự quý'
+timelimit = 0.5
+
+[[tests]]
+    name = "example.in"
+    number = 2
+[[tests]]
+    name = "edge.cpp"
+    number = 10
+[[tests]]
+    name = "small.cpp"
+    number = 8
+[[tests]]
+    name = "random.cpp"
+    number = 6
+[[tests]]
+    name = "max.cpp"
+    number = 6
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+
+[[solutions]]
+    type = "correct"
+    name = "correct.py"
+
+[params]
+    N_MAX = 600
+    M_MAX = 600
+    W_MAX = 1000000000
+    K_MAX = 5
+    KIND = 131
+    ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+
+[upload]
+    time_limit = 0.5
+    group = '03'
+    classes = 'C'
+    types = ['dp_string']
+    allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+    partial = true

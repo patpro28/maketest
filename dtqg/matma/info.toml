@@ -1,0 +1,36 @@
+title = 'MATMA — Thông điệp có thưởng và phạt'
+timelimit = 5.0
+
+[[tests]]
+    name = "example.in"
+    number = 3
+[[tests]]
+    name = "edge.cpp"
+    number = 12
+[[tests]]
+    name = "sub1.cpp"
+    number = 8
+[[tests]]
+    name = "sub2.cpp"
+    number = 8
+[[tests]]
+    name = "sub3.cpp"
+    number = 14
+
+[[solutions]]
+    name = "correct.cpp"
+    type = "correct"
+
+[params]
+    M_MAX = 20
+    L_MAX = 1000000000000
+    LENGTH_SUM_MAX = 80
+    W_MAX = 1000
+
+[upload]
+    time_limit = 1.0
+    group = '05'
+    classes = 'E'
+    types = ['unknown']
+    allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+    partial = true

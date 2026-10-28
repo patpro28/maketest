@@ -90,10 +90,17 @@ def main(args: List[str]):
     parser.add_argument('-n', '--new', nargs='*', help='Create new custom problem', default=[])
     parser.add_argument('-z', '--zip', nargs='*', help='Zip testcase', default=[])
     parser.add_argument('-u', '--upload', nargs='*', default=None,
-                        help='Upload problems to HOST using PROBLEM_IMPORT_API_KEY; '
+                        help='Upload problems, configured custom checkers, testcases and editorial '
+                             'to HOST using PROBLEM_IMPORT_API_KEY; '
                              'without names, upload problems selected by -p or TOML paths')
+    parser.add_argument('--skip-statement', action='store_true',
+                        help='With --upload, upload configured checkers, testcases and editorial; '
+                             'keep the existing server statement and metadata')
 
     opts = parser.parse_args(args)
+
+    if opts.skip_statement and opts.upload is None:
+        parser.error('--skip-statement requires --upload')
 
     if opts.upload is not None and (opts.new or opts.zip or opts.clean or opts.only_html
                                     or opts.htmldir or opts.dev or opts.test):
@@ -148,7 +155,7 @@ def main(args: List[str]):
             for problem in problems:
                 path = problem.basedir.resolve()
                 if path not in uploads:
-                    uploads[path] = ProblemUpload(problem)
+                    uploads[path] = ProblemUpload(problem, skip_statement=opts.skip_statement)
         except (UploadError, OSError, ValueError) as exc:
             parser.error(str(exc))
         problems = list({p.basedir.resolve(): p for p in problems}.values())
