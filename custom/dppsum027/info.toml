@@ -1,0 +1,27 @@
+title = "PREFIX027 - Số lần tăng trong đoạn"
+timelimit = 2.0
+
+[[tests]]
+name = "example.in"
+number = 2
+
+[[tests]]
+name = "cases.cpp"
+number = 20
+
+[[solutions]]
+name = "correct.cpp"
+type = "correct"
+
+[params]
+N_MAX = 200000
+A_MIN = -1000000000
+A_MAX = 1000000000
+
+[upload]
+    time_limit = 0.25
+    group = '03'
+    classes = 'C'
+    types = ['dp_prefix_sum', 'dp_sequence']
+    allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+    partial = true

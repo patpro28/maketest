@@ -1,49 +1,49 @@
+/*
+Author: Tu Pham Anh
+Date: 2026/10/30 - 10:21
+*/
 #include <bits/stdc++.h>
+
 using namespace std;
 
+const int N = 101;
 
-const int N = 2e5 + 1;
-using cost = array<long long, 3>;
-cost dp[N];
-int t[N];
-void dfs(int u, int p) {
-    dp[u] = {inf, inf, inf};
-    dp[u][t[u]] = 0;
+int a[N][N], n, m;
 
-    for (auto [v, w] : adj[u]) {
-        if (v == p) continue;
-        dfs(v, u);
-        long long best = min(dp[v]);
-        cost nxt = {inf, inf, inf};
-        for (int a = 0; a < 3; ++a) {
-            nxt[a] = min(nxt[a], dp[u][a] + w + best);
-            for (int b = 0; b < 3; ++b) {
-                if (a + b == 3) continue;
-                int z = max(a, b);
-                nxt[z] = min(nxt[z], dp[u][a] + dp[v][b]);
-            }
-        }
+void sub1() {
+    for (int i = 1; i <= n; ++i) {
+        int s = 0;
+        for (int j = 1; j <= n; ++j)
+            s += a[i][j];
+        cout << s << ' ';
     }
 }
 
-int cnt[200], a[200];
+void sub2() {
+    cout << n << '\n';
+    for (int i = 1; i <= n; ++i) {
+        cout << count(a[i] + 1, a[i] + n + 1, 1) << ' ';
+        for (int j = 1; j <= n; ++j)
+            if (a[i][j]) cout << j << ' ';
+        cout << '\n';
+    }
+}
 
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
 
-    int n, q; cin >> n >> q;
+    // freopen("DT.INP", "r", stdin);
+    // freopen("DT.OUT", "w", stdout);
+    
+    int t; cin >> t;
+    cin >> n; m = 0;
+    for (int i = 1; i <= n; ++i)
+        for (int j = 1; j <= n; ++j)
+            cin >> a[i][j], m += a[i][j];
 
-    // Chuẩn bị trước
-    for (int i = 1; i <= n; ++i) {
-        cin >> a[i];
-        cnt[i] = cnt[i - 1] + (a[i] > 0);
-    }
+    if (t == 1) sub1();
+    else sub2();
 
-    // Vào phòng thi
-    while (q--) {
-        int l, r;
-        cin >> l >> r;
-        cout << cnt[r] - cnt[l - 1] << '\n';
-    }
+    return 0;
 }

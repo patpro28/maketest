@@ -1,0 +1,36 @@
+title = 'HANHTRINH — Hành trình đúng số chặng'
+timelimit = 4.0
+
+[[tests]]
+    name = "example.in"
+    number = 3
+[[tests]]
+    name = "edge.cpp"
+    number = 7
+[[tests]]
+    name = "small.cpp"
+    number = 6
+[[tests]]
+    name = "random.cpp"
+    number = 6
+[[tests]]
+    name = "max.cpp"
+    number = 8
+
+[[solutions]]
+    name = "correct.cpp"
+    type = "correct"
+
+[params]
+    N_MAX = 30
+    M_MAX = 2000
+    K_MAX = 1000000000000
+    VALUE_MAX = 1000000
+
+[upload]
+    time_limit = 1.0
+    group = '04'
+    classes = 'E'
+    types = ['doituyen']
+    allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+    partial = true

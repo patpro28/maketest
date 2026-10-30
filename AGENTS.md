@@ -19,6 +19,12 @@
 - Khi chuyển bài từ PDF hoặc nguồn khác, giữ nguyên ý nghĩa, giới hạn và ví dụ, đồng thời chuyển cách trình bày sang cấu trúc trên. Có thể thêm mục `### Nguồn` sau `### Giải thích` để ghi xuất xứ.
 - Trước khi hoàn tất, đối chiếu `task.md` với mẫu knapsack để kiểm tra tiêu đề, cấp heading, thứ tự mục và định dạng ví dụ; chỉ kiểm tra bảng subtask khi người dùng yêu cầu có mục này. Quy tắc này áp dụng cho các bài trong mọi thư mục của dự án.
 
+## Mã bài trong thư mục dtqg
+
+- Mọi bài tập nằm trong `dtqg/` phải có tên thư mục bắt đầu bằng tiền tố `dt`; mã bài tương ứng viết hoa và bắt đầu bằng `DT`. Ví dụ: thư mục `dtqg/dtbasac/` dùng mã `DTBASAC`.
+- Khi tạo mới hoặc đổi mã bài trong `dtqg/`, giữ thống nhất tiền tố giữa tên thư mục, tiêu đề trong `task.md`, `solution.md`, trường `title` trong `info.toml` và các tài liệu, đường dẫn kiểm thử liên quan. Kiểm tra quy tắc này trước khi hoàn tất.
+- Quy tắc tiền tố áp dụng cho thư mục bài tập; các thư mục công cụ hoặc bộ kiểm thử dùng chung không phải mã bài.
+
 ## Nội dung lời giải
 
 - `solution.md` không được có mục kiểm thử, kiểm chứng bằng test hoặc nội dung mô tả bộ sinh, oracle, verifier, checker, benchmark và kết quả chạy test. Lưu các nội dung này trong tài liệu kiểm thử riêng, chẳng hạn `tests/README.md` hoặc README của bộ kiểm thử dùng chung.

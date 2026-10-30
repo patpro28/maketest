@@ -1,0 +1,35 @@
+title = 'CHONCAY — Chọn đỉnh trên cây động'
+timelimit = 6.0
+
+[[tests]]
+    name = "example.in"
+    number = 3
+[[tests]]
+    name = "edge.cpp"
+    number = 7
+[[tests]]
+    name = "small.cpp"
+    number = 6
+[[tests]]
+    name = "random.cpp"
+    number = 6
+[[tests]]
+    name = "max.cpp"
+    number = 8
+
+[[solutions]]
+    name = "correct.cpp"
+    type = "correct"
+
+[params]
+    N_MAX = 100000
+    Q_MAX = 100000
+    VALUE_MAX = 1000000000
+
+[upload]
+    time_limit = 1.0
+    group = '04'
+    classes = 'E'
+    types = ['doituyen']
+    allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+    partial = true
