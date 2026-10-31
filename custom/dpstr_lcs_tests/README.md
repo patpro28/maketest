@@ -64,12 +64,12 @@ python3 custom/dpstr_lcs_tests/check.py --update-hashes
 
 Có thể chạy riêng `tests/check.py` trong từng bài. Quy trình gọi trực tiếp các bước của `Problem`, không dùng `--dev` hoặc `--test`, không xuất HTML và không kết nối máy chủ.
 
-Mỗi bài có 32 cặp test: 2 ví dụ, 10 biên, 8 nhỏ, 6 ngẫu nhiên, 6 lớn. Bộ kiểm tra thực hiện:
+Mỗi bài có 32 cặp test nền: 2 ví dụ, 10 biên, 8 nhỏ, 6 ngẫu nhiên, 6 lớn. Riêng `dpstr150` có thêm 8 cặp hồi quy, tổng cộng 40 cặp; xem `custom/dpstr150/tests/README.md`. Bộ kiểm tra thực hiện:
 
 - Biên dịch lời giải C++ theo C++11; biên dịch bộ sinh và công cụ theo C++17, bật cảnh báo lỗi.
 - Sinh và xác thực mọi đầu vào, tạo đáp án bằng C++, chấm cả C++ và Python trong 0,5 giây mỗi test.
 - Đối chiếu mọi đáp án với lời giải Python: DP xóa trực tiếp cho bài 102; DP siêu dãy trực tiếp cho bài 103; tối đa chi phí giữ lại cho bài 131; đảo xâu cho bài 132; ghép hai phía của một ký tự bắt buộc cho bài 150; đếm nguyên âm chính xác cho bài 151; vị trí xuất hiện kế tiếp cho bài 152.
-- Vét cạn tất cả 20 test ví dụ/biên/nhỏ của mỗi bài bằng cách liệt kê các dãy con của cả hai xâu. Với chi phí theo vị trí, lưu tổng chi phí giữ lại lớn nhất cho mỗi xâu con ở từng phía.
+- Vét cạn tất cả 20 test ví dụ/biên/nhỏ của mỗi bài bằng cách liệt kê các dãy con của cả hai xâu; với `dpstr150`, kiểm tra thêm 6 test hồi quy ngắn, tổng cộng 26 test. Với chi phí theo vị trí, lưu tổng chi phí giữ lại lớn nhất cho mỗi xâu con ở từng phía.
 - Vét cạn mọi cặp xâu nhị phân có độ dài từ 1 đến 3: 196 cặp mỗi bài; thêm 100 trường hợp ngẫu nhiên và các trường hợp đặc trưng.
 - Thử verifier với sai độ dài, sai bảng chữ cái, thiếu/thừa dữ liệu, chi phí ngoài giới hạn, ký tự bắt buộc sai và $K$ ngoài giới hạn.
 - Thử checker với đáp án đúng/sai, token dư, kết quả rỗng, số nguyên 64 bit và kết quả $-1$. Riêng bài 101 kiểm tra nhiều LCS tối ưu, số ký tự không khớp khai báo, xâu không phải dãy con, đáp án ngắn hơn tối ưu và trường hợp LCS rỗng.
@@ -81,3 +81,7 @@ Test có các xâu đồng nhất, không giao ký tự, nhiều chữ lặp, kh
 ## Kết quả kiểm tra ngày 28/10/2026
 
 Toàn bộ 10 bài đã qua quy trình trên: 320 cặp input/output, 200 lượt vét cạn trên các test đã sinh và 3.097 trường hợp vét cạn bổ sung. Hai lời giải C++ và Python đều được chấm AC trong giới hạn 0,5 giây trên bộ test cục bộ. Cấu trúc đề, verifier, checker, tính tái lập và toàn bộ 640 mục mã băm đều hợp lệ. Phần kiểm tra cấu hình upload đã được cập nhật để xác nhận `dpstr101` đính kèm đúng mã nguồn checker, còn chín bài còn lại giữ checker `standard`.
+
+## Bổ sung hồi quy ngày 30/10/2026
+
+Đã thêm 8 test cho `dpstr150` để bắt lỗi dùng sự xuất hiện của ký tự bắt buộc trong tiền tố thay cho điều kiện trên dãy con được chọn. Tổng dữ liệu của bộ bài tăng lên 328 cặp. Quy trình kiểm tra riêng `dpstr150` yêu cầu cả hai lời giải đúng đạt trên 40 cặp và mô hình thuật toán sai bị checker từ chối trên đủ 8 test mới; mã băm được cập nhật tương ứng. Nội dung 32 cặp test cũ của bài được giữ nguyên.

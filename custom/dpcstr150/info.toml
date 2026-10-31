@@ -16,6 +16,9 @@ timelimit = 0.5
 [[tests]]
     name = "max.cpp"
     number = 6
+[[tests]]
+    name = "regression.in"
+    number = 8
 
 [[solutions]]
     type = "correct"
@@ -37,6 +40,6 @@ timelimit = 0.5
     time_limit = 0.5
     group = '03'
     classes = 'C'
-    types = ['dp_string']
+    types = ['dp_common_substring']
     allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
     partial = true

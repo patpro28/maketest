@@ -165,7 +165,7 @@ def audit_config(problem, code):
         upload['checker'] = 'custom'
     assert problem.config['upload'] == upload, problem.basedir
     assert problem.config['timelimit'] == 0.5
-    assert sum(t['number'] for t in problem.config['tests']) == 32
+    assert sum(t['number'] for t in problem.config['tests']) == (40 if code == 150 else 32)
     metadata = ProblemUpload(problem)
     if code == 101:
         assert metadata.custom_checker == problem.checker
@@ -293,6 +293,20 @@ def assert_reproducible(problem):
                 assert run(exe, '', seed) == expected, (exe, seed)
 
 
+def audit_prefix_regressions(p):
+    # (correct answer, output of the submitted prefix-only algorithm).
+    answers = [(-1, 1), (1, 2), (1, 3), (1, 3), (2, 4), (2, 4), (1, 299), (3, 299)]
+    for seed, (correct, wrong) in enumerate(answers):
+        path = p/'in'/f'regression_{seed:02}.in'
+        data = path.read_text()
+        official = int((p/'out'/f'regression_{seed:02}.out').read_text())
+        submitted = int(run(p/'tests/prefix_only_wrong', data))
+        assert official == correct and submitted == wrong, (path, official, submitted)
+        check_outputs(p, data, str(correct), [(str(correct)+'\n', True),
+                                             (str(submitted)+'\n', False)])
+    return len(answers)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--problem', nargs='+', choices=NAMES, default=NAMES)
@@ -306,6 +320,8 @@ def main():
         audit_config(problem, int(problem.basedir.name[5:]))
         sources += [problem.get_correct_filename(),problem.checker,problem.verifier]
         sources += [problem.basedir/'gen'/test['name'] for test in problem.config['tests'] if test['name'].endswith('.cpp')]
+        if problem.basedir.name == 'dpstr150':
+            sources.append(problem.basedir/'tests/prefix_only_wrong.cpp')
     print(f'Compiling {len(sources)} sources for {len(problems)} LCS problems...', flush=True)
     with ThreadPoolExecutor(max_workers=4) as pool:
         for _ in pool.map(compile_source,sources):
@@ -325,7 +341,8 @@ def main():
             wide |= expected > 2**31-1
             largest = len(case.a) == len(case.b) == problem.config['params']['N_MAX']
             maximum |= largest; full_k |= largest and case.k == 5
-            if path.stem.startswith(('example','edge','small')):
+            if path.stem.startswith(('example','edge','small')) or (path.stem.startswith('regression')
+                                                                    and max(len(case.a),len(case.b)) <= 9):
                 assert brute(code,case) == expected, (path,'enumeration mismatch')
                 generated_brute += 1
         assert maximum, (p,'missing both maximum lengths')
@@ -341,6 +358,9 @@ def main():
         sample = (p/'gen/example_00.in').read_text()
         audit_verifier(p,code,sample,problem.config['params']['N_MAX'])
         audit_checker(p,code,sample,reference)
+        if code == 150:
+            rejected = audit_prefix_regressions(p)
+            print(f'{p.name}: prefix-only wrong solution rejected on all {rejected} regression tests.', flush=True)
         if code in (130,131):
             candidates = [(p/'in'/f'max_{i:02}.in').read_text() for i in range(6)]
             data = max(candidates,key=lambda data:int(reference(data)))
@@ -350,7 +370,8 @@ def main():
         if args.update_hashes:
             (p/'hash.json').write_text(json.dumps(problem.calc_hashes(),indent=2,sort_keys=True)+'\n')
         problem.assert_hashes()
-        print(f'{p.name}: 32 pairs, C++/Python AC at 0.5s; {generated_brute} generated brute checks; '
+        pairs = sum(test['number'] for test in problem.config['tests'])
+        print(f'{p.name}: {pairs} pairs, C++/Python AC at 0.5s; {generated_brute} generated brute checks; '
               f'{count} additional brute checks; statements, metadata, checker, verifier, '
               f'reproducibility and hashes OK ({time.monotonic()-started:.1f}s).', flush=True)
     print('All checks passed. No HTML generated or problems uploaded. dpstr101 requires its custom checker.',flush=True)
