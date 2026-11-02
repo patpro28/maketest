@@ -93,14 +93,30 @@ def main(args: List[str]):
                         help='Upload problems, configured custom checkers, testcases and editorial '
                              'to HOST using PROBLEM_IMPORT_API_KEY; '
                              'without names, upload problems selected by -p or TOML paths')
-    parser.add_argument('--skip-statement', action='store_true',
+    upload_mode = parser.add_mutually_exclusive_group()
+    upload_mode.add_argument('--skip-statement', action='store_true',
                         help='With --upload, upload configured checkers, testcases and editorial; '
                              'keep the existing server statement and metadata')
+    upload_mode.add_argument('--only-editorial', action='store_true',
+                        help='With --upload, upload only editorial to an existing problem; '
+                             'skip testcase generation and all other uploads')
+    parser.add_argument('--testcase-points', type=int, default=None,
+                        help='With --upload, set points for every testcase (non-negative integer); '
+                             'default: [[tests]].points, [upload].testcase_points, then 1')
 
     opts = parser.parse_args(args)
 
     if opts.skip_statement and opts.upload is None:
         parser.error('--skip-statement requires --upload')
+    if opts.only_editorial and opts.upload is None:
+        parser.error('--only-editorial requires --upload')
+    if opts.testcase_points is not None:
+        if opts.upload is None:
+            parser.error('--testcase-points requires --upload')
+        if opts.only_editorial:
+            parser.error('--testcase-points cannot be combined with --only-editorial')
+        if opts.testcase_points < 0:
+            parser.error('--testcase-points must be a non-negative integer')
 
     if opts.upload is not None and (opts.new or opts.zip or opts.clean or opts.only_html
                                     or opts.htmldir or opts.dev or opts.test):
@@ -155,7 +171,9 @@ def main(args: List[str]):
             for problem in problems:
                 path = problem.basedir.resolve()
                 if path not in uploads:
-                    uploads[path] = ProblemUpload(problem, skip_statement=opts.skip_statement)
+                    uploads[path] = ProblemUpload(problem, skip_statement=opts.skip_statement,
+                                                 testcase_points=opts.testcase_points,
+                                                 only_editorial=opts.only_editorial)
         except (UploadError, OSError, ValueError) as exc:
             parser.error(str(exc))
         problems = list({p.basedir.resolve(): p for p in problems}.values())
@@ -184,7 +202,8 @@ def main(args: List[str]):
         mode = Problem.Mode.HTML
 
     for problem in problems:
-        problem.generate(mode, Path(opts.htmldir) if opts.htmldir else None)
+        if not opts.only_editorial:
+            problem.generate(mode, Path(opts.htmldir) if opts.htmldir else None)
         if opts.upload is not None:
             try:
                 uploads[problem.basedir.resolve()].upload(client)

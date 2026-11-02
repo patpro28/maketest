@@ -1,5 +1,3 @@
-# Lời giải — Nhánh cây dài nhất
-
 ### Ba câu hỏi để xây dựng lời giải
 
 **Cần tính gì tại đỉnh $u$?** Gọi $dp[u]$ là độ dài đường đi xuống dài nhất từ $u$ đến một lá trong cây con, tính theo số cạnh.

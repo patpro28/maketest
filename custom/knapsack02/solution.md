@@ -1,5 +1,3 @@
-# Lời giải — Chọn ít thẻ nhất
-
 ## Trạng thái và khởi tạo
 
 `dp[s]` là số thẻ ít nhất cần chọn từ các thẻ đã xét để đạt tổng **đúng bằng** $s$. Khởi tạo `dp[0]=0`, các trạng thái khác bằng `INF=N+1`; mọi nghiệm hợp lệ dùng không quá $N$ thẻ.

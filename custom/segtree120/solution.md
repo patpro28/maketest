@@ -1,5 +1,3 @@
-# Lời giải — Người thứ k
-
 ### Thông tin trên cây
 
 Lưu số người đang hoạt động trong mỗi đoạn; ghép bằng phép cộng.

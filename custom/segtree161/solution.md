@@ -1,5 +1,3 @@
-# SEGTREE161 — Lời giải
-
 ### Ý tưởng
 
 Lưu $[a_i\bmod D=0]$ ở lá và tổng trên mỗi nút. Với truy vấn, tính số bội $C$ trong $[l,r]$ và số bội $P$ trước $l$. Nếu $C<k$, trả về $-1$. Ngược lại, đi xuống cây tìm bội thứ $P+k$ của toàn dãy theo tổng ở con trái.

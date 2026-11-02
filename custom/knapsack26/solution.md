@@ -1,5 +1,3 @@
-# Lời giải — Mở dây chuyền rồi sản xuất
-
 `previous[s]` là lợi nhuận tối đa trong ngân sách $s$ chỉ dùng các dây chuyền trước. Khi xét dây chuyền mới, tạo `opened[s]` cho phương án đã làm ít nhất một sản phẩm ở dây chuyền này.
 
 Có hai cách đến `opened[s]`: mở và làm sản phẩm đầu, từ `previous[s-F_i-C_i]+V_i`; hoặc làm thêm một sản phẩm, từ `opened[s-C_i]+V_i`. Duyệt $s$ tăng để cho sản xuất thêm nhiều lần. Sau đó gộp `dp[s]=max(previous[s],opened[s])`.

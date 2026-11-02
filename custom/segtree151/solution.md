@@ -1,5 +1,3 @@
-# SEGTREE151 — Lời giải
-
 ### Ý tưởng
 
 Mỗi nút lưu giá nhỏ nhất. Với truy vấn từ $p$, tìm từ trái sang phải trong $[p+1,N]$. Bỏ qua nút nằm trước đoạn tìm kiếm hoặc có minimum không nhỏ hơn $a_p$. Cập nhật điểm khi giá thay đổi.

@@ -1,5 +1,3 @@
-# SEGTREE121 — Lời giải
-
 ### Ý tưởng
 
 Mỗi lá lưu tồn kho ở một mức giá, mỗi nút lưu tổng tồn kho. Nếu tổng ở gốc nhỏ hơn $k$, trả về $-1$ và không cập nhật. Ngược lại, nếu con trái có ít nhất $k$ món thì đi trái; nếu không, trừ số món bên trái khỏi $k$ và đi phải. Tại lá, giảm tồn kho một đơn vị. Dùng số nguyên 64 bit cho tổng và thứ hạng.

@@ -1,5 +1,3 @@
-# Hướng dẫn giải
-
 Đặt `dp[i][t]` là trạng thái có thể đạt tổng $t$ sau khi chọn đúng một mặt cho mỗi thẻ trong $i$ thẻ đầu tiên. Khởi tạo `dp[0][0]` là đúng, các trạng thái còn lại là sai.
 
 Từ một trạng thái đạt được `dp[i][t]`, chọn mặt trước để chuyển đến `dp[i+1][t+a_i]`, hoặc chọn mặt sau để chuyển đến `dp[i+1][t+b_i]`. Chỉ lưu các tổng không vượt quá $S$ vì mọi giá trị đều dương. Hai lớp trạng thái phải tách biệt để không dùng một thẻ nhiều lần.

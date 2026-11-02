@@ -1,5 +1,3 @@
-# Lời giải — Chọn đồ vào túi
-
 ## Trạng thái và khởi tạo
 
 `dp[c]` là tổng giá trị lớn nhất khi chỉ dùng các món đã xét và tổng trọng lượng **không vượt** $c$. Khởi tạo tất cả trạng thái bằng $0$, vì tập rỗng hợp lệ với mọi sức chứa.

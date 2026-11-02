@@ -1,5 +1,3 @@
-# Lời giải — Xưởng robot hàng loạt
-
 Tính trước `dist[b]`, số thao tác ít nhất để tăng từ $1$ lên đúng $b$. Chỉ cần thử $1\le x\le u$: $x>u$ không làm tăng sức mạnh và không hữu ích. Mọi cạnh hữu ích đi từ $u$ tới một giá trị lớn hơn, nên duyệt $u$ tăng dần là thứ tự topo. Bỏ cạnh vượt $1000$ vì sức mạnh không giảm, không thể quay về một mục tiêu nhỏ hơn.
 
 Chi phí ít nhất cho một robot mẫu $i$ là $1+dist[B_i]$, bao gồm tạo khung. Các robot độc lập; thay mọi quá trình nâng cấp bằng quá trình ngắn nhất không giảm tiền bán và chỉ tiết kiệm năng lượng. Vì vậy bài toán trở thành knapsack vô hạn theo các chi phí này và giá bán $V_i$.

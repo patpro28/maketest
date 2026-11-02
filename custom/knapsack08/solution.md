@@ -1,5 +1,3 @@
-# Lời giải — Đếm số cách đổi tiền
-
 `dp[s]` là số cách đổi đúng $s$ bằng các mệnh giá đã xét, modulo $10^9+7$. Khởi tạo `dp[0]=1` cho cách không lấy đồng nào.
 
 Duyệt **mệnh giá ở vòng ngoài**. Với mệnh giá $A_i$, duyệt $s$ **tăng dần** từ $A_i$ tới $X$:

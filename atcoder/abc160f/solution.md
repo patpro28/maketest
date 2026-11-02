@@ -1,5 +1,3 @@
-# Lời giải
-
 Đặt $M=10^9+7$. Khi chọn đỉnh bắt đầu $r$, xem cây được gốc hóa tại $r$.
 
 Một thứ tự ghi số hợp lệ khi và chỉ khi mọi đỉnh cha được ghi số trước các đỉnh con. Thật vậy, các đỉnh đã ghi số luôn tạo thành một phần liên thông chứa $r$, nên muốn ghi số lên một đỉnh phải đi qua cha của nó trước. Ngược lại, nếu cha đã được ghi số thì đỉnh con thỏa mãn điều kiện của thao tác.

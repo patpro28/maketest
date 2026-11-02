@@ -1,5 +1,3 @@
-# SEGTREE102 — Lời giải
-
 ### Ý tưởng
 
 Lưu OR của đoạn trên mỗi nút. Với mặt nạ $M$, bỏ qua nút nếu OR của nút AND với $M$ bằng $0$. Nếu không, đi xuống con trái trước để tìm lá tương thích đầu tiên. Cập nhật điểm khi thay đổi mặt nạ.

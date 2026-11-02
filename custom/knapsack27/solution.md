@@ -1,5 +1,3 @@
-# Lời giải — Dàn máy có bộ điều phối đủ mạnh
-
 Sắp xếp và gom mẫu theo khả năng điều phối $A$. Duy trì `dp[s]` đếm các bộ số lượng của những mẫu đã xét có tải đúng $s$, modulo. Khởi tạo `dp[0]=1`.
 
 Với nhóm có $A=a$, lưu tổng DP trên $0\le s\le a$ trước cập nhật. Thêm tất cả mẫu của nhóm bằng knapsack đếm vô hạn: vòng ngoài theo mẫu, tổng tăng. Lấy tổng trên cùng khoảng sau cập nhật. Hiệu sau-trước chính là số dàn có tải không vượt $a$ và dùng ít nhất một máy của nhóm hiện tại.

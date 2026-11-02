@@ -1,5 +1,3 @@
-# Lời giải — Hai đầu khác màu
-
 ### Thông tin trên cây
 
 Lưu màu nhỏ nhất và lớn nhất trong đoạn. Một đoạn chỉ có màu $c$ khi và chỉ khi min và max của nó đều bằng $c$.

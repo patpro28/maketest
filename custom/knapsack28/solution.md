@@ -1,5 +1,3 @@
-# Lời giải — Xây số lớn nhất chia hết
-
 Với số dương không có số $0$ ở đầu, ưu tiên độ dài rồi thứ tự từ trái sang phải. Dùng `f[b][r]` là độ dài lớn nhất của phần có thể viết **thêm**, tốn đúng $b$ đồng, khi tiền tố hiện tại có dư $r$, để kết thúc với dư $0$.
 
 Khởi tạo `f[0][0]=0`, các trạng thái còn lại không đạt được. Nếu viết chữ số $d$, dư mới là $(10r+d)\bmod M$, nên chuyển từ `f[b-C_d][dư mới]+1`. Duyệt ngân sách tăng vì chi phí dương. Trạng thái này cho phép số $0$ đầu hậu tố, phù hợp khi đã có tiền tố.

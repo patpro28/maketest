@@ -1,5 +1,3 @@
-# Lời giải DOITUYEN — Đổi tuyến
-
 ## Vì sao một khoảng cách cho mỗi thành phố chưa đủ?
 
 Hai hành trình tới cùng thành phố nhưng dùng hai tuyến cuối khác nhau có thể dẫn tới chi phí tiếp tục khác nhau. Ví dụ 1 cho thấy tới thành phố $2$ lúc $1$ bằng tuyến $10$ kém hơn tới lúc $4$ bằng tuyến $20$ nếu muốn đi tiếp tới $4$.

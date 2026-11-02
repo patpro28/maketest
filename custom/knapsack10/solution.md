@@ -1,5 +1,3 @@
-# Lời giải — Đặt dấu cộng hoặc trừ
-
 Đặt $T=\sum A_i$ và gọi $P$ là tổng các số mang dấu cộng. Giá trị biểu thức là $P-(T-P)=2P-T$, do đó cần $P=(T+X)/2$.
 
 Nếu $X\notin[-T,T]$ hoặc $T+X$ lẻ, đáp án là `NO`. Ngược lại, dùng `dp[s]` biểu diễn có thể chọn một tập chỉ số có tổng $s$ hay không. Khởi tạo `dp[0]=true`; với mỗi $A_i$, duyệt $s$ giảm dần và cập nhật `dp[s] |= dp[s-A_i]`.

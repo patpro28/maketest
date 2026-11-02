@@ -1,5 +1,3 @@
-# PREFIX01 — Hướng dẫn giải
-
 Khởi tạo giá trị nhỏ nhất và lớn nhất bằng $A_1$. Xét từng ngày từ $2$: kiểm tra giá trị hiện tại với min và max của các ngày trước, tăng đáp án nếu nhỏ hơn min hoặc lớn hơn max, rồi mới cập nhật hai giá trị. Phép so sánh phải nghiêm ngặt.
 
 Tính đúng đắn: Trước mỗi ngày, hai giá trị duy trì đúng cực trị của toàn bộ các ngày trước. Do đó điều kiện kiểm tra tương đương định nghĩa kỷ lục.

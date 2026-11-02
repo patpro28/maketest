@@ -1,5 +1,3 @@
-# Lời giải — DPSTRING08
-
 Theo dõi phần đuôi có thể tiếp tục tạo thành `aba`. Có ba trạng thái: $0$ (không có phần đuôi liên quan), $1$ (đuôi là `a`), $2$ (đuôi là `ab`). Lưu chi phí xóa nhỏ nhất cho từng trạng thái.
 
 | Trạng thái cũ | Giữ `a` | Giữ `b` |

@@ -1,5 +1,3 @@
-# Lời giải — Đoạn ổn định
-
 ### Thông tin trên cây
 
 Mỗi nút lưu tổng, min và max. Đồng thời giữ một nút tích lũy mô tả đoạn đã nhận từ điểm bắt đầu.

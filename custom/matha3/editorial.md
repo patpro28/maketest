@@ -1,5 +1,3 @@
-# MATHA3 — Hướng dẫn giải
-
 Gọi $P=A+B$ và $F(x)$ là số phút bật trong $x$ phút đầu, với $F(0)=0$.
 
 Có $\lfloor x/P\rfloor$ chu kỳ hoàn chỉnh, mỗi chu kỳ đóng góp $A$ phút bật. Phần còn lại có $x\bmod P$ phút; vì đèn bật ở đầu mỗi chu kỳ nên đóng góp $\min(x\bmod P,A)$ phút.

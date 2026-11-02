@@ -1,5 +1,3 @@
-# Lời giải DTBASAC — Bộ ba khác màu
-
 ## Từ tần suất màu tới số bộ ba
 
 Xét một tập đỉnh. Gọi $cnt_c$ là số đỉnh màu $c$ và đặt

@@ -1,5 +1,3 @@
-# Lời giải — Bậc thang cao nhất
-
 ### Thông tin tại mỗi nút
 
 Đặt $D_1=0$ và $D_i=|A_i-A_{i-1}|$ với $2\le i\le N$. Mỗi nút lưu giá trị lớn nhất trên đoạn tương ứng của mảng $D$.

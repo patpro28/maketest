@@ -1,5 +1,3 @@
-# Lời giải TRAMTIEPTE — Trạm tiếp tế
-
 ## Ý tưởng
 
 Tách phí xây trạm khỏi phí vận chuyển. Đặt

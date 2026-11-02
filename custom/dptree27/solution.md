@@ -1,5 +1,3 @@
-# Lời giải — Không chọn ba người liên tiếp
-
 ### Trạng thái
 
 Gốc cố định là đỉnh $1$. Gọi $dp[u][t]$ là tổng giá trị lớn nhất trong cây con của $u$, biết rằng ngay trước $u$ có đúng $t$ tổ tiên liên tiếp đã được chọn, với $t=0,1,2$. Các lựa chọn ngoài cây con được giả thiết hợp lệ.

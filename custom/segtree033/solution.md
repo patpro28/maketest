@@ -1,5 +1,3 @@
-# Lời giải — Chu kỳ vượt giới hạn
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu LCM của đoạn nếu LCM không vượt $B$; nếu vượt, lưu giá trị đại diện $B+1$. Lá chứa $x$ lưu $\min(x,B+1)$.

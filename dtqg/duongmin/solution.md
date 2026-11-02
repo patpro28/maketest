@@ -1,5 +1,3 @@
-# Lời giải DUONGMIN — Các hậu tố trên đường tổ tiên
-
 ## Các nhóm điểm bắt đầu trên một đường đi
 
 Với một đỉnh cuối cố định $v$, xét cực tiểu của các đoạn từ từng độ sâu bắt đầu tới $v$. Những điểm bắt đầu liên tiếp có thể có cùng cực tiểu; stack đơn điệu biểu diễn các nhóm này.

@@ -1,5 +1,3 @@
-# Lời giải — Mã kiểm tra
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu XOR của tất cả phần tử trên đoạn. Một lá chứa $x$ lưu chính $x$.

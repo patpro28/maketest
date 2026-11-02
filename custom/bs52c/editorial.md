@@ -1,5 +1,3 @@
-# BS52C — Hướng dẫn giải
-
 Sắp xếp mảng $A$ không giảm. Với ngưỡng $x$, gọi $c$ là số phần tử có giá trị không vượt $x$.
 
 Một nhóm có trung vị không vượt $x$ khi và chỉ khi ít nhất hai phần tử của nhóm không vượt $x$. Hai trường hợp rời nhau là:

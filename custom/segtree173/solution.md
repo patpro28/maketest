@@ -1,5 +1,3 @@
-# SEGTREE173 — Lời giải
-
 ### Ý tưởng
 
 Đặt $L=10^{18}$ và dùng dấu vượt giới hạn $C=L+1$. Mỗi nút lưu LCM đã chặn tại $C$. Nếu một đầu vào đã là $C$, kết quả ghép cũng là $C$. Với các giá trị chưa chặn, đặt $u=a/\gcd(a,b)$; nếu $u>L/b$ thì trả về $C$, nếu không trả về $u\cdot b$. Khi tìm kiếm, tích lũy LCM từ giá trị trung hòa $1$, nhận cả nút nếu LCM sau ghép không vượt $B$, còn lại đi xuống tìm phần tử đầu tiên làm vượt ngưỡng.

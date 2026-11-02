@@ -1,5 +1,3 @@
-# STRINGA1 — Hướng dẫn giải
-
 ## Tách các đoạn số
 
 Duyệt xâu từ trái sang phải. Khi gặp một chữ số, bắt đầu hoặc tiếp tục đoạn số hiện tại. Khi gặp chữ cái hoặc hết xâu, kết thúc đoạn. Chỉ kiểm tra cả đoạn số tối đại, không xét các đoạn con nằm bên trong.

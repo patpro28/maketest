@@ -1,5 +1,3 @@
-# Lời giải MANGDONG — Mạng liên lạc biến động
-
 ## Subtask 1 — 30%
 
 Lưu tập đường đang tồn tại. Với mỗi dấu `?`, dựng đồ thị hiện tại và duyệt các thành phần liên thông bằng BFS/DFS. Một thành phần có $r$ đỉnh đỏ và $b$ đỉnh xanh đóng góp $rb$ cặp.

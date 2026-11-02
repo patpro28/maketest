@@ -1,5 +1,3 @@
-# Lời giải — Sơn các ngôi làng
-
 ### Trạng thái
 
 Chọn đỉnh $1$ làm gốc. Gọi $dp[u][c]$ là chi phí nhỏ nhất trong cây con gốc $u$ khi sơn $u$ màu $c$, với $c\in\{0,1\}$.

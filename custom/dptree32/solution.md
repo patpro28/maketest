@@ -1,5 +1,3 @@
-# Lời giải — Kho tài nguyên của một nhánh
-
 ### Ba câu hỏi để xây dựng lời giải
 
 **Cần tính gì tại đỉnh $u$?** Gọi $dp[u]$ là tổng tài nguyên trong cây con gốc $u$, bao gồm chính $u$.

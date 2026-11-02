@@ -1,5 +1,3 @@
-# Lời giải — Chọn người đại diện
-
 ### Trạng thái
 
 Gốc của cây là đỉnh $1$. Trong cây con gốc $u$, đặt:

@@ -1,5 +1,3 @@
-# Lời giải — HASHING003
-
 Với mỗi cửa sổ dài $m$, tìm độ dài $t$ của tiền tố chung dài nhất giữa cửa sổ và mẫu bằng tìm kiếm nhị phân kết hợp hash kép.
 
 Nếu $t=m$, hai xâu bằng hoàn toàn nên không tính. Nếu $t<m$, vị trí kế tiếp là vị trí khác nhau đầu tiên. Bỏ qua đúng vị trí đó và so sánh hai hậu tố còn lại bằng hash. Chỉ đếm cửa sổ khi hai hậu tố bằng nhau.

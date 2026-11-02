@@ -1,5 +1,3 @@
-# SEGTREE192 — Lời giải
-
 ### Ý tưởng
 
 Nút lưu số chỗ trống. Với xe đến từ p, tìm chỗ trống đầu tiên trong [p,N]; nếu không có thì tìm trong [1,p−1]. Mỗi lần tìm bỏ qua nút ngoài đoạn hoặc có số chỗ trống bằng 0. Đánh dấu chỗ tìm được có xe bằng cập nhật điểm; thao tác trả chỗ gán lá về trạng thái trống.

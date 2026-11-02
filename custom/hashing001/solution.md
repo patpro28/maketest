@@ -1,5 +1,3 @@
-# Lời giải — HASHING001
-
 Nếu $m>n$, trả về $0$. Nếu $m=1$, mọi vị trí của $A$ đều phù hợp vì có thể chọn $c=A_i-B_1$, nên đáp án bằng $n$.
 
 Với $m\ge2$, đặt $D_i=A_{i+1}-A_i$ và $E_j=B_{j+1}-B_j$. Một đoạn của $A$ là bản chuyển tông của $B$ khi và chỉ khi dãy hiệu tương ứng bằng toàn bộ $E$. Chiều thuận có được bằng cách trừ hai đẳng thức kề nhau; chiều ngược có được bằng cách chọn $c$ từ phần tử đầu rồi cộng dồn các hiệu.

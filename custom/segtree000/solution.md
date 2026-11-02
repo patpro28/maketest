@@ -1,5 +1,3 @@
-# Lời giải — Nhật ký lượng mưa
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu tổng lượng mưa trong đoạn mà nút quản lý. Lá ở vị trí $i$ lưu $A_i$.

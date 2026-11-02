@@ -1,5 +1,3 @@
-# Lời giải — DPSTR131
-
 Đặt $dp[i][j]$ là chi phí nhỏ nhất để hai tiền tố dài $i,j$ trở nên bằng nhau. Biên $dp[i][0]=\sum_{t=1}^iU_t$ và $dp[0][j]=\sum_{t=1}^jV_t$.
 
 Ở mỗi ô, có thể xóa ký tự cuối của một trong hai tiền tố:

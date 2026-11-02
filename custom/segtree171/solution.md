@@ -1,5 +1,3 @@
-# SEGTREE171 — Lời giải
-
 ### Ý tưởng
 
 Lưu GCD trên mỗi nút. Duy trì GCD $g$ của phần đã nhận, ban đầu bằng $0$. Duyệt các nút từ trái sang phải kể từ $l$. Với nút nằm hoàn toàn trong phần cần xét, thử $g\prime=\gcd(g,\mathrm{gcd}_{node})$. Nếu $g\prime\ge G$, nhận toàn bộ nút. Nếu không, đi xuống để tìm phần tử đầu tiên khiến điều kiện sai. Trả về vị trí trước phần tử đó, hoặc $N$ nếu không gặp.

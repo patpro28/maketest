@@ -1,5 +1,3 @@
-# Lời giải — HASHING008
-
 Mỗi nút segment tree lưu độ dài, hash xuôi và hash ngược của đoạn. Với hai đoạn liên tiếp $A,B$, hash xuôi của $AB$ là $H(A)\cdot B_0^{|B|}+H(B)$; hash ngược là $H_{rev}(B)\cdot B_0^{|A|}+H_{rev}(A)$. Thực hiện công thức trên cho hai modulo.
 
 Đây là phép ghép có tính kết hợp vì mô tả đúng phép nối xâu. Nút rỗng có độ dài và hai hash bằng $0$, là phần tử trung hòa. Khi truy vấn, phải giữ đúng thứ tự các đoạn; không thể ghép tùy ý như phép cộng.

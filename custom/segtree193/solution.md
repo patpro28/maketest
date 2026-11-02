@@ -1,5 +1,3 @@
-# SEGTREE193 — Lời giải
-
 ### Ý tưởng
 
 Xây cây trên miền sức chứa từ 0 đến C. Lá lưu số hộp tại mức sức chứa đó, nút lưu tổng số hộp. Tìm lá có số đếm dương đầu tiên trong [w,C]. Khi tìm được mức c, giảm đếm tại c và tăng đếm tại c−w; thêm hộp là tăng đếm tại một lá.

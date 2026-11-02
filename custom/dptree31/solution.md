@@ -1,5 +1,3 @@
-# Lời giải — Nhóm liên thông chia hết cho ba
-
 ### Trạng thái
 
 Chọn đỉnh $1$ làm gốc. Gọi $dp[u][r]$ là số tập đỉnh không rỗng, liên thông, nằm hoàn toàn trong cây con của $u$, chứa $u$ và có số đỉnh dư $r$ khi chia cho $3$.

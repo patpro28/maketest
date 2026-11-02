@@ -1,5 +1,3 @@
-# Lời giải — Đóng gói hàng hóa
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu GCD $g$ và tổng $S$ của các lượng hàng trên đoạn. Lá chứa $x$ lưu $(x,x)$.

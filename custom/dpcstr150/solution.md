@@ -1,5 +1,3 @@
-# Lời giải — DPSTR150
-
 Lưu hai bảng: $L[i][j]$ là LCS thông thường của hai tiền tố; $F[i][j]$ là độ dài lớn nhất của dãy chung có chứa $C$. Biên của $L$ bằng $0$; biên của $F$ là âm vô cùng vì một tiền tố rỗng không thể chứa ký tự bắt buộc.
 
 Với $F$, luôn có thể bỏ một ký tự cuối bằng cách lấy lớn nhất của $F[i-1][j]$ và $F[i][j-1]$. Khi $A_i=B_j$:

@@ -1,5 +1,3 @@
-# Lời giải — Vị trí thấp nhất
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu cặp `(value, pos)`: giá trị nhỏ nhất và chỉ số nhỏ nhất đạt giá trị đó. Lá ở vị trí $i$ lưu $(A_i,i)$.

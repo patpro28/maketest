@@ -1,5 +1,3 @@
-# Lời giải — Trang trí một nhánh liên thông
-
 ### Ba câu hỏi để xây dựng lời giải
 
 **Cần tính gì tại đỉnh $u$?** Gọi $dp[u]$ là số tập đỉnh liên thông nằm hoàn toàn trong cây con của $u$, bắt buộc chứa $u$.

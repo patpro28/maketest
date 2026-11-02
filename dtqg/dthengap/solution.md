@@ -1,5 +1,3 @@
-# Lời giải DTHENGAP — Khoảng cách tại điểm gặp
-
 ## Những cặp có LCA chính xác bằng u
 
 Với hai đầu mút đều khác $u$, LCA bằng $u$ khi và chỉ khi chúng thuộc hai cây con của hai con khác nhau của $u$. Nếu một đầu mút là $u$, đầu mút còn lại có thể là bất kỳ hậu duệ thực sự nào.

@@ -1,5 +1,3 @@
-# Lời giải — Hai vận động viên mạnh nhất
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu hai giá trị lớn nhất `first`, `second` trong đoạn, có tính cả các lần xuất hiện trùng nhau. Lá chứa $x$ lưu $(x,-\infty)$; nút rỗng lưu $(-\infty,-\infty)$.

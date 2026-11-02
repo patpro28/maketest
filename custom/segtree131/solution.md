@@ -1,5 +1,3 @@
-# SEGTREE131 — Lời giải
-
 ### Ý tưởng
 
 Lưu tổng dân số trên mỗi nút. Với truy vấn, lấy tổng $W$ trong $[l,r]$ và tổng $P$ trong $[1,l-1]$. Nếu $W=0$, trả về $l$. Ngược lại, tìm tiền tố toàn dãy đầu tiên có tổng ít nhất $P+\lceil W/2\rceil$ bằng cách đi xuống cây theo tổng con trái.

@@ -1,5 +1,3 @@
-# SEGTREE191 — Lời giải
-
 ### Ý tưởng
 
 Lá của mỗi người lưu $1$ nếu còn ngồi, ngược lại lưu $0$; nút lưu tổng. Gọi $m$ là số người còn lại và $s$ là thứ hạng bắt đầu, đánh số từ $0$ trong danh sách người còn lại theo số tăng. Thứ hạng bị loại là $t=(s+(k-1)\bmod m)\bmod m$. Đi xuống cây tìm người thứ $t+1$, rồi cập nhật lá về $0$. Nếu còn người, đặt $s=t\bmod(m-1)$.

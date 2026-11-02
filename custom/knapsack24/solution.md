@@ -1,5 +1,3 @@
-# Lời giải — Một phiếu giảm giá
-
 Dùng `unused[s]` và `used[s]` là điểm lớn nhất ở chi phí **đúng** $s$, tương ứng chưa dùng phiếu và đã dùng đúng một phiếu. Khởi tạo chỉ `unused[0]=0`.
 
 Duyệt chi phí $s$ tăng. Từ chưa dùng, có thể mua sản phẩm đủ giá và giữ cờ, hoặc mua với giá một nửa và chuyển sang đã dùng. Từ đã dùng, chỉ được mua đủ giá. Mỗi lần mua đủ giá tăng chi phí vì $C_i>0$. Khi giảm giá về $0$, cạnh vẫn chuyển cờ từ $0$ sang $1$; xử lý trạng thái chưa dùng trước đã dùng tại cùng $s$ là thứ tự topo hợp lệ.

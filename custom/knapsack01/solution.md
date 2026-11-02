@@ -1,5 +1,3 @@
-# Lời giải — Chọn các số có tổng cho trước
-
 ## Trạng thái và khởi tạo
 
 `dp[s]` đúng khi chọn được một tập các vị trí đã xét có tổng **đúng bằng** $s$. Khởi tạo `dp[0]=true`, các tổng khác bằng `false`.

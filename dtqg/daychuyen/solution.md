@@ -1,5 +1,3 @@
-# Lời giải DAYCHUYEN — Dây chuyền sản xuất
-
 ## Đồ thị phụ thuộc
 
 Tạo một đỉnh cho mỗi công việc. Ràng buộc $(l,r,u)$ tạo các cạnh $j\to u$ với mọi $j\in[l,r]$. Một lịch hợp lệ tồn tại khi và chỉ khi đồ thị này không có chu trình: mọi công việc có thời gian thực hiện dương, nên không thể hoàn thành các công việc phụ thuộc vòng vào nhau.

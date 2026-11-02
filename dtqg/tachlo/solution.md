@@ -1,5 +1,3 @@
-# Lời giải TACHLO — Chia lô tránh xung đột
-
 ## Quy hoạch động
 
 Gọi $C(l,r)$ là số cặp cùng loại trong đoạn $[l,r]$. Đặt $D_g[i]$ là chi phí nhỏ nhất chia $i$ kiện đầu thành đúng $g$ lô không rỗng.

@@ -1,5 +1,3 @@
-# Lời giải ONDINH — Hiệu chỉnh tín hiệu có quán tính
-
 ## Quy hoạch động và phép chặn độ dốc
 
 Gọi $F_i(x)$ là chi phí nhỏ nhất cho $i$ vị trí đầu khi $X_i=x$. Có

@@ -1,5 +1,3 @@
-# Lời giải — Chu kỳ đồng bộ
-
 ### Thông tin tại mỗi nút
 
 Đáp án là bội chung nhỏ nhất (LCM) của các chu kỳ trong đoạn. Mỗi nút lưu LCM của đoạn mà nó quản lý.

@@ -1,5 +1,3 @@
-# Lời giải CHONCAY — Chọn đỉnh trên cây động
-
 ## DP tĩnh và lý do cập nhật khó
 
 Đặt gốc cây tại $1$. Gọi $f_0(u),f_1(u)$ là giá trị tốt nhất trong cây con $u$, khi lần lượt không chọn và chọn $u$:

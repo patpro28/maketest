@@ -1,0 +1,44 @@
+title = 'DTPHOTO — Chụp ảnh'
+timelimit = 3.0
+
+[[tests]]
+    name = "example.in"
+    number = 1
+    points = 0
+[[tests]]
+    name = "tiny.cpp"
+    number = 11
+    points = 9
+[[tests]]
+    name = "edge.cpp"
+    number = 5
+    points = 7
+[[tests]]
+    name = "small.cpp"
+    number = 8
+    points = 7
+[[tests]]
+    name = "random.cpp"
+    number = 8
+    points = 7
+[[tests]]
+    name = "max.cpp"
+    number = 12
+    points = 7
+
+[[solutions]]
+    name = "correct.cpp"
+    type = "correct"
+
+[params]
+    N_MAX = 100000
+    BRUTE_N_MAX = 8
+
+[upload]
+    points = 100
+    time_limit = 1.0
+    group = '04'
+    classes = 'E'
+    types = ['doituyen']
+    allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+    partial = true

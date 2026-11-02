@@ -1,5 +1,3 @@
-# Lời giải VEXE — Vé xe theo khu vực
-
 ## Đồ thị trực tiếp
 
 Mỗi trạm là một đỉnh. Vé $(u,l,r,c)$ tương đương với các cạnh $u\to j$ trọng số $c$ cho mọi $j\in[l,r]$. Bài toán trở thành tìm đường đi ngắn nhất từ $S$ trên đồ thị có trọng số không âm.

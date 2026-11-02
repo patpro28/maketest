@@ -1,5 +1,3 @@
-# SEGTREE122 — Lời giải
-
 ### Ý tưởng
 
 Ban đầu các giá trị $1,\ldots,N$ đều chưa được dùng, mỗi lá lưu $1$. Xử lý $i$ từ $N$ về $1$. Trong $i$ giá trị còn lại, chọn giá trị nhỏ thứ $i-e_i$ bằng cách đi xuống cây theo tổng con trái; đặt giá trị đó vào $a_i$ rồi cập nhật lá thành $0$.

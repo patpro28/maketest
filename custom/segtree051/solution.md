@@ -1,5 +1,3 @@
-# Lời giải — Đếm bội số
-
 ### Thông tin tại mỗi nút
 
 Mỗi lá lưu $1$ nếu phần tử tương ứng chia hết cho $K$, ngược lại lưu $0$. Mỗi nút lưu tổng các giá trị lá trong đoạn.

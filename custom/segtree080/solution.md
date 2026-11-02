@@ -1,5 +1,3 @@
-# Lời giải — Đoạn ngoặc hợp lệ
-
 ### Thông tin tại mỗi nút
 
 Đổi `(` thành $1$, `)` thành $-1$. Mỗi nút lưu tổng `sum` và tổng tiền tố nhỏ nhất `minPrefix`, có xét cả tiền tố rỗng với tổng $0$. Một lá chứa $x$ lưu $(x,\min(0,x))$.

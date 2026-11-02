@@ -1,5 +1,3 @@
-# Lời giải — Kiểm định chất lượng
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu số đo nhỏ nhất `mn` và lớn nhất `mx` của đoạn. Lá chứa $x$ lưu $(x,x)$.

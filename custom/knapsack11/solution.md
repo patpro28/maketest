@@ -1,5 +1,3 @@
-# Lời giải — Hai tuyến xe buýt
-
 Gọi $T=\sum T_i$. Nếu một xe nhận các nhóm có tổng thời gian $s$, xe còn lại mất $T-s$ phút. Thời điểm hoàn thành là $\max(s,T-s)$.
 
 Có thể đổi tên hai xe để $s\le T/2$. Khi đó mục tiêu trở thành tìm tổng $s$ lớn nhất không vượt $\lfloor T/2\rfloor$ có thể tạo bởi một tập nhóm; đáp án là $T-s$.

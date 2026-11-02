@@ -1,0 +1,9 @@
+Tính tổng tiền tố $P_0=0$, $P_i=P_{i-1}+A_i$. Duyệt đầu phải $R$ từ $K$ đến $N$. Đoạn dài đúng $K$ kết thúc tại $R$ bắt đầu ở $R-K+1$, nên có tổng $S=P_R-P_{R-K}$. Nếu $S$ thỏa điều kiện, tăng đáp án thêm $1$.
+
+Tách các chữ số thập phân của $S$, cộng chúng và so với $H$. Khi $S=0$, tổng chữ số khởi tạo bằng $0$ là đúng.
+
+Tính đúng đắn: mỗi đoạn dài đúng $K$ có duy nhất một đầu phải $R$ trong khoảng từ $K$ đến $N$. Vòng lặp xét mỗi đầu phải đó đúng một lần. Hiệu hai tổng tiền tố cho đúng tổng các phần tử trong đoạn, nên đáp án được tăng khi và chỉ khi đoạn đó thỏa điều kiện. Vì vậy mọi đoạn hợp lệ được đếm đủ và không trùng.
+
+Thời gian $O(N\log S_{\max})$, bộ nhớ $O(N)$. Mỗi tổng có nhiều nhất $15$ chữ số.
+
+Dùng số nguyên 64 bit cho tổng tiền tố, tổng đoạn và các tham số tổng. Trị tuyệt đối của tổng không vượt $2\cdot10^{14}$.

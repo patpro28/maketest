@@ -1,5 +1,3 @@
-# Lời giải DTTOPMAU — Những màu phổ biến nhất
-
 ## Chọn theo tần suất, không theo mã màu
 
 Với một cây con cố định, gọi các tần suất màu dương là $f_1,\ldots,f_D$. Truy vấn chọn tối đa $k$ màu cần tổng $\min(k,D)$ tần suất lớn nhất. Vì mọi tần suất dương, luôn chọn đủ số màu này.

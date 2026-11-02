@@ -1,5 +1,3 @@
-# Lời giải — Thống kê chẵn lẻ
-
 ### Thông tin lưu tại mỗi nút
 
 Mỗi nút lưu số phần tử chẵn và số phần tử lẻ trong đoạn. Một lá có giá trị $(1,0)$ nếu phần tử chẵn và $(0,1)$ nếu phần tử lẻ.

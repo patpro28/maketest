@@ -1,5 +1,3 @@
-# PREFIX020 — Hướng dẫn giải
-
 Tách các chữ số; trả về đúng ngay khi gặp chữ số $7$. Phần tử chứa nhiều chữ số $7$ vẫn chỉ được chọn một lần và đóng góp chính giá trị của nó vào tổng.
 
 Đặt $B_i=A_i$ nếu phần tử $A_i$ thỏa điều kiện, ngược lại đặt $B_i=0$. Tính $P_0=0$, $P_i=P_{i-1}+B_i$. Mỗi truy vấn trả về $P_R-P_{L-1}$.

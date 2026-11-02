@@ -119,6 +119,7 @@ memory_limit = 65536
         self.assertEqual(manifest['checker'], 'standard')
         self.assertEqual([c['input_file'] for c in manifest['cases']],
                          ['example_00.in', 'example_01.in'])
+        self.assertEqual([c['points'] for c in manifest['cases']], [1, 1])
         with zipfile.ZipFile(io.BytesIO(parts['upload'])) as archive:
             self.assertEqual(set(archive.namelist()),
                              {'example_00.in', 'example_00.out', 'example_01.in', 'example_01.out'})
@@ -166,6 +167,54 @@ memory_limit = 65536
         ProblemUpload(self.problem).upload(self.client)
         self.assertEqual(json.loads(self.requests[-1][3]), {'content': 'preferred'})
 
+    def test_only_editorial_skips_statement_tests_hashes_and_checker(self):
+        self.problem.clean()
+        (self.directory / 'task.md').unlink()
+        (self.directory / 'hash.json').unlink()
+        (self.directory / 'solution.md').write_text('## Ý tưởng\nCộng hai số.\n', encoding='utf-8')
+        del self.problem.config['tests']
+        self.problem.config['upload'] = {
+            'checker': 'custom', 'custom_checker': 'missing.cpp',
+            'manifest': 'missing.json', 'testcase_points': -1,
+        }
+        with patch.object(self.problem, 'assert_hashes') as hashes:
+            ProblemUpload(self.problem, only_editorial=True).upload(self.client)
+        hashes.assert_not_called()
+        self.assertEqual([(r[0], r[1]) for r in self.requests], [
+            ('PUT', '/api/v3/problem-import/problems/demo001/editorial')])
+        self.assertEqual(json.loads(self.requests[0][3]), {'content': '## Ý tưởng\nCộng hai số.\n'})
+
+    def test_only_editorial_file_selection(self):
+        (self.directory / 'solution.md').write_text('fallback')
+        (self.directory / 'editorial.md').write_text('preferred')
+        ProblemUpload(self.problem, only_editorial=True).upload(self.client)
+        self.assertEqual(json.loads(self.requests[-1][3]), {'content': 'preferred'})
+        (self.directory / 'explanation.md').write_text('configured')
+        self.problem.config['upload']['editorial'] = 'explanation.md'
+        ProblemUpload(self.problem, only_editorial=True).upload(self.client)
+        self.assertEqual(json.loads(self.requests[-1][3]), {'content': 'configured'})
+        self.assertEqual([r[0] for r in self.requests], ['PUT', 'PUT'])
+
+    def test_only_editorial_requires_nonempty_file(self):
+        with self.assertRaisesRegex(UploadError, 'No editorial found'):
+            ProblemUpload(self.problem, only_editorial=True)
+        (self.directory / 'solution.md').write_text(' \n')
+        with self.assertRaisesRegex(UploadError, 'is empty'):
+            ProblemUpload(self.problem, only_editorial=True)
+        self.problem.config['upload']['editorial'] = 'missing.md'
+        with self.assertRaises(FileNotFoundError):
+            ProblemUpload(self.problem, only_editorial=True)
+        self.assertEqual(self.requests, [])
+
+    def test_only_editorial_missing_remote_problem_does_not_create(self):
+        (self.directory / 'solution.md').write_text('Editorial')
+        self.statuses = [404]
+        with self.assertRaises(UploadError) as caught:
+            ProblemUpload(self.problem, only_editorial=True).upload(self.client)
+        self.assertEqual(caught.exception.status, 404)
+        self.assertEqual([(r[0], r[1]) for r in self.requests], [
+            ('PUT', '/api/v3/problem-import/problems/demo001/editorial')])
+
     def test_custom_manifest(self):
         manifest = {'checker': 'floats', 'checker_args': {'precision': 6}, 'cases': [
             {'type': 'S', 'points': 100},
@@ -173,9 +222,52 @@ memory_limit = 65536
             {'input_file': 'example_00.in', 'output_file': 'example_00.out'}, {'type': 'E'}]}
         (self.directory / 'manifest.json').write_text(json.dumps(manifest))
         self.problem.config['upload']['manifest'] = 'manifest.json'
+        self.problem.config['upload']['testcase_points'] = 7
+        self.problem.config['tests'][0]['points'] = 5
         self.problem.write_hashes()
         ProblemUpload(self.problem).upload(self.client)
         self.assertEqual(json.loads(self.multipart(self.requests[1])['manifest']), manifest)
+
+    def test_configured_testcase_points_and_group_override(self):
+        self.problem.config['upload'].update(testcase_points=5, points=100)
+        self.problem.config['tests'] = [
+            {'name': 'example.in', 'number': 1, 'points': 0},
+            {'name': 'random.cpp', 'number': 2}]
+        upload = ProblemUpload(self.problem)
+        self.assertEqual(upload.manifest['cases'], [
+            {'input_file': 'example_00.in', 'output_file': 'example_00.out', 'points': 0},
+            {'input_file': 'random_00.in', 'output_file': 'random_00.out', 'points': 5},
+            {'input_file': 'random_01.in', 'output_file': 'random_01.out', 'points': 5}])
+        self.assertEqual(upload.payload['points'], 100)
+        self.assertNotIn('testcase_points', upload.payload)
+
+    def test_explicit_testcase_points_override_all_groups(self):
+        self.problem.config['upload']['testcase_points'] = 5
+        self.problem.config['tests'][0]['points'] = 0
+        for points in (0, 3):
+            with self.subTest(points=points):
+                upload = ProblemUpload(self.problem, skip_statement=True, testcase_points=points)
+                self.assertEqual([c['points'] for c in upload.manifest['cases']], [points, points])
+
+    def test_invalid_testcase_points_rejected_before_requests(self):
+        for value in (-1, 1.5, True, '2', None, float('inf'), float('nan')):
+            for field in ('default', 'group'):
+                with self.subTest(value=value, field=field):
+                    self.problem.config['upload'].pop('testcase_points', None)
+                    self.problem.config['tests'][0].pop('points', None)
+                    if field == 'default':
+                        self.problem.config['upload']['testcase_points'] = value
+                    else:
+                        self.problem.config['tests'][0]['points'] = value
+                    with self.assertRaisesRegex(UploadError, 'non-negative integer'):
+                        ProblemUpload(self.problem, skip_statement=True)
+        self.assertEqual(self.requests, [])
+
+    def test_explicit_testcase_points_conflicts_with_manifest(self):
+        self.problem.config['upload']['manifest'] = 'manifest.json'
+        with self.assertRaisesRegex(UploadError, 'cannot be combined.*manifest'):
+            ProblemUpload(self.problem, testcase_points=3)
+        self.assertEqual(self.requests, [])
 
     def custom_checker(self, extension='.cpp', source=None, **settings):
         if source is None:
@@ -454,6 +546,74 @@ memory_limit = 65536
         self.assertFalse((self.directory / 'task.html').exists())
         self.problem.assert_hashes()
 
+    def test_cli_only_editorial_with_minimal_local_files(self):
+        self.problem.clean()
+        (self.directory / 'task.md').unlink()
+        (self.directory / 'hash.json').unlink()
+        (self.directory / 'info.toml').write_text('')
+        (self.directory / 'solution.md').write_text('Editorial')
+        result = self.run_cli(str(self.directory / 'info.toml'), '-u', '--only-editorial')
+        self.assertEqual(result.returncode, 0, result.stderr.decode())
+        self.assertEqual([(r[0], r[1]) for r in self.requests], [
+            ('PUT', '/api/v3/problem-import/problems/demo001/editorial')])
+        self.assertEqual(json.loads(self.requests[0][3]), {'content': 'Editorial'})
+        self.assertFalse((self.directory / 'in').exists())
+        self.assertFalse((self.directory / 'out').exists())
+        self.assertFalse((self.directory / 'task.html').exists())
+        self.assertFalse((self.directory / 'params.h').exists())
+
+    def test_cli_only_editorial_deduplicates_without_generation(self):
+        (self.directory / 'solution.md').write_text('Editorial')
+        with patch.dict(os.environ, {'HOST': self.host, 'PROBLEM_IMPORT_API_KEY': 'test-api-key'}), \
+                patch.object(generate, 'find_problem_dir', return_value=self.directory), \
+                patch.object(Problem, 'generate') as generation:
+            generate.main(['-p', 'DEMO001', '-u', 'DEMO001', '--only-editorial'])
+        generation.assert_not_called()
+        self.assertEqual([r[0] for r in self.requests], ['PUT'])
+
+    def test_cli_only_editorial_missing_file_fails_before_upload(self):
+        self.problem.clean()
+        result = self.run_cli(str(self.directory / 'info.toml'), '-u', '--only-editorial')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn(b'No editorial found', result.stderr)
+        self.assertFalse((self.directory / 'in').exists())
+        self.assertEqual(self.requests, [])
+
+    def test_cli_only_editorial_validates_entire_selection_before_upload(self):
+        other = self.root / 'DEMO002'
+        other.mkdir()
+        (other / 'info.toml').write_text('')
+        (self.directory / 'solution.md').write_text('Editorial')
+        result = self.run_cli(str(self.directory / 'info.toml'), str(other / 'info.toml'),
+                              '-u', '--only-editorial')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn(b'No editorial found', result.stderr)
+        self.assertEqual(self.requests, [])
+
+    def test_cli_testcase_points_with_skip_statement(self):
+        config = self.directory / 'info.toml'
+        config.write_text(config.read_text().replace('[upload]', '[upload]\ntestcase_points = 5')
+                          .replace('number = 2', 'number = 2\npoints = 0'))
+        self.problem.clean()
+        result = self.run_cli(str(config), '-u', '--skip-statement', '--testcase-points', '3')
+        self.assertEqual(result.returncode, 0, result.stderr.decode())
+        self.assertEqual([r[1] for r in self.requests], [
+            '/api/v3/problem-import/problems/demo001/testcases'])
+        manifest = json.loads(self.multipart(self.requests[0])['manifest'])
+        self.assertEqual([c['points'] for c in manifest['cases']], [3, 3])
+        self.problem.assert_hashes()
+
+    def test_cli_invalid_testcase_points_fail_before_generation(self):
+        self.problem.clean()
+        for args in (['--testcase-points', '3'], ['-u', '--testcase-points', '-1'],
+                     ['-u', '--testcase-points', '1.5']):
+            with self.subTest(args=args):
+                result = self.run_cli(str(self.directory / 'info.toml'), *args)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn(b'--testcase-points', result.stderr)
+        self.assertFalse((self.directory / 'in').exists())
+        self.assertEqual(self.requests, [])
+
     def test_cli_custom_checker_upload_with_skip_statement(self):
         self.custom_checker()
         config = self.directory / 'info.toml'
@@ -489,7 +649,11 @@ memory_limit = 65536
     def test_cli_rejects_conflicting_modes_and_empty_selection(self):
         for args in (['-u'], ['-u', '--clean'], ['-u', '--dev'], ['-u', '--test'],
                      ['-u', '--only-html'], ['-u', '-z', 'DEMO001'],
-                     ['--skip-statement'], ['-p', 'DEMO001', '--skip-statement']):
+                     ['--skip-statement'], ['-p', 'DEMO001', '--skip-statement'],
+                     ['--only-editorial'], ['-p', 'DEMO001', '--only-editorial'],
+                     ['-u', '--only-editorial'],
+                     ['-u', 'DEMO001', '--only-editorial', '--skip-statement'],
+                     ['-u', 'DEMO001', '--only-editorial', '--testcase-points', '3']):
             with self.subTest(args=args):
                 result = self.run_cli(*args)
                 self.assertNotEqual(result.returncode, 0)

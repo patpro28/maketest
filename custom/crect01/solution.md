@@ -1,5 +1,3 @@
-# Hướng dẫn giải
-
 Xét lần lượt từng dòng làm cạnh dưới của hình chữ nhật. Với mỗi cột $j$, gọi $h_j$ là số ô $1$ liên tiếp đi lên từ dòng hiện tại. Nếu ô hiện tại là $0$, đặt $h_j=0$; nếu là $1$, tăng $h_j$ thêm một.
 
 Với đoạn cột $[l,r]$, số hình chữ nhật có cạnh dưới ở dòng hiện tại và chiếm đúng đoạn cột đó là $\min(h_l,\ldots,h_r)$: chiều cao có thể là bất kỳ số nguyên từ $1$ đến giá trị nhỏ nhất này. Vì vậy cần tính tổng giá trị nhỏ nhất trên mọi đoạn con của mảng $h$.

@@ -1,5 +1,3 @@
-# Lời giải — Đếm số cách chọn đạt đúng tổng
-
 ## Trạng thái và khởi tạo
 
 `dp[s]` là số tập chỉ số của các vị trí đã xét có tổng **đúng bằng** $s$, lấy modulo $10^9+7$. Khởi tạo `dp[0]=1` cho tập rỗng; các tổng khác bằng $0$.

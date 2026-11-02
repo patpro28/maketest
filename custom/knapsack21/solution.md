@@ -1,5 +1,3 @@
-# Lời giải — Đổi tiền tối ưu có bao nhiêu cách?
-
 Mỗi tổng lưu cặp `(best,ways)`: số đồng ít nhất và số cách đạt nó. Khởi tạo tổng $0$ bằng $(0,1)$, các tổng khác bằng $(X+1,0)$.
 
 Duyệt mệnh giá ở vòng ngoài và tổng tăng dần. Ứng viên dùng thêm một đồng $A_i$ có số đồng `best[s-A_i]+1` và số cách `ways[s-A_i]`. Nếu tốt hơn, thay cả cặp; nếu bằng, cộng số cách modulo.

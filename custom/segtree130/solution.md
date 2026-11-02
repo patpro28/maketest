@@ -1,5 +1,3 @@
-# Lời giải — Mốc doanh thu
-
 ### Thông tin trên cây
 
 Lưu tổng doanh thu của mỗi đoạn bằng số nguyên 64 bit.

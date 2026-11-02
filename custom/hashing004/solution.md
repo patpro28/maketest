@@ -1,5 +1,3 @@
-# Lời giải — HASHING004
-
 Chuẩn bị hash tiền tố kép. Với mỗi truy vấn, tìm kiếm nhị phân độ dài tiền tố chung $t$ trong khoảng từ $0$ đến độ dài đoạn ngắn hơn.
 
 Nếu $t$ bằng độ dài đoạn ngắn hơn, so sánh hai độ dài: bằng nhau cho kết quả `=`, còn đoạn ngắn hơn đứng trước. Ngược lại, so sánh trực tiếp ký tự ở vị trí $t+1$ của hai đoạn. Đây chính là vị trí khác nhau đầu tiên, nên quyết định thứ tự từ điển.

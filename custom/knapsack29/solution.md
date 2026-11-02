@@ -1,5 +1,3 @@
-# Lời giải — Ghép đường ray dài tới 10^18
-
 Đặt $m=\min A_i$. Xây đồ thị ngầm có $m$ đỉnh là các số dư. Thêm một đoạn dài $A_i$ tạo cạnh từ $r$ tới $(r+A_i)\bmod m$, trọng số $A_i$. Các cạnh dương nên dùng Dijkstra từ dư $0$ để tìm `dist[r]`, tổng chiều dài nhỏ nhất ghép được có dư $r$.
 
 Nếu ghép được $X$, tổng này là một đường đi đến dư $X\bmod m$, nên `dist[X%m] <= X`. Ngược lại, nếu bất đẳng thức đúng, hiệu $X-dist[X%m]$ là số không âm chia hết cho $m$; thêm đúng số đoạn dài $m$ tương ứng để đạt $X$. Vì $m$ là một chiều dài thực sự có trong đầu vào, phép bổ sung luôn hợp lệ.

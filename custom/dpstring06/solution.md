@@ -1,5 +1,3 @@
-# Lời giải — DPSTRING06
-
 Chỉ cần ba trạng thái: kết thúc bằng một nguyên âm ($V$), một phụ âm ($C_1$), hoặc hai phụ âm liên tiếp ($C_2$). Dãy rỗng có điểm $0$; các trạng thái chưa có dãy mang giá trị âm vô cùng.
 
 Gặp nguyên âm có điểm $w$, có thể nối sau dãy rỗng, $C_1$ hoặc $C_2$ để cập nhật $V$. Gặp phụ âm, có thể nối sau dãy rỗng hoặc $V$ để cập nhật $C_1$, hoặc nối sau $C_1$ cũ để cập nhật $C_2$. Luôn có thêm phương án bỏ ký tự và giữ nguyên trạng thái.

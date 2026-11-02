@@ -1,5 +1,3 @@
-# Lời giải — Mua vé đạt đủ điểm
-
 Dùng `dp[p]` là chi phí ít nhất để đạt tổng điểm đã chặn ở $X$: chỉ số $p<X$ biểu diễn đúng $p$ điểm, còn $p=X$ biểu diễn ít nhất $X$ điểm.
 
 Khởi tạo `dp[0]=0`, các trạng thái khác vô cùng. Khi xét vé $(C_i,P_i)$, có thể bỏ qua vé hoặc mua vé để chuyển từ $p$ đến $\min(X,p+P_i)$ với chi phí cộng $C_i$. Duyệt $p$ giảm để không mua một vé nhiều lần. Chuyển từ $X$ đến chính $X$ không cải thiện đáp án vì giá vé dương.

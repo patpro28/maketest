@@ -1,5 +1,3 @@
-# Lời giải — Đếm cách ghép đôi
-
 ### Trạng thái
 
 Chọn đỉnh $1$ làm gốc. Chỉ xét các cạnh có cả hai đầu trong cây con của $u$:

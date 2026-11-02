@@ -1,5 +1,3 @@
-# Lời giải — Điều chỉnh cây biểu thức
-
 ### Trạng thái
 
 Gọi $dp[u][r]$ là tổng chi phí nhỏ nhất ở các lá thuộc cây con của $u$ để giá trị tại $u$ bằng $r$, với $r\in\{0,1,2\}$.

@@ -22,11 +22,12 @@
 ## Mã bài trong thư mục dtqg
 
 - Mọi bài tập nằm trong `dtqg/` phải có tên thư mục bắt đầu bằng tiền tố `dt`; mã bài tương ứng viết hoa và bắt đầu bằng `DT`. Ví dụ: thư mục `dtqg/dtbasac/` dùng mã `DTBASAC`.
-- Khi tạo mới hoặc đổi mã bài trong `dtqg/`, giữ thống nhất tiền tố giữa tên thư mục, tiêu đề trong `task.md`, `solution.md`, trường `title` trong `info.toml` và các tài liệu, đường dẫn kiểm thử liên quan. Kiểm tra quy tắc này trước khi hoàn tất.
+- Khi tạo mới hoặc đổi mã bài trong `dtqg/`, giữ thống nhất tiền tố giữa tên thư mục, tiêu đề trong `task.md`, mã bài nếu xuất hiện trong `solution.md`, trường `title` trong `info.toml` và các tài liệu, đường dẫn kiểm thử liên quan. Kiểm tra quy tắc này trước khi hoàn tất.
 - Quy tắc tiền tố áp dụng cho thư mục bài tập; các thư mục công cụ hoặc bộ kiểm thử dùng chung không phải mã bài.
 
 ## Nội dung lời giải
 
+- `solution.md` không có dòng tiêu đề riêng ở đầu, chẳng hạn `# MÃ_BÀI — Hướng dẫn giải`, và không dùng heading cấp 1 (`# ...`). Bắt đầu trực tiếp bằng nội dung lời giải hoặc heading của mục nội dung (từ cấp 2 trở xuống), tránh lặp tiêu đề khi xuất PDF hàng loạt. Áp dụng quy tắc này khi tạo mới hoặc chỉnh sửa `solution.md`.
 - `solution.md` không được có mục kiểm thử, kiểm chứng bằng test hoặc nội dung mô tả bộ sinh, oracle, verifier, checker, benchmark và kết quả chạy test. Lưu các nội dung này trong tài liệu kiểm thử riêng, chẳng hạn `tests/README.md` hoặc README của bộ kiểm thử dùng chung.
 - Lời giải tập trung vào ý tưởng, thuật toán, chứng minh tính đúng đắn, độ phức tạp và lưu ý cài đặt. Chứng minh tính đúng đắn của thuật toán vẫn được phép và cần phân biệt với kiểm chứng bằng test.
 

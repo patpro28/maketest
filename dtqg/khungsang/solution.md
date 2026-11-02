@@ -1,5 +1,3 @@
-# Lời giải KHUNGSANG — Tổng diện tích các khung sáng
-
 ## Xét từng hàng làm đáy
 
 Với một hàng đáy cố định, gọi $H_j$ là số ô $1$ liên tiếp đi lên từ ô ở cột $j$. Khi đọc hàng mới, tăng $H_j$ nếu ô bằng $1$, ngược lại đặt bằng $0$.

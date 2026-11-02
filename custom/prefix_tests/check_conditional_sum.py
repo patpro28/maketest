@@ -96,7 +96,7 @@ def audit(p,k):
     assert re.findall(r'^### (.+)$',text,re.M) == ['Đề bài','Dữ liệu vào','Dữ liệu ra','Ràng buộc','Sample Input 1','Sample Output 1','Sample Input 2','Sample Output 2','Giải thích']
     assert 'Subtask' not in text
     assert toml.load(p/'info.toml')['title'].startswith(f'PREFIX{k+11:03} - ')
-    assert (p/'solution.md').read_text().startswith(f'# PREFIX{k+11:03} — ')
+    assert not re.search(r'(?m)^ {0,3}#(?:[ \t]|$)', (p/'solution.md').read_text())
     blocks = re.findall(r'```text\n(.*?)```',text,re.S)
     assert len(blocks)==4
     for i in range(2):

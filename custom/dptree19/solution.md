@@ -1,5 +1,3 @@
-# Lời giải — Ngăn dòng nước
-
 ### Trạng thái
 
 Chọn điểm $1$ làm gốc. Các lá khác gốc chính là các đầu ra được xác định trong hệ thống ban đầu.

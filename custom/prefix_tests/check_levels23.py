@@ -116,7 +116,7 @@ def audit(p,code):
     assert cfg['title'].startswith(f'PREFIX{code:03} - ')
     assert cfg['upload']==UPLOAD
     sol=(p/'solution.md').read_text()
-    assert sol.startswith(f'# PREFIX{code:03} — ')
+    assert not re.search(r'(?m)^ {0,3}#(?:[ \t]|$)', sol)
     assert all(word not in sol.lower() for word in ('oracle','verifier','checker','benchmark','bộ sinh','kiểm thử'))
     assert not list(p.glob('*.html'))
 

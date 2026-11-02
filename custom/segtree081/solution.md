@@ -1,5 +1,3 @@
-# Lời giải — Mức tăng tốt nhất
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu min, max và hiệu lớn nhất `best` của một cặp có thứ tự trong đoạn. Một lá chứa $x$ lưu `mn = mx = x`, `best = -∞` vì chưa có đủ hai vị trí.

@@ -1,5 +1,3 @@
-# SEGTREE125 — Lời giải
-
 ### Ý tưởng
 
 Lá lưu số lần lặp của khối, nút lưu tổng độ dài bằng số nguyên 64 bit. Ký tự của từng khối được lưu riêng. Nếu tổng ở gốc nhỏ hơn k, trả về −1. Ngược lại đi xuống: nếu tổng con trái đủ k thì đi trái, nếu không trừ tổng con trái khỏi k rồi đi phải. Khi tới lá, k còn lại chính là thứ tự trong khối. Thao tác loại 1 cập nhật ký tự và độ dài tại một vị trí.

@@ -1,5 +1,3 @@
-# Lời giải DIEUPHOI — Sắp đội hình trên đường thẳng
-
 ## Bỏ chiều dài và khoảng cách an toàn khỏi điều kiện
 
 Đặt $P_1=0$ và $P_i=\sum_{j<i}(L_j+G_j)$. Gọi $Y_i=X_i-P_i$, $B_i=A_i-P_i$. Khi đó:

@@ -1,5 +1,3 @@
-# SEGTREE112 — Lời giải
-
 ### Ý tưởng
 
 Lưu số trạm hoạt động trên mỗi nút. Tìm trạm hoạt động cuối cùng trong $[1,p]$ bằng cách ưu tiên con phải, và trạm hoạt động đầu tiên trong $[p,N]$ bằng cách ưu tiên con trái. Bỏ qua các nút có tổng bằng $0$. So sánh hai ứng viên, chọn bên trái khi hòa.

@@ -1,5 +1,3 @@
-# Lời giải — Khu vườn có lợi nhuận lớn nhất
-
 ### Trạng thái và chuyển trạng thái
 
 Chọn đỉnh $1$ làm gốc. Gọi $dp[u]$ là tổng lớn nhất của một tập đỉnh không rỗng, liên thông, nằm trong cây con của $u$ và chứa $u$.

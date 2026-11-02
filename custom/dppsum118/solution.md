@@ -1,5 +1,3 @@
-# PREFIX18 — Hướng dẫn giải
-
 Tính $B_i=B_{i-1}+A_i$ với $B_0=0$, rồi tính $P_i=P_{i-1}+B_i$ với $P_0=0$. Mỗi truy vấn trả về $P_R-P_{L-1}$.
 
 Tính đúng đắn: Lượt cộng dồn đầu tính đúng số dư cuối từng ngày từ ngày 1. Lượt cộng dồn thứ hai cho phép lấy tổng các số dư trong đoạn bằng hiệu hai tiền tố.

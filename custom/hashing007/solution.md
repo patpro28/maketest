@@ -1,5 +1,3 @@
-# Lời giải — HASHING007
-
 Xây dựng bốn bảng, lần lượt là bảng gốc và các bảng xoay $90$, $180$, $270$ độ theo chiều kim đồng hồ. Với mỗi bảng, lưu hash tiền tố hai chiều theo hai modulo, dùng cơ số hàng và cột riêng biệt.
 
 Với một modulo, công thức dựng là $F[i][j]=a[i][j]+X F[i-1][j]+Y F[i][j-1]-XY F[i-1][j-1]$. Công thức bao hàm loại trừ cho phép lấy hash hình chữ nhật đã chuẩn hóa trong $O(1)$.

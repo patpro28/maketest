@@ -1,5 +1,3 @@
-# Hướng dẫn giải
-
 Kết quả không vượt quá $N$ vì mỗi thao tác đổi làm giảm số sách.
 
 Xét việc đọc đến tập $k$. Gọi $c$ là số tập phân biệt trong đoạn $[1,k]$ đã có. Giữ lại một cuốn cho mỗi tập này, còn $N-c$ cuốn có thể đem đổi. Cần mua $k-c$ tập còn thiếu, mỗi tập tốn hai cuốn, nên điều kiện cần và đủ là:

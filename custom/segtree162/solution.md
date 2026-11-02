@@ -1,5 +1,3 @@
-# SEGTREE162 — Lời giải
-
 ### Ý tưởng
 
 Lưu GCD trên mỗi nút. Bỏ qua nút ngoài đoạn truy vấn hoặc có GCD chia hết cho D. Với nút còn lại, tìm con trái trước rồi con phải; cập nhật GCD trên đường đi khi thay đổi một phần tử.

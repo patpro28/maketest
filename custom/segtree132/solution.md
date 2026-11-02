@@ -1,5 +1,3 @@
-# SEGTREE132 — Lời giải
-
 ### Ý tưởng
 
 Nút lưu tổng. Gọi tổng toàn dãy là $T$. Nếu $T=0$, trả về $(1,2)$; nếu $T$ không chia hết cho $3$, thất bại. Với $T>0$, đi xuống cây tìm tiền tố đầu tiên có tổng ít nhất $T/3$ và $2T/3$. Kiểm tra tổng tại hai vị trí phải bằng đúng ngưỡng và vị trí thứ hai nhỏ hơn $N$. Có thể kiểm tra bằng truy vấn tổng tiền tố hoặc kiểm tra lượng còn thiếu ngay tại lá tìm được.

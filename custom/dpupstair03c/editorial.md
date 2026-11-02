@@ -1,5 +1,3 @@
-# DPUPSTAIR03C — Hướng dẫn giải
-
 Đặt $dp[i][j]$ là số cách xử lý $i$ ô đầu và dùng đúng $j$ viên gạch dài $2$ ô. Khởi tạo $dp[0][0]=1$, các trạng thái còn lại bằng $0$.
 
 Nếu ô $i$ có chậu cây thì chỉ bỏ qua ô đó: $dp[i][j]=dp[i-1][j]$.

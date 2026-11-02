@@ -1,5 +1,3 @@
-# Lời giải — Sản xuất bằng hai nguyên liệu
-
 `dp[x][y]` là lợi nhuận lớn nhất khi tiêu thụ không vượt $x$ kim loại và $y$ nhựa với các loại đã xét. Khởi tạo mọi trạng thái bằng $0$.
 
 Với sản phẩm $(A_i,B_i,V_i)$, duyệt cả hai nguồn tăng, cập nhật từ `dp[x-A_i][y-B_i]+V_i`. Nguồn đã cho phép dùng loại hiện tại, nên có thể sản xuất lại. Trọng lượng mỗi nguồn đều dương, đảm bảo nguồn ở trước đích trong thứ tự duyệt và số sản phẩm hữu hạn.

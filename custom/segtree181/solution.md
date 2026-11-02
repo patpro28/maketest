@@ -1,5 +1,3 @@
-# SEGTREE181 — Lời giải
-
 ### Ý tưởng
 
 Mỗi nút lưu tổng kinh phí và tổng dấu hiệu. Duy trì hai tổng đã nhận kể từ $l$. Nếu nhận cả một nút mà vẫn có ít nhất một ngưỡng chưa đạt, nhận nút rồi tiếp tục. Nếu nhận nút sẽ đạt cả hai ngưỡng, đi xuống để tìm lá đầu tiên làm cả hai điều kiện đúng. Dùng số nguyên 64 bit cho kinh phí.

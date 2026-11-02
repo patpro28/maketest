@@ -1,5 +1,3 @@
-# Lời giải — Nâng cấp robot
-
 Trước hết cho tất cả linh kiện chạy thường, thu được $base=S+\sum A_i$. Ép xung linh kiện $i$ chỉ làm tăng thêm $D_i=B_i-A_i$. Cần chọn không quá $K$ vị trí có tổng phần tăng đúng bằng $R=X-base$.
 
 Nếu $R<0$ hoặc $R>\sum D_i$, đáp án là `NO`. Có thể dùng trạng thái boolean `f[k][s]`: đạt tổng $s$ với đúng $k$ linh kiện ép xung.

@@ -1,5 +1,3 @@
-# Lời giải — DPSTRING02
-
 Đổi mục tiêu thành giữ lại tổng chi phí lớn nhất. Gọi $dp[c]$ là tổng chi phí lớn nhất của dãy hợp lệ kết thúc bằng chữ $c$; có thể khởi tạo bằng $0$ vì mọi chi phí không âm.
 
 Khi gặp chữ $c$ có chi phí $w$, tính $best=\max(0,\max_{d\ne c}dp[d])$ trước khi cập nhật, rồi gán $dp[c]\gets\max(dp[c],best+w)$.

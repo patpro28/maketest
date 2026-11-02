@@ -1,5 +1,3 @@
-# Lời giải — Đổi tiền với ít đồng nhất
-
 `dp[s]` là số đồng tiền ít nhất để đổi đúng $s$ bằng các mệnh giá đã xét. Khởi tạo `dp[0]=0`, các trạng thái khác bằng `INF=X+1`. Vì mỗi đồng có giá trị ít nhất $1$, một phương án đạt $s\le X$ không dùng quá $X$ đồng.
 
 Với mệnh giá $A_i$, duyệt $s$ **tăng dần** từ $A_i$ tới $X$:

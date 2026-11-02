@@ -1,5 +1,3 @@
-# BS13A — Hướng dẫn giải
-
 ## Đọc điều kiện và xác định khoảng
 
 Điều kiện để chọn phần tử thứ $i$ là $0\le X-A_i\le K$, tương đương với $X-K\le A_i\le X$.

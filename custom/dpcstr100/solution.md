@@ -1,5 +1,3 @@
-# Lời giải — DPSTR100
-
 Đặt $L[i][j]$ là độ dài dãy con chung dài nhất của hai tiền tố $A_1\ldots A_i$ và $B_1\ldots B_j$. Khi một tiền tố rỗng, giá trị bằng $0$.
 
 Nếu $A_i=B_j$ thì $L[i][j]=L[i-1][j-1]+1$. Ngược lại, $L[i][j]=\max(L[i-1][j],L[i][j-1])$.

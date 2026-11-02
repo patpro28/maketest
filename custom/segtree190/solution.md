@@ -1,5 +1,3 @@
-# Lời giải — Bảng điều phối
-
 ### Thông tin trên cây
 
 Mỗi nút lưu ba đại lượng: tổng lượng hàng, lượng hàng lớn nhất và số kho có hàng. Một lần cập nhật sửa cả ba tại lá rồi ghép lên gốc.

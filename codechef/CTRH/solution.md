@@ -1,5 +1,3 @@
-# Lời giải
-
 Từ phiên bản dễ, ta biết rằng trong một phương án tối ưu, mỗi đỉnh không phải lá có điểm số bằng $2$: các đỉnh kề với nó chứa đủ cả hai màu khác với màu của nó. Mỗi đỉnh lá có điểm số bằng $3$: đỉnh kề với nó có màu khác, và một đỉnh kề với đỉnh đó mang màu thứ ba.
 
 Để đếm số cách tô màu, ta sử dụng quy hoạch động trên cây.

@@ -1,5 +1,3 @@
-# Lời giải CUASOMIN — Tổng cực tiểu trong cửa sổ
-
 ## Xử lý truy vấn theo đầu phải
 
 Đặt

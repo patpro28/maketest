@@ -1,5 +1,3 @@
-# Lời giải — Độ cao địa hình
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu cặp `mn`, `mx`: độ cao thấp nhất và cao nhất của đoạn. Lá ở vị trí $i$ lưu $(A_i,A_i)$.

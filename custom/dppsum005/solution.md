@@ -1,5 +1,3 @@
-# PREFIX005 — Hướng dẫn giải
-
 Loại số âm. Với số không âm, lấy căn bậc hai gần đúng rồi điều chỉnh bằng phép nhân số nguyên trước khi kiểm tra bình phương bằng số ban đầu. Dùng số nguyên 64 bit cho phép nhân để tránh tràn.
 
 Đặt $B_i=1$ nếu $A_i$ thỏa điều kiện, ngược lại đặt $B_i=0$. Tính $P_0=0$, $P_i=P_{i-1}+B_i$. Mỗi truy vấn trả về $P_R-P_{L-1}$.

@@ -1,5 +1,3 @@
-# Lời giải — Chênh lệch với mốc
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu một giá trị đại diện `first` là phần tử đầu đoạn và $g=\gcd(|A_i-\text{first}|)$ với mọi phần tử trong đoạn. Lá chứa $x$ lưu `first = x`, `g = 0`. Có thêm cờ nhận biết nút rỗng.

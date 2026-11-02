@@ -1,5 +1,3 @@
-# PREFIX04 — Hướng dẫn giải
-
 Gọi $S_i$ là tổng thay đổi năng lượng qua $i$ trạm, $S_0=0$. Với năng lượng ban đầu $E$, sau trạm $i$ còn $E+S_i$. Mọi điều kiện tương đương $E\ge-\min_{0\le i\le N}S_i$. Vì có $S_0=0$, đáp án chính là $-\min S_i$.
 
 Tính đúng đắn: Năng lượng ban đầu nhỏ hơn đáp án sẽ âm tại một tiền tố đạt min; năng lượng bằng đáp án khiến mọi tiền tố đều không âm.

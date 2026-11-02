@@ -1,5 +1,3 @@
-# Lời giải — DPSTRING03
-
 Tối đa hóa tổng chi phí được giữ lại. Lưu $dp[c][k]$: điểm tốt nhất của dãy kết thúc bằng một đoạn gồm đúng $k$ chữ $c$, với $k\in\{1,2\}$. Các trạng thái chưa tồn tại mang giá trị âm vô cùng.
 
 Với chữ $c$ có điểm $w$, bắt đầu đoạn cuối mới bằng cách nối vào dãy rỗng hoặc dãy kết thúc bằng chữ khác $c$. Để đoạn cuối có độ dài $2$, chỉ được nối vào trạng thái cũ $dp[c][1]$. Ngoài ra có thể bỏ ký tự, giữ nguyên các trạng thái.

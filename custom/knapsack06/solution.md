@@ -1,5 +1,3 @@
-# Lời giải — Ghép đoạn dây đạt đúng độ dài
-
 `dp[s]` cho biết có ghép được đúng chiều dài $s$ từ các loại đã xét hay không. Khởi tạo `dp[0]=true`, các trạng thái khác bằng `false`.
 
 Với chiều dài $A_i$, duyệt $s$ **tăng dần** từ $A_i$ tới $X$:

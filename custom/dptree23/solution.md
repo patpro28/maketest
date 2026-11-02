@@ -1,5 +1,3 @@
-# Lời giải — Bảo vệ các con đường
-
 ### Trạng thái
 
 Chọn đỉnh $1$ làm gốc. Xét các cạnh có cả hai đầu nằm trong cây con gốc $u$:

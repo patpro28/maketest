@@ -1,5 +1,3 @@
-# Lời giải — Đội trưởng phải đủ mạnh
-
 Sắp xếp các chiến binh theo $A_i$ không giảm; khi bằng nhau, cố định một thứ tự bất kỳ. Mỗi đội không rỗng có đúng một thành viên đứng cuối theo thứ tự này. Nếu thành viên cuối là $i$, sức mạnh lớn nhất của đội bằng $A_i$.
 
 Duy trì `dp[s]` là số tập con của các chiến binh **đã xét trước** có tổng trang bị $s$, modulo $998244353$. Khởi tạo `dp[0]=1` cho tập rỗng. Trước khi thêm chiến binh $i$ vào DP, cộng $\sum_{s=0}^{A_i-B_i}dp[s]$ vào đáp án; nếu $A_i<B_i$, không cộng gì. Sau đó cập nhật DP theo tổng giảm như bài đếm tập con.

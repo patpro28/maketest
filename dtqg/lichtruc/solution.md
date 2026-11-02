@@ -1,5 +1,3 @@
-# Lời giải LICHTRUC — Lịch công việc tuần hoàn
-
 ## Chọn trạng thái đủ thông tin
 
 Tính hợp lệ của ngày tiếp theo chỉ phụ thuộc vào số ngày làm liên tiếp ở cuối lịch và công việc vừa làm. Dùng bảy trạng thái:

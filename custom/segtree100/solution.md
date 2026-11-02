@@ -1,5 +1,3 @@
-# Lời giải — Ô trống đầu tiên
-
 ### Thông tin trên cây
 
 Lưu số ô trống trong mỗi đoạn. Lá chứa trạng thái $x$ lưu $1-x$; nút cha cộng hai số đếm.

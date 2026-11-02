@@ -1,5 +1,3 @@
-# Lời giải DAYNEN — Dãy số nén
-
 ## DP khi đọc một dãy thông thường
 
 Dùng $C+1$ trạng thái $0,1,\ldots,C$. Trạng thái $0$ biểu diễn chưa chọn phần tử nào; trạng thái $j>0$ biểu diễn giá trị cuối của dãy con đã chọn bằng $j$. Giá trị DP là độ dài lớn nhất của dãy con tương ứng.

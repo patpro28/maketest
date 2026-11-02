@@ -1,5 +1,3 @@
-# PREFIX03 — Hướng dẫn giải
-
 Duyệt ngày bán từ $2$ đến $N$, duy trì giá nhỏ nhất của các ngày trước đó. Lợi nhuận tốt nhất cho ngày bán hiện tại bằng giá hôm nay trừ giá nhỏ nhất đó. Lấy max với đáp án ban đầu bằng $0$, rồi cập nhật giá nhỏ nhất. Nếu $N=1$, đáp án là $0$.
 
 Tính đúng đắn: Mỗi giao dịch có một ngày bán; ở ngày đó giá mua nhỏ nhất trong các ngày trước cho lợi nhuận tối ưu. Lấy lớn nhất qua mọi ngày và phương án không giao dịch là đủ.

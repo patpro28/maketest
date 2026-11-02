@@ -1,5 +1,3 @@
-# Lời giải — Thu và chi
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu tổng thu `income` và tổng chi không âm `expense`. Một lá chứa giá trị $x$ lưu $(\max(x,0),\max(-x,0))$.

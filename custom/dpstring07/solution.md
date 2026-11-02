@@ -1,5 +1,3 @@
-# Lời giải — DPSTRING07
-
 Lưu $E$: điểm tốt nhất sau một số cặp đã hoàn tất; $P_a,P_b$: điểm tốt nhất khi đã hoàn tất một số cặp và giữ thêm ký tự đầu của cặp mới là `a` hoặc `b`.
 
 Ban đầu $E=0$, hai trạng thái chờ là âm vô cùng. Với ký tự $c$ có điểm $w$, có thể bỏ qua; mở cặp mới từ $E$ cũ để cập nhật $P_c$; hoặc đóng cặp từ $P_d$ với $d\ne c$ để cập nhật $E$.

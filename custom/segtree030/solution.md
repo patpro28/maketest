@@ -1,5 +1,3 @@
-# Lời giải — Chia các bao kẹo
-
 ### Thông tin tại mỗi nút
 
 Điều kiện chia hết từng bao tương đương với $d$ là ước chung của mọi $A_i$ trong đoạn. Do đó đáp án là ước chung lớn nhất (GCD) của đoạn. Mỗi nút lưu GCD trên đoạn của nó.

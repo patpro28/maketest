@@ -1,5 +1,3 @@
-# SEGTREE182 — Lời giải
-
 ### Ý tưởng
 
 Nút lưu tổng và GCD. Tích lũy hai đại lượng của phần đã đi qua, ban đầu tổng bằng 0 và GCD bằng 0. Nếu nhận toàn bộ nút mà vẫn thiếu tổng hoặc GCD còn lớn hơn G, nhận nút rồi tiếp tục. Nếu cả hai điều kiện đúng, đi xuống nút để tìm lá đầu tiên làm chúng cùng đúng. Dùng số nguyên 64 bit cho tổng.

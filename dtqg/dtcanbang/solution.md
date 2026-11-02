@@ -1,5 +1,3 @@
-# Lời giải DTCANBANG — Điểm tập kết tối ưu
-
 ## Vị trí tối ưu là trung vị có trọng số
 
 Với tập đỉnh đang xét, đặt $W=\sum_v W_v$ và

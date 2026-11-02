@@ -1,5 +1,3 @@
-# Lời giải — Hành trình thu thập phần thưởng
-
 ### Ba câu hỏi để xây dựng lời giải
 
 **Cần tính gì tại đỉnh $u$?** Gọi $dp[u]$ là tổng phần thưởng lớn nhất của một hành trình bắt đầu tại $u$ và kết thúc tại một lá trong cây con của $u$. Tổng bao gồm phần thưởng tại $u$.

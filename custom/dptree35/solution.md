@@ -1,5 +1,3 @@
-# Lời giải — Hoàn thành nhiệm vụ
-
 ### Ba câu hỏi để xây dựng lời giải
 
 **Cần tính gì tại đỉnh $u$?** Gọi $dp[u]$ là chi phí nhỏ nhất để hoàn thành nhiệm vụ $u$.

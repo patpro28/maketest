@@ -53,6 +53,10 @@ export PROBLEM_IMPORT_API_KEY='<khóa nhập đề>'
 ./generate.py custom/knapsack00/info.toml -u
 # Tải lại test và lời giải, giữ nguyên đề và thông tin bài trên máy chủ:
 ./generate.py -u knapsack00 --skip-statement
+# Chỉ tải lời giải, không sinh test hay cập nhật các phần khác:
+./generate.py -u knapsack00 --only-editorial
+# Đặt 5 điểm cho mỗi testcase khi tải lại:
+./generate.py -u knapsack00 --skip-statement --testcase-points 5
 ```
 
 `HOST` nhận URL máy chủ, có thể kèm `/api/v3/problem-import`. Nếu chỉ ghi tên
@@ -70,6 +74,7 @@ allowed_languages = ['PY3', 'CPP17']
 # Các trường tùy chọn:
 memory_limit = 65536  # KiB
 points = 100
+testcase_points = 1  # Điểm mặc định cho mỗi testcase
 partial = true
 checker = 'standard'
 ```
@@ -100,6 +105,16 @@ checker = 'standard'
 - Upload không xuất HTML và không dùng cùng `--dev`, `--test`, `--clean`,
   `--only-html`, `--htmldir`, `--new` hoặc `--zip`.
 
+Để chỉ cập nhật lời giải, dùng `-u ... --only-editorial` (cũng hỗ trợ chọn bài bằng
+`-p` hoặc đường dẫn `info.toml`). Công cụ chỉ gửi editorial theo thứ tự ưu tiên
+file nêu trên, giữ nguyên đề, thông tin bài, checker và testcase trên máy chủ.
+Chế độ này không sinh test, không đọc hay đối chiếu `hash.json`, không cần
+`task.md`, `[[tests]]`, mã nguồn hoặc các trường thông tin đề trong `[upload]`;
+vẫn cần `info.toml` để đọc cấu hình đường dẫn editorial nếu có.
+Thiếu file hoặc file rỗng sẽ báo lỗi trước khi upload. Bài phải tồn tại trên máy
+chủ, nếu chưa có thì API báo lỗi `404`. Không dùng cùng `--skip-statement` hoặc
+`--testcase-points`.
+
 `checker` mặc định là `standard`. Ngoài các checker tích hợp được liệt kê trong
 [PROBLEM_IMPORT_API.md](PROBLEM_IMPORT_API.md), `-u` hỗ trợ tải checker C++ testlib
 hoặc checker Python của DMOJ. Thêm vào bảng `[upload]` của bài:
@@ -127,10 +142,34 @@ cài, bao gồm tên file do máy chủ tạo. Không đặt checker tích hợp
 checker riêng trong cấu hình hoặc manifest. Nếu bước tải checker lỗi, công cụ
 dừng trước khi gửi ZIP và editorial; các request đã thành công vẫn được giữ.
 
-Để đặt điểm, pretest, subtask hoặc tùy chọn checker, đặt
+Điểm testcase mặc định là **1 điểm/testcase**. Có thể đặt
+`[upload].testcase_points = 5` để mỗi testcase nhận 5 điểm, hoặc đặt `points`
+trong từng nhóm `[[tests]]` để ghi đè điểm cho mỗi testcase của nhóm đó:
+
+```toml
+[[tests]]
+name = 'example.in'
+number = 2
+points = 0  # Mỗi test ví dụ nhận 0 điểm
+
+[[tests]]
+name = 'random.cpp'
+number = 10
+points = 5  # Mỗi test ngẫu nhiên nhận 5 điểm
+```
+
+Điểm phải là số nguyên không âm. `--testcase-points N` ghi đè điểm của mọi
+testcase trong các bài được chọn, ưu tiên hơn `[[tests]].points`, rồi đến
+`[upload].testcase_points`, cuối cùng là mặc định 1. Các thiết lập này dùng được
+cùng `--skip-statement`. `[upload].points` vẫn là tổng điểm bài trên máy chủ,
+không tự thay đổi theo tổng điểm testcase.
+
+Để đặt điểm riêng từng testcase, pretest, subtask hoặc tùy chọn checker, đặt
 `[upload].manifest = 'manifest.json'`. Nội dung JSON tuân theo tài liệu API,
 ghi đè manifest mặc định; `checker_args` trong file này được ưu tiên hơn giá trị
-trong TOML. Đường dẫn testcase trong manifest là tên file phẳng
+trong TOML. Khi dùng manifest riêng, điểm lấy từ manifest và bỏ qua các thiết lập
+điểm testcase trong TOML; không dùng cùng `--testcase-points` để tránh ghi đè điểm
+subtask hoặc từng test. Đường dẫn testcase trong manifest là tên file phẳng
 trong ZIP, ví dụ `example_00.in`, `example_00.out`, `random_00.in`.
 
 Kiểm thử chức năng upload bằng máy chủ giả lập cục bộ:
@@ -183,18 +222,4 @@ We are welcome any issues and PRs! Except minor change (e.g. add test cases, fix
 ## Thanks
 
 We use [testlib](https://github.com/MikeMirzayanov/testlib) for verifier(input-checker) and output-checker.
-We use [toml](https://github.com/uiri/toml) as toml paser.
-
-
-docker run --rm \
-  --network host \
-  -v /opt/db-backups/laptrinhphothong:/backup \
-  -v "$HOME/.config/mydumper/source.cnf:/run/db.cnf:ro" \
-  --entrypoint mydumper \
-  mydumper/mydumper:latest \
-  --defaults-file=/run/db.cnf \
-  --database=laptrinhphothong \
-  --outputdir=/backup \
-  --threads=4 \
-  --compress=zstd \
-  --verbose=3
+We use [toml](https://github.com/uiri/toml) as toml parser.

@@ -1,5 +1,3 @@
-# Lời giải — Cửa hàng trong ngân sách
-
 ### Thông tin trên cây
 
 Lưu giá nhỏ nhất trong mỗi đoạn.

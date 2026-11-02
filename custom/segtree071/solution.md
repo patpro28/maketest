@@ -1,5 +1,3 @@
-# Lời giải — Sai số bình phương
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu tổng $S=\sum A_i$ và tổng bình phương $T=\sum A_i^2$. Một lá chứa $x$ lưu $(x,x^2)$.

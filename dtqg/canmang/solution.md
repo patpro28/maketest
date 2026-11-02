@@ -1,5 +1,3 @@
-# Lời giải CANMANG — Cân chỉnh mạng cảm biến
-
 ## DP hàm trên cây
 
 Chọn một gốc bất kỳ. Gọi $F_u(x)$ là chi phí nhỏ nhất của cây con $u$ khi cảm biến $u$ nhận giá trị $x$.

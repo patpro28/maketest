@@ -1,5 +1,3 @@
-# PREFIX008 — Hướng dẫn giải
-
 Tách chữ số bằng phép chia và lấy phần dư cho $10$, cộng lại rồi so với $K$. Khi phần tử bằng $0$, tổng chữ số khởi tạo bằng $0$ là đúng.
 
 Đặt $B_i=1$ nếu $A_i$ thỏa điều kiện, ngược lại đặt $B_i=0$. Tính $P_0=0$, $P_i=P_{i-1}+B_i$. Mỗi truy vấn trả về $P_R-P_{L-1}$.

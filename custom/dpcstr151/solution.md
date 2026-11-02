@@ -1,5 +1,3 @@
-# Lời giải — DPSTR151
-
 Đặt $dp[i][j][t]$ là độ dài lớn nhất của một dãy chung của hai tiền tố dùng không quá $t$ nguyên âm, với $0\le t\le K$. Mọi biên có một tiền tố rỗng đều bằng $0$.
 
 Luôn thử bỏ ký tự cuối của một trong hai tiền tố. Khi $A_i=B_j$, đặt $v=1$ nếu chữ này là nguyên âm, ngược lại $v=0$. Nếu $t\ge v$, có thể ghép hai ký tự cuối để cập nhật bằng $dp[i-1][j-1][t-v]+1$.

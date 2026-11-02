@@ -1,5 +1,3 @@
-# Lời giải — Các vị trí đạt chuẩn
-
 ### Thông tin tại mỗi nút
 
 Đặt $B_i=1$ nếu $A_i\ge K$ và $B_i=0$ nếu ngược lại. Mỗi nút lưu tổng $B_i$ trên đoạn của nó.

@@ -1,5 +1,3 @@
-# PREFIX06 — Hướng dẫn giải
-
 Tính $R_i=\min(A_i,\ldots,A_N)$ bằng một lượt duyệt ngược. Duyệt vị trí chia $i$ từ $1$ đến $N-1$, duy trì $L_i=\max(A_1,\ldots,A_i)$. Cách chia hợp lệ khi và chỉ khi $L_i\le R_{i+1}$.
 
 Tính đúng đắn: Nếu max bên trái không vượt min bên phải thì mọi cặp thành viên thỏa điều kiện. Ngược lại, nếu bất đẳng thức sai thì cặp đạt max và min vi phạm điều kiện.

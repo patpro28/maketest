@@ -1,5 +1,3 @@
-# BS52A — Hướng dẫn giải
-
 ## Liệt kê trực tiếp khi dữ liệu nhỏ
 
 Xét mọi bộ ba $i<j<\ell$, ghi lại $\min(A_i,A_j,A_\ell)$ rồi sắp xếp danh sách. Mỗi truy vấn $K$ lấy phần tử thứ $K$ trong danh sách đó. Cách này cần $\Theta(N^3)$ phần tử, nên chỉ dùng được cho dữ liệu nhỏ và làm lời giải đối chiếu.

@@ -1,5 +1,3 @@
-# MATHA2 — Hướng dẫn giải
-
 Với số nguyên dương $d$, số bội của $d$ trong đoạn $[L,R]$ là:
 
 $$C_d(L,R)=\left\lfloor\frac{R}{d}\right\rfloor-\left\lfloor\frac{L-1}{d}\right\rfloor.$$

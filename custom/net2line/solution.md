@@ -1,5 +1,3 @@
-# Lời giải
-
 Không thể chỉ tìm cây khung có tổng chi phí chẵn. Ví dụ $n=2$, cả bốn cạnh đều có chi phí $1$: mọi cây khung có chi phí $3$, nhưng chọn cả chu trình cho đáp án $4$.
 
 Xử lý lần lượt các cột từ trái sang phải. Giữ `dp[s][p]` là tổng chi phí nhỏ nhất của tập cạnh trên phần đã xử lý, trong đó:

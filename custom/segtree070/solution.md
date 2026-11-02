@@ -1,5 +1,3 @@
-# Lời giải — Tổng có trọng số
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu hai tổng $S=\sum A_i$ và $T=\sum iA_i$, với $i$ là chỉ số trong dãy ban đầu. Lá ở vị trí $i$ chứa $x$ lưu $(x,i\cdot x)$.

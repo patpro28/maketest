@@ -1,5 +1,3 @@
-# Lời giải — Dấu của tích
-
 ### Thông tin lưu tại mỗi nút
 
 Thay mỗi phần tử bằng dấu của nó: $-1$ nếu âm, $0$ nếu bằng $0$, $1$ nếu dương. Mỗi nút lưu tích các dấu trong đoạn.

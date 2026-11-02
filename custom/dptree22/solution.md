@@ -1,5 +1,3 @@
-# Lời giải — Phủ sóng các ngôi làng
-
 ### Trạng thái
 
 Chọn đỉnh $1$ làm gốc. Với cây con của $u$, lưu ba giá trị:

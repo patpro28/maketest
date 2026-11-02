@@ -1,5 +1,3 @@
-# SEGTREE103 — Lời giải
-
 ### Ý tưởng
 
 Nút lưu tần suất lớn nhất trong miền giá trị của nó. Sau mỗi thêm hoặc xóa, cập nhật tần suất ở lá tương ứng. Nếu cực đại ở gốc bằng 0 thì đa tập rỗng. Ngược lại, đi xuống con trái nếu cực đại con trái bằng cực đại hiện tại; nếu không thì đi xuống con phải.

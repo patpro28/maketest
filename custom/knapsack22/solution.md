@@ -1,5 +1,3 @@
-# Lời giải — Pha đồ uống đúng độ ngọt
-
 Trung bình bằng $T$ khi tổng độ ngọt bằng $KT$, với đúng $K$ cốc. Dùng `dp[k][s]` đếm bộ số lượng tạo $k$ cốc có tổng độ ngọt $s$. Khởi tạo `dp[0][0]=1`.
 
 Với công thức có độ ngọt $a$, duyệt số cốc tăng rồi tổng tăng, cập nhật từ `dp[k-1][s-a]`. Nguồn đã cho phép dùng công thức hiện tại, nên số lần dùng không giới hạn. Vòng ngoài theo công thức đếm mỗi bộ số lượng một lần.

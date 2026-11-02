@@ -1,5 +1,3 @@
-# Lời giải — Trạm đo nhiệt độ
-
 ### Thông tin lưu tại mỗi nút
 
 Mỗi nút lưu hai giá trị `mn`, `mx`: nhiệt độ thấp nhất và cao nhất trong đoạn.

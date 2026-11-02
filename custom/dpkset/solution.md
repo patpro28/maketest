@@ -1,5 +1,3 @@
-# Lời giải
-
 ## Trạng thái
 
 Mỗi trạng thái lưu `(best, ways)`: trọng số tốt nhất và số cách đạt được, modulo $10^9+7$. Khi cập nhật, thay cả cặp nếu trọng số lớn hơn; cộng số cách nếu trọng số bằng nhau. Trạng thái không đạt được có `best = -INF`. Không dùng `ways == 0` để kiểm tra khả năng đạt được vì số cách có thể chia hết cho modulo.

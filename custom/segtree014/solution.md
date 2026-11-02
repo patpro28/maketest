@@ -1,5 +1,3 @@
-# Lời giải — Ghi nhận doanh số
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu tổng doanh số của đoạn. Lá ở vị trí $i$ lưu doanh số hiện tại của cửa hàng đó.

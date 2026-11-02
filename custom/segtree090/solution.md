@@ -1,5 +1,3 @@
-# Lời giải — Các cụm màu liên tiếp
-
 ### Thông tin lưu tại mỗi nút
 
 Mỗi nút lưu màu của ô đầu, màu của ô cuối và số cụm trong đoạn. Một lá có đúng $1$ cụm.

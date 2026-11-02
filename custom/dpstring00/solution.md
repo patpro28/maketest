@@ -1,5 +1,3 @@
-# Lời giải — DPSTRING00
-
 Gọi $dp[c]$ là độ dài lớn nhất của một dãy con hợp lệ kết thúc bằng chữ $c$ trong phần xâu đã xét. Ban đầu hai giá trị đều bằng $0$, biểu diễn khả năng bắt đầu dãy mới.
 
 Khi gặp chữ $c$, có thể bỏ qua hoặc nối nó vào dãy kết thúc bằng chữ còn lại:

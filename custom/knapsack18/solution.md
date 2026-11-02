@@ -1,5 +1,3 @@
-# Lời giải — Ba bếp
-
 Gọi $T=\sum T_i$. Khi biết tổng thời gian của bếp 1 là $x$ và bếp 2 là $y$, bếp 3 có tổng $T-x-y$.
 
 Dùng `dp[x][y]` cho biết có thể phân công các món đã xét để hai bếp đầu có tổng $x,y$ hay không. Khởi tạo `dp[0][0]=true`. Khi xét món cần $t$ phút, tạo mảng mới và chuyển mỗi trạng thái cũ sang $(x+t,y)$, $(x,y+t)$ hoặc $(x,y)$, tương ứng giao món cho bếp 1, 2 hoặc 3.

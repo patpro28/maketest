@@ -1,5 +1,3 @@
-# STRINGA3 — Hướng dẫn giải
-
 Duyệt xâu từ trái sang phải. Duy trì phần dư `value` của mã đang đọc và phần dư `answer` của tổng các mã đã kết thúc.
 
 Khi gặp chữ số $d$, cập nhật $value=(10\cdot value+d)\bmod K$. Khi gặp chữ cái, cộng `value` vào `answer` theo modulo $K$, rồi đặt `value=0`. Có thể thêm một chữ cái vào cuối xâu để xử lý mã kết thúc tại ký tự cuối.

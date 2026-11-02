@@ -1,5 +1,3 @@
-# Lời giải — Chia hai đội cân bằng
-
 Gọi $T=\sum A_i$, $K=\lfloor N/2\rfloor$. Có thể đặt tên đội thứ nhất là đội có $K$ thành viên. Nếu tổng sức mạnh đội này bằng $s$, độ chênh lệch là $|T-2s|$.
 
 Khác bài chia hai xe buýt, ở đây phải nhớ cả số học sinh. Dùng `dp[k][s]` biểu diễn chọn được đúng $k$ học sinh có tổng sức mạnh $s$. Khởi tạo `dp[0][0]=true`. Với mỗi $A_i$, duyệt $k$ giảm rồi duyệt $s$ giảm và cập nhật từ `dp[k-1][s-A_i]`.

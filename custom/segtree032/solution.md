@@ -1,5 +1,3 @@
-# Lời giải — Nhịp chênh lệch
-
 ### Thông tin tại mỗi nút
 
 Đặt $D_1=0$ và $D_i=|A_i-A_{i-1}|$ với $2\le i\le N$. Dựng segment tree lưu GCD trên mảng $D$. Mỗi lá lưu một phần tử $D_i$.

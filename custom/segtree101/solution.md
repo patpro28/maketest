@@ -1,5 +1,3 @@
-# SEGTREE101 — Lời giải
-
 ### Ý tưởng
 
 Mỗi lá ứng với một giá trị $x$, lưu $[c_x=0]$. Mỗi nút lưu tổng số giá trị bị thiếu. Sau khi thay đổi tần suất, cập nhật lá tương ứng. Nếu tổng ở gốc bằng $0$, trả về $N+1$. Ngược lại, đi sang con trái nếu con trái còn giá trị bị thiếu, và sang con phải trong trường hợp còn lại.

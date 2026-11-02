@@ -1,5 +1,3 @@
-# SEGTREE124 — Lời giải
-
 ### Ý tưởng
 
 Quản lý tần suất thật ở ngoài cây. Lá lưu 1 nếu tần suất dương, ngược lại lưu 0; nút lưu tổng số giá trị hiện diện. Cập nhật lá khi thêm hoặc xóa. Nếu tổng ở gốc nhỏ hơn k thì thất bại, nếu không đi xuống theo số giá trị hiện diện trong con trái.

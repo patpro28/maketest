@@ -1,5 +1,3 @@
-# Lời giải HANHTRINH — Hành trình đúng số chặng
-
 ## Từ quy hoạch động tới phép nhân max-plus
 
 Đặt $f_d(v)$ là tổng điểm lớn nhất khi xuất phát tại $S$, đi đúng $d$ chặng và dừng ở $v$. Khởi tạo $f_0(S)=0$, các trạng thái còn lại không thể đạt tới, ký hiệu $-\infty$.

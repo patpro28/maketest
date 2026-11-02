@@ -1,5 +1,3 @@
-# Lời giải — DPSTRING04
-
 Gọi $dp[c]$ là chi phí nhỏ nhất để tô xong tiền tố đã xét và bóng cuối có màu $c$.
 
 Khi xét vị trí $i$, thử màu mới $c$ và màu trước đó $p\ne c$:

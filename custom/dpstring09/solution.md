@@ -1,5 +1,3 @@
-# Lời giải — DPSTRING09
-
 Vì màu mới phải khác hai ô trước, lưu $dp[a][b]$: chi phí nhỏ nhất khi hai màu cuối là $a,b$. Thêm màu giả $4$ cho các vị trí trước đầu xâu; khởi tạo $dp[4][4]=0$.
 
 Khi xét vị trí $i$, thử màu $c$ khác cả $a$ và $b$:

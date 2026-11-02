@@ -1,5 +1,3 @@
-# Lời giải — Bảng đèn
-
 ### Thông tin lưu tại mỗi nút
 
 Mỗi nút lưu số đèn sáng trong đoạn. Tại lá, giá trị là trạng thái $0$ hoặc $1$ của đèn.

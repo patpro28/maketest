@@ -1,5 +1,3 @@
-# SEGTREE113 — Lời giải
-
 ### Ý tưởng
 
 Đặt dấu hiệu tại mỗi lá bằng 1 nếu vị trí đó là đỉnh, ngược lại bằng 0; hai đầu luôn bằng 0. Nút lưu tổng dấu hiệu. Khi thay đổi a_i, chỉ tính lại các dấu hiệu i−1, i, i+1 nằm trong dãy. Tìm lá có dấu hiệu 1 đầu tiên bằng cách ưu tiên con trái có tổng dương.

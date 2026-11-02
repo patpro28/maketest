@@ -1,5 +1,3 @@
-# Lời giải CHIACHUYEN — Chia chuyến hàng
-
 ## Quy hoạch động cơ bản
 
 Đặt $D[i]$ là tổng chi phí nhỏ nhất để chở đúng $i$ kiện đầu tiên. Có $D[0]=0$; các tiền tố không thể chia có giá trị vô cùng.

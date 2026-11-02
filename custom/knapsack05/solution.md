@@ -1,5 +1,3 @@
-# Lời giải — Chọn đồ vào túi
-
 `dp[c]` là giá trị lớn nhất khi dùng các loại đã xét và trọng lượng không vượt $c$. Khởi tạo tất cả trạng thái bằng $0$, vì không lấy đồ vật nào luôn hợp lệ.
 
 Với loại $(W_i,V_i)$, duyệt $c$ **tăng dần** từ $W_i$ tới $C$:

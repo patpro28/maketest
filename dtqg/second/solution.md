@@ -1,5 +1,3 @@
-# Lời giải SECOND — Tổng giá trị lớn thứ hai
-
 ## Đếm đóng góp của một phần tử
 
 Giá trị $A_i$ là lớn thứ hai trong một đoạn chứa $i$ khi và chỉ khi đoạn đó chứa đúng một phần tử lớn hơn $A_i$.

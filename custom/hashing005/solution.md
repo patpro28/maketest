@@ -1,5 +1,3 @@
-# Lời giải — HASHING005
-
 Đặt $L$ là tổng độ dài và $s$ là độ dài xâu ngắn nhất. Đưa một xâu ngắn nhất lên đầu danh sách và xây dựng hash tiền tố kép cho mọi xâu.
 
 Để kiểm tra độ dài $d$, lấy tập hash các đoạn dài $d$ trong xâu đầu làm tập ứng viên. Với mỗi xâu tiếp theo, tạo tập mới gồm những hash vừa xuất hiện trong xâu đó, vừa nằm trong tập ứng viên hiện tại. Thay tập ứng viên bằng tập mới. Dùng tập hợp thay vì đếm từng lần xuất hiện để một xâu không đóng góp nhiều lần cho cùng ứng viên.

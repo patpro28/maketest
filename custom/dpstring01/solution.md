@@ -1,5 +1,3 @@
-# Lời giải — DPSTRING01
-
 Gọi $dp[0],dp[1]$ là điểm lớn nhất của dãy hợp lệ kết thúc lần lượt bằng phụ âm và nguyên âm. Khởi tạo cả hai bằng $0$ để cho phép bắt đầu bằng bất kỳ loại nào.
 
 Với ký tự loại $t$ có điểm $w$, chỉ cập nhật:

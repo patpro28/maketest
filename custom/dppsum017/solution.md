@@ -1,5 +1,3 @@
-# PREFIX017 — Hướng dẫn giải
-
 Sàng Eratosthenes tới $10^6$. Đánh dấu $0,1$ không nguyên tố; lần lượt gạch các bội của mỗi số nguyên tố, bắt đầu từ bình phương của nó. Những số còn lại đúng là các số nguyên tố.
 
 Đặt $B_i=A_i$ nếu phần tử $A_i$ thỏa điều kiện, ngược lại đặt $B_i=0$. Tính $P_0=0$, $P_i=P_{i-1}+B_i$. Mỗi truy vấn trả về $P_R-P_{L-1}$.

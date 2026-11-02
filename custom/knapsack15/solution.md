@@ -1,5 +1,3 @@
-# Lời giải — Xây số lớn nhất
-
 Với số không có chữ số $0$ ở đầu, số có nhiều chữ số hơn luôn lớn hơn; nếu độ dài bằng nhau thì so sánh từ trái sang phải.
 
 Dùng `dp[s]` là số chữ số nhiều nhất có thể viết với **đúng** $s$ đồng, tạm cho phép chữ số đầu bằng $0$ để dùng làm hậu tố. Khởi tạo `dp[0]=0`, tổng không thể tạo bằng `-1`. Với $s$ tăng dần, thử tất cả chữ số: `dp[s]=max(dp[s],1+dp[s-C[d]])` từ trạng thái đạt được. Duyệt tăng cho phép dùng một chữ số nhiều lần.

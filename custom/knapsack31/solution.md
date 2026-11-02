@@ -1,5 +1,3 @@
-# Lời giải — Phá khiên trong đúng K lượt
-
 ## Trạng thái
 
 Gọi `dp[k][s]` là tổng năng lượng ít nhất sau **đúng** $k$ lần dùng phép, trong đó sát thương thực tế đã được chặn ở $X$:

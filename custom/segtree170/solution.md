@@ -1,5 +1,3 @@
-# Lời giải — Chuyến đi vừa túi tiền
-
 ### Thông tin trên cây
 
 Lưu tổng chi phí trong mỗi đoạn bằng số nguyên 64 bit.

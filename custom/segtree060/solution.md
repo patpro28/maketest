@@ -1,5 +1,3 @@
-# Lời giải — Điểm cao nhất
-
 ### Thông tin lưu tại mỗi nút
 
 Mỗi nút lưu cặp `(mx, cnt)`: điểm cao nhất trong đoạn và số lần điểm đó xuất hiện. Tại lá, `cnt = 1`.

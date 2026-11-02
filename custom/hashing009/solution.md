@@ -1,5 +1,3 @@
-# Lời giải — HASHING009
-
 Dùng Heavy-Light Decomposition (HLD) để phân rã một đường đi thành $O(\log n)$ đoạn trên các chuỗi nặng. Sắp các đỉnh theo thứ tự trong chuỗi nặng và dựng segment tree lưu độ dài, hash xuôi, hash ngược theo hai modulo.
 
 Khi lấy thông điệp $u\to v$, duy trì hai kết quả: phần đã đọc từ phía $u$ và phần sẽ đọc ở phía $v$. Nếu xử lý một đoạn ở phía $u$, lấy hash đoạn từ đầu chuỗi đến $u$, đảo chiều bằng cách đổi hash xuôi với hash ngược, rồi nối vào cuối kết quả bên trái. Nếu xử lý phía $v$, lấy đoạn theo chiều xuôi và nối vào đầu kết quả bên phải.

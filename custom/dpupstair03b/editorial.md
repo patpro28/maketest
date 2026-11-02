@@ -1,5 +1,3 @@
-# DPUPSTAIR03B — Hướng dẫn giải
-
 ## Subtask 1: Liệt kê các cách đi
 
 Với $n\le20$, dùng đệ quy thử từng bước $1$ hoặc $2$ bậc. Không thử bước $2$ từ bậc trơn và không đi quá bậc $n$. Theo dõi đại lượng cần đếm; khi đến bậc $n$, chỉ nhận cách có bộ đếm bằng $m$. Khởi tạo bộ đếm bằng $0$ tại bậc $1$.

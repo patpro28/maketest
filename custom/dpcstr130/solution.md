@@ -1,5 +1,3 @@
-# Lời giải — DPSTR130
-
 Đặt $dp[i][j]$ là điểm lớn nhất của một dãy con chung của hai tiền tố. Biên bằng $0$, tương ứng xâu rỗng. Luôn có hai phương án bỏ một ký tự cuối; khi hai ký tự bằng nhau, có thêm phương án ghép chúng:
 
 $$dp[i][j]=\max\left(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]+W_{A_i}\ \text{nếu }A_i=B_j\right).$$

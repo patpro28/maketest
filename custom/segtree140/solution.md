@@ -1,5 +1,3 @@
-# Lời giải — Phân phòng cho đoàn khách
-
 ### Thông tin trên cây
 
 Lưu số phòng trống lớn nhất trong mỗi đoạn.

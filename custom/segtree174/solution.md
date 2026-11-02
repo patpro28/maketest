@@ -1,5 +1,3 @@
-# SEGTREE174 — Lời giải
-
 ### Ý tưởng
 
 Lá lưu mặt nạ 26 bit với bit của ký tự tại vị trí đó bật. Nút lưu OR các mặt nạ. Tích lũy mặt nạ từ l sang phải, nhận toàn bộ một nút nếu số bit bật sau ghép không vượt K. Nếu vượt, đi xuống tìm ký tự đầu tiên làm số loại vượt K rồi trả về vị trí trước nó.

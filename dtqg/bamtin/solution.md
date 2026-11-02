@@ -1,5 +1,3 @@
-# Lời giải BAMTIN — Bám tín hiệu di động
-
 ## Quy hoạch động theo vị trí cuối
 
 Đặt $F_i(x)$ là tổng chi phí nhỏ nhất tới thời điểm $i$ với vị trí cuối bằng $x$. Vị trí đầu được chọn tự do, nên trước thời điểm đầu ta có hàm chi phí bằng $0$ trên toàn trục.

@@ -1,5 +1,3 @@
-# BS14 — Hướng dẫn giải
-
 ## Cách vét cạn cho dữ liệu nhỏ
 
 Liệt kê tất cả bộ ba $i<j<\ell$, ghi lại $\max(A_i,A_j,A_\ell)$ rồi sắp xếp danh sách kết quả. Trả lời truy vấn $K$ bằng phần tử ở chỉ số $K-1$. Cách này tốn $\Theta(N^3)$ phần tử và không phù hợp với giới hạn đầy đủ, nhưng dùng được để kiểm tra đáp án trên dữ liệu nhỏ.

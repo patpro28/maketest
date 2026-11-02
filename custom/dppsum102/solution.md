@@ -1,5 +1,3 @@
-# PREFIX02 — Hướng dẫn giải
-
 Tính tổng toàn dãy $T$. Khi xét vị trí $i$, gọi $L$ là tổng các phần tử trước đó. Tổng bên phải là $T-L-A_i$. Ghi nhận $i$ nếu hai tổng bằng nhau, rồi cộng $A_i$ vào $L$.
 
 Tính đúng đắn: Mỗi vị trí được kiểm tra bằng chính hai tổng trong định nghĩa, nên danh sách thu được chứa đúng mọi điểm cân bằng.

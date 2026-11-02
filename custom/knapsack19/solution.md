@@ -1,5 +1,3 @@
-# Lời giải — Khóa kỹ năng
-
 Nếu chọn một kỹ năng thì phải chọn cả đường đi từ gốc đến kỹ năng đó. Các nhánh con độc lập sau khi đã học nút cha, nên có thể gộp các nhánh bằng knapsack trên cây.
 
 Với nút $u$, `dp_u[s]` là sức mạnh lớn nhất của một tập kỹ năng hợp lệ trong cây con $u$, có tổng chi phí **đúng** $s$ và **bắt buộc chọn $u$**. Khởi tạo chỉ `dp_u[C_u]=V_u` khi $C_u\le W$; các trạng thái khác bằng âm vô cùng.

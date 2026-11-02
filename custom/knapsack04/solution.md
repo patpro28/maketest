@@ -1,5 +1,3 @@
-# Lời giải — Chọn đồ lấp đầy túi
-
 ## Trạng thái và khởi tạo
 
 `dp[s]` là tổng giá trị lớn nhất của các món đã xét có tổng trọng lượng **đúng bằng** $s$. Khởi tạo `dp[0]=0`, các trạng thái khác bằng âm vô cùng để phân biệt tổng không đạt được với giá trị bằng $0$.

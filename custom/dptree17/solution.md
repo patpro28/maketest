@@ -1,5 +1,3 @@
-# Lời giải — Đếm tập độc lập
-
 ### Trạng thái
 
 Chọn đỉnh $1$ làm gốc. Với cây con gốc $u$, đặt:

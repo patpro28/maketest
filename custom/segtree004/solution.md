@@ -1,5 +1,3 @@
-# Lời giải — Chia thanh gỗ
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu GCD các độ dài trong đoạn. Lá ở vị trí $i$ lưu $A_i$.

@@ -1,5 +1,3 @@
-# Lời giải DICHCHUYEN — Cổng dịch chuyển liên vùng
-
 ## Vì sao cần hai cây
 
 Một cổng $(l,r,a,b,c)$ biểu diễn cạnh trọng số $c$ từ mọi đỉnh của đoạn nguồn $[l,r]$ đến mọi đỉnh của đoạn đích $[a,b]$. Dựng trực tiếp có thể tốn $O(QN^2)$ cạnh.

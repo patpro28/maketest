@@ -1,5 +1,3 @@
-# Lời giải — Kho hàng
-
 ### Thông tin tại mỗi nút
 
 Mỗi nút lưu tổng lượng hàng trên đoạn. Lá ở vị trí $i$ lưu $A_i$.

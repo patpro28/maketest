@@ -1,0 +1,35 @@
+title = 'DPCSTR154 - Hai bản ghi lệch độ dài'
+timelimit = 0.5
+
+[[tests]]
+    name = "example.in"
+    number = 3
+[[tests]]
+    name = "edge.cpp"
+    number = 12
+[[tests]]
+    name = "small.cpp"
+    number = 8
+[[tests]]
+    name = "random.cpp"
+    number = 6
+[[tests]]
+    name = "max.cpp"
+    number = 8
+
+[[solutions]]
+    type = "correct"
+    name = "correct.cpp"
+
+[params]
+    N_MAX = 5000
+    M_MAX = 1000000
+
+[upload]
+    time_limit = 0.5
+    memory_limit = 131072
+    group = '03'
+    classes = 'C'
+    types = ['dp_common_substring']
+    allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+    partial = true

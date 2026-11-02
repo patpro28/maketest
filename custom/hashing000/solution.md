@@ -1,5 +1,3 @@
-# Lời giải — HASHING000
-
 Gọi $H(l,r)$ là hash kép của đoạn nửa mở $S[l..r)$. Hash tiền tố và bảng lũy thừa cho phép lấy mỗi hash trong $O(1)$.
 
 Với độ dài $d$, đếm tần suất hash của tất cả $n-d+1$ cửa sổ. Độ dài này hợp lệ khi có tần suất ít nhất $k$. Việc đếm theo vị trí bắt đầu tự động bao gồm các lần xuất hiện chồng lấn.

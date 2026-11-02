@@ -1,5 +1,3 @@
-# Lời giải DTMATKHAU — Đường đi có thể đối xứng
-
 ## Điều kiện hoán vị thành đối xứng
 
 Một tập chữ có thể sắp thành xâu đối xứng khi và chỉ khi có không quá một chữ xuất hiện số lần lẻ. Đặt $mask(v)$ là mặt nạ $10$ bit biểu diễn tính chẵn/lẻ số lần xuất hiện các chữ trên đường từ gốc tới $v$.

@@ -1,5 +1,3 @@
-# BS13C — Hướng dẫn giải
-
 Sắp xếp mảng sức chứa không giảm. Với đoàn $X$ người, dùng `lower_bound` tìm phòng đầu tiên có sức chứa không dưới $X$.
 
 Nếu không tìm được, in `-1 0`. Nếu tìm được giá trị $V$, số chỗ trống tối ưu là $V-X$, vì mọi sức chứa hợp lệ khác đều không nhỏ hơn $V$. Tất cả và chỉ các phòng có sức chứa $V$ đạt mức tối ưu này. Dùng `upper_bound(V)-lower_bound(V)` để đếm chúng.

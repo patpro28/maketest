@@ -1,5 +1,3 @@
-# Lời giải MATMA — Thông điệp có thưởng và phạt
-
 ## Subtask 1 — 30%
 
 Liệt kê $3^L$ xâu độ dài $L$. Với mỗi xâu, kiểm tra từng vị trí bắt đầu của từng mẫu để cộng điểm. Các lần xuất hiện chồng lấn và các mẫu trùng nhau đều được tính riêng. Với $L\le10$, phương án này đủ nhỏ.

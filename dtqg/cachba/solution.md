@@ -1,5 +1,3 @@
-# Lời giải CACHBA — Chọn các vị trí cách ba
-
 ## DP trên một đoạn
 
 Nếu chưa có cập nhật, gọi $F_i$ là tổng tốt nhất trên các vị trí từ $L$ tới $i$. Khi xét $i$, hoặc bỏ nó, hoặc chọn nó và không chọn hai vị trí trước:

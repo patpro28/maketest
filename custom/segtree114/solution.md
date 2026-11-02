@@ -1,5 +1,3 @@
-# SEGTREE114 — Lời giải
-
 ### Ý tưởng
 
 Lá i lưu [s_i khác t_i], nút lưu tổng số vị trí khác nhau. Sau cập nhật một ký tự, tính lại đúng lá đó. Nếu tổng ở gốc bằng 0, trả về N; nếu không, đi xuống nhánh trái có tổng dương để tìm vị trí khác nhau đầu tiên p, rồi trả về p−1.

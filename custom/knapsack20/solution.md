@@ -1,5 +1,3 @@
-# Lời giải — Phá khiên quái vật
-
 `dp[s]` là năng lượng ít nhất khi tổng sát thương đã chặn ở $H$: $s<H$ là đúng $s$, còn $s=H$ là ít nhất $H$. Khởi tạo `dp[0]=0`, các trạng thái khác vô cùng.
 
 Với mỗi phép, duyệt $s$ tăng từ $0$ tới $H-1$, chuyển đến $\min(H,s+D_i)$ với năng lượng cộng $C_i$. Vì $D_i>0$, trạng thái nguồn nhỏ hơn đích, cho phép dùng lại loại hiện tại. Không cần mở rộng từ trạng thái $H$ vì chi phí dương và đã đạt yêu cầu.

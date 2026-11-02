@@ -1,5 +1,3 @@
-# Lời giải — Được phép sửa một món đồ
-
 Dùng hai trạng thái cho mỗi tổng trọng lượng $w$: `unused[w]` là giá trị lớn nhất khi chưa sửa món nào; `used[w]` là giá trị lớn nhất khi đã sửa đúng một món. Khởi tạo `unused[0]=0`, các trạng thái khác bằng âm vô cùng.
 
 Với món $(W_i,V_i)$, có ba lựa chọn: bỏ qua; lấy nguyên trạng và giữ cờ đã sửa/chưa sửa; hoặc chuyển từ chưa sửa sang đã sửa bằng cách lấy món với trọng lượng $\lfloor W_i/2\rfloor$. Lời giải mẫu đọc từ hai mảng cũ và ghi vào hai mảng mới, nên mỗi món chỉ được dùng một lần ngay cả khi trọng lượng sau sửa bằng $0$.

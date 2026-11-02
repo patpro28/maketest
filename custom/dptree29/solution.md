@@ -1,5 +1,3 @@
-# Lời giải — Tách hai nhóm đối địch
-
 ### Trạng thái
 
 Chọn đỉnh $1$ làm gốc. Sau khi cắt các cạnh trong cây con của $u$, gọi thành phần chứa $u$ là thành phần đang mở. Các thành phần khác phải hợp lệ.

@@ -1,5 +1,3 @@
-# Lời giải — Tổng đan dấu
-
 ### Thông tin tại mỗi nút
 
 Đặt $B_i=A_i$ nếu $i$ lẻ và $B_i=-A_i$ nếu $i$ chẵn. Mỗi nút lưu tổng $B_i$ trên đoạn.

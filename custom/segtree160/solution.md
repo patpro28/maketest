@@ -1,5 +1,3 @@
-# Lời giải — Sản phẩm lỗi trong lô
-
 ### Thông tin trên cây
 
 Lưu min và max của số đo trong mỗi đoạn.

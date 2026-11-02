@@ -1,5 +1,3 @@
-# Lời giải — DPSTR152
-
 Đặt $dp[i][j][c]$ là độ dài lớn nhất của một dãy chung hợp lệ của hai tiền tố, kết thúc bằng chữ $c\in\{a,b,c\}$. Trạng thái chưa tồn tại có giá trị âm vô cùng. Dãy rỗng được xử lý riêng với độ dài $0$.
 
 Với mỗi chữ kết thúc, thử bỏ một trong hai vị trí cuối. Nếu $A_i=B_j=c$, có thể bắt đầu dãy mới bằng $c$ hoặc nối $c$ sau một dãy kết thúc bằng chữ khác:

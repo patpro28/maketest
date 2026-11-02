@@ -1,5 +1,3 @@
-# Lời giải — DPSTRING05
-
 Gọi $dp[A],dp[B]$ là chi phí nhỏ nhất sau khi điền tiền tố, biết ký tự cuối là `A` hoặc `B`. Trạng thái không thể đạt có giá trị vô cùng.
 
 Tại vị trí đầu, các chữ được phép điền có chi phí $0$. Tại vị trí tiếp theo, thử mỗi chữ được phép $c$ và mỗi chữ cuối cũ $p$, cộng thêm chi phí của cặp $(p,c)$: $X$ cho `AB`, $Y$ cho `BA`, còn lại là $0$.

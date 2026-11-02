@@ -1,5 +1,3 @@
-# Lời giải — Giữ lại các tuyến đường
-
 ### Trạng thái
 
 Chọn đỉnh $1$ làm gốc. $dp[u][k]$ là tổng giá trị lớn nhất của các cạnh được giữ trong cây con, khi có đúng $k$ cạnh từ $u$ đến các con được giữ, với $k=0,1,2$.

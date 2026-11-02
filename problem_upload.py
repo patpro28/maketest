@@ -155,6 +155,12 @@ def validate_checker_args(value):
     return value
 
 
+def validate_testcase_points(value, field):
+    if type(value) is not int or value < 0:
+        raise UploadError('{} must be a non-negative integer'.format(field))
+    return value
+
+
 def read_markdown(path):
     content = path.read_text(encoding='utf-8')
     if not content.strip():
@@ -183,15 +189,19 @@ def statement_parts(content):
 
 
 class ProblemUpload:
-    def __init__(self, problem, skip_statement=False):
+    def __init__(self, problem, skip_statement=False, testcase_points=None, only_editorial=False):
         self.problem = problem
         self.skip_statement = skip_statement
+        self.only_editorial = only_editorial
+        if only_editorial and (skip_statement or testcase_points is not None):
+            raise UploadError('--only-editorial cannot be combined with --skip-statement '
+                              'or --testcase-points')
         config = problem.config
         settings = config.get('upload', {})
         if not isinstance(settings, dict):
             raise UploadError('info.toml: [upload] must be a table')
         unknown = set(settings) - PROBLEM_FIELDS - {
-            'editorial', 'manifest', 'checker', 'custom_checker', 'checker_args',
+            'editorial', 'manifest', 'checker', 'custom_checker', 'checker_args', 'testcase_points',
         }
         if unknown:
             raise UploadError('Unknown [upload] fields: ' + ', '.join(sorted(unknown)))
@@ -199,7 +209,7 @@ class ProblemUpload:
         if not isinstance(self.code, str) or not re.fullmatch(r'[a-z0-9]{1,20}', self.code):
             raise UploadError('The problem directory name must contain 1-20 letters or digits')
         self.payload = {}
-        if not skip_statement:
+        if not skip_statement and not only_editorial:
             self.payload = {key: value for key, value in settings.items() if key in PROBLEM_FIELDS}
             self.payload.setdefault('time_limit', config.get('timelimit'))
             name, description = statement_parts(read_markdown(problem.basedir / 'task.md'))
@@ -230,11 +240,31 @@ class ProblemUpload:
                     self.editorial = read_markdown(path)
                     break
 
+        if only_editorial:
+            if self.editorial is None:
+                raise UploadError('No editorial found in {}; add editorial.md, solution.md '
+                                  'or set [upload].editorial'.format(problem.basedir))
+            return
+
+        if testcase_points is not None:
+            validate_testcase_points(testcase_points, '--testcase-points')
+            if 'manifest' in settings:
+                raise UploadError('--testcase-points cannot be combined with [upload].manifest; '
+                                  'set points in the manifest instead')
+        default_points = settings.get('testcase_points', 1)
+        if 'manifest' not in settings:
+            validate_testcase_points(default_points, '[upload].testcase_points')
         self.cases = []
+        manifest_cases = []
         for test in config['tests']:
+            points = test.get('points', default_points)
+            if 'manifest' not in settings:
+                validate_testcase_points(points, '[[tests]].points ({})'.format(test['name']))
             for index in range(test['number']):
                 name = casename(test['name'], index)
                 self.cases.append(name)
+                manifest_cases.append({'input_file': name + '.in', 'output_file': name + '.out',
+                                       'points': testcase_points if testcase_points is not None else points})
         if not self.cases or len(set(self.cases)) != len(self.cases):
             raise UploadError('Upload requires at least one testcase and unique testcase names')
         if 'manifest' in settings:
@@ -244,10 +274,7 @@ class ProblemUpload:
                 raise UploadError('The testcase manifest must be a JSON object')
         else:
             checker = settings.get('checker', 'standard')
-            self.manifest = {'checker': checker, 'cases': [
-                {'input_file': name + '.in', 'output_file': name + '.out'}
-                for name in self.cases
-            ]}
+            self.manifest = {'checker': checker, 'cases': manifest_cases}
 
         checker = self.manifest.get('checker', settings.get('checker', 'standard'))
         configured_checker = settings.get('checker')
@@ -280,6 +307,10 @@ class ProblemUpload:
             self.manifest.setdefault('checker_args', self.checker_args)
 
     def upload(self, client):
+        if self.only_editorial:
+            self._upload_editorial(client)
+            logger.info('Upload complete: %s', self.code)
+            return
         problem = self.problem
         problem.assert_hashes()
         with TemporaryDirectory() as directory:
@@ -309,7 +340,11 @@ class ProblemUpload:
                 client.checker(path + '/checker', filename, self.checker_source, self.checker_args)
             logger.info('Upload %d testcases: %s', len(self.cases), self.code)
             client.testcases(path + '/testcases', archive, self.manifest)
-            if self.editorial is not None:
-                logger.info('Upload editorial: %s', self.code)
-                client.json('PUT', path + '/editorial', {'content': self.editorial}, 200)
+            self._upload_editorial(client)
             logger.info('Upload complete: %s', self.code)
+
+    def _upload_editorial(self, client):
+        if self.editorial is not None:
+            logger.info('Upload editorial: %s', self.code)
+            client.json('PUT', '/problems/' + self.code + '/editorial',
+                        {'content': self.editorial}, 200)

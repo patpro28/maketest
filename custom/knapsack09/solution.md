@@ -1,5 +1,3 @@
-# Lời giải — Chọn đồ lấp đầy túi
-
 `dp[s]` là giá trị lớn nhất khi trọng lượng **đúng bằng** $s$ với các loại đã xét. Khởi tạo `dp[0]=0`, các trạng thái khác bằng âm vô cùng để đánh dấu không đạt được.
 
 Với loại $(W_i,V_i)$, duyệt $s$ **tăng dần** từ $W_i$ tới $C$. Chỉ khi trạng thái nguồn đạt được mới cập nhật:

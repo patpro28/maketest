@@ -1,5 +1,3 @@
-# Lời giải — HASHING006
-
 Với một xâu $S$, mọi phép xoay của nó là một đoạn dài $m$ bắt đầu tại một trong $m$ vị trí đầu của $S+S$. Chọn phép xoay nhỏ nhất theo thứ tự từ điển làm đại diện chuẩn.
 
 Duyệt từng vị trí ứng viên, so sánh với vị trí tốt nhất hiện có. Mỗi lần so sánh dùng hash kép và tìm kiếm nhị phân để tìm tiền tố chung, rồi xét ký tự khác đầu tiên. Nếu hai phép xoay bằng nhau thì có thể giữ vị trí cũ.
