@@ -62,6 +62,20 @@ In kết quả của các bộ test theo thứ tự đầu vào. Với mỗi b�
 
 ### Giải thích
 
-Trong ví dụ 1, ở bộ thứ nhất, cộng $5$ vào $[2,4]$ làm $D_2$ tăng $5$ và $D_5$ giảm $5$. Ở bộ thứ hai, phần tử duy nhất giảm từ $8$ xuống $5$.
+**Ví dụ 1, bộ test thứ nhất**
 
-Trong ví dụ 2, phép cộng $-2$ vào $[3,4]$ chỉ làm $D_3$ giảm $2$ vì đoạn kết thúc ở cuối dãy.
+1. Cộng dồn $D=(3,-1,2,0,-4)$ được $A=(3,2,4,4,0)$.
+2. Cộng $5$ vào các phần tử từ vị trí $2$ đến vị trí $4$, được $A=(3,7,9,9,0)$.
+3. Tính lại mảng hiệu, được $D=(3,7-3,9-7,9-9,0-9)=(3,4,2,0,-9)$.
+
+**Ví dụ 1, bộ test thứ hai**
+
+1. Từ $D=(8)$, khôi phục được $A=(8)$.
+2. Cộng $-3$ vào phần tử duy nhất, được $A=(5)$.
+3. Mảng hiệu chỉ có phần tử đầu, nên $D=(5)$.
+
+**Ví dụ 2**
+
+1. Cộng dồn $D=(2,1,-1,4)$ được $A=(2,3,2,6)$.
+2. Cộng $-2$ vào các phần tử ở vị trí $3$ và $4$, được $A=(2,3,0,4)$.
+3. Tính lại mảng hiệu, được $D=(2,3-2,0-3,4-0)=(2,1,-3,4)$.

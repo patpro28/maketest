@@ -77,6 +77,30 @@ Xử lý các bộ test theo thứ tự đầu vào. Trong mỗi bộ test, in m
 
 ### Giải thích
 
-Trong ví dụ 1, ở bộ thứ nhất, phép cộng $5$ vào $[2,4]$ làm $D_2=4$, $D_5=-9$ và giữ $D_3=2$. Câu hỏi thứ tư cho $D_1=3-3=0$. Câu hỏi thứ năm lặp lại câu hỏi đầu tiên nên đáp án vẫn là $4$. Bộ thứ hai cho $8-3=5$.
+**Ví dụ 1, bộ test thứ nhất**
 
-Trong ví dụ 2, câu hỏi thứ nhất làm $D_3$ tăng lên $10$. Câu hỏi thứ hai cộng $-5$ vào $[1,1]$, nên $D_2$ tăng lên $3$. Câu hỏi cuối cộng $0$ nên $D_2$ vẫn bằng $-2$.
+Cộng dồn $D=(3,-1,2,0,-4)$ được dãy ban đầu $A=(3,2,4,4,0)$. Với từng câu hỏi, áp dụng phép cộng lên dãy ban đầu rồi tính lại phần tử $D_P$ được hỏi.
+
+| Câu hỏi | Phép cộng | Dãy $A$ sau phép cộng | Giá trị được hỏi |
+| --- | --- | --- | --- |
+| 1 | Cộng $5$ vào $[2,4]$ | $(3,7,9,9,0)$ | $D_2=7-3=4$ |
+| 2 | Cộng $5$ vào $[2,4]$ | $(3,7,9,9,0)$ | $D_5=0-9=-9$ |
+| 3 | Cộng $5$ vào $[2,4]$ | $(3,7,9,9,0)$ | $D_3=9-7=2$ |
+| 4 | Cộng $-3$ vào $[1,5]$ | $(0,-1,1,1,-3)$ | $D_1=A_1=0$ |
+| 5 | Cộng $5$ vào $[2,4]$ | $(3,7,9,9,0)$ | $D_2=7-3=4$ |
+
+**Ví dụ 1, bộ test thứ hai**
+
+1. Từ $D=(8)$, khôi phục được $A=(8)$.
+2. Cộng $-3$ vào vị trí $1$, được $A=(5)$.
+3. Giá trị được hỏi là $D_1=A_1=5$.
+
+**Ví dụ 2**
+
+Cộng dồn $D=(7,-2,4)$ được dãy ban đầu $A=(7,5,9)$. Mỗi câu hỏi lại bắt đầu từ dãy này.
+
+| Câu hỏi | Phép cộng | Dãy $A$ sau phép cộng | Giá trị được hỏi |
+| --- | --- | --- | --- |
+| 1 | Cộng $6$ vào $[3,3]$ | $(7,5,15)$ | $D_3=15-5=10$ |
+| 2 | Cộng $-5$ vào $[1,1]$ | $(2,5,9)$ | $D_2=5-2=3$ |
+| 3 | Cộng $0$ vào $[2,3]$ | $(7,5,9)$ | $D_2=5-7=-2$ |

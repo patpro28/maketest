@@ -4,7 +4,7 @@
 
 Mảng hiệu $D$ của dãy $A$ được xác định bởi $D_1=A_1$ và $D_i=A_i-A_{i-1}$ với $2\le i\le N$.
 
-Cho mảng hiệu $D$ của dãy $A$ và hai số $L,X$. Cộng $X$ vào mọi phần tử từ vị trí $L$ đến hết dãy. Hãy in mảng hiệu của dãy sau cập nhật.
+Cho mảng hiệu $D$ của dãy $A$ và hai số $L,X$. Cộng $X$ vào mọi phần tử của dãy $A$ từ vị trí $L$ đến hết dãy. Hãy in mảng hiệu của dãy sau cập nhật.
 
 ### Dữ liệu vào
 
@@ -62,6 +62,20 @@ In kết quả của các bộ test theo thứ tự đầu vào. Với mỗi b�
 
 ### Giải thích
 
-Trong ví dụ 1, ở bộ thứ nhất, cộng $4$ từ vị trí $3$ làm $D_3$ đổi từ $-1$ thành $3$. Ở bộ thứ hai, $D_1$ giảm từ $-5$ xuống $-7$.
+**Ví dụ 1, bộ test thứ nhất**
 
-Trong ví dụ 2, cộng $5$ vào cả dãy chỉ làm phần tử đầu của mảng hiệu tăng thêm $5$.
+1. Từ $D=(2,0,-1,3,0)$, cộng dồn từ trái sang phải được $A=(2,2,1,4,4)$.
+2. Cộng $4$ vào các phần tử từ vị trí $3$ đến vị trí $5$, được $A=(2,2,5,8,8)$.
+3. Lấy phần tử đầu và các hiệu giữa hai phần tử kề nhau, được $D=(2,2-2,5-2,8-5,8-8)=(2,0,3,3,0)$.
+
+**Ví dụ 1, bộ test thứ hai**
+
+1. Từ $D=(-5)$, khôi phục được $A=(-5)$.
+2. Cộng $-2$ vào phần tử duy nhất, được $A=(-7)$.
+3. Mảng hiệu chỉ có phần tử đầu, nên $D=(-7)$.
+
+**Ví dụ 2**
+
+1. Từ $D=(4,-1,2)$, cộng dồn được $A=(4,3,5)$.
+2. Cộng $5$ vào các phần tử từ vị trí $1$ đến vị trí $3$, được $A=(9,8,10)$.
+3. Lấy phần tử đầu và các hiệu giữa hai phần tử kề nhau, được $D=(9,8-9,10-8)=(9,-1,2)$.

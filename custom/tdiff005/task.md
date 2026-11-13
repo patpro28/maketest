@@ -62,6 +62,20 @@ In kết quả của các bộ test theo thứ tự đầu vào. Với mỗi b�
 
 ### Giải thích
 
-Trong ví dụ 1, ở bộ thứ nhất, $A_3=4$ được đổi thành $7$, nên $D_3$ tăng $3$ và $D_4$ giảm $3$. Ở bộ thứ hai, phần tử cuối được đổi từ $-1$ thành $0$, nên $D_2$ tăng $1$.
+**Ví dụ 1, bộ test thứ nhất**
 
-Trong ví dụ 2, $A_3=3\cdot10^9$ được đổi thành $-10^9$. Do đó $D_3$ giảm $4\cdot10^9$ và $D_4$ tăng $4\cdot10^9$.
+1. Cộng dồn $D=(2,3,-1,4,0)$ được $A=(2,5,4,8,8)$.
+2. Thay phần tử ở vị trí $3$ bằng $7$, được $A=(2,5,7,8,8)$.
+3. Tính lại mảng hiệu, được $D=(2,5-2,7-5,8-7,8-8)=(2,3,2,1,0)$.
+
+**Ví dụ 1, bộ test thứ hai**
+
+1. Cộng dồn $D=(1,-2)$ được $A=(1,-1)$.
+2. Thay phần tử ở vị trí $2$ bằng $0$, được $A=(1,0)$.
+3. Tính lại mảng hiệu, được $D=(1,0-1)=(1,-1)$.
+
+**Ví dụ 2**
+
+1. Cộng dồn $D=(10^9,10^9,10^9,10^9)$ được $A=(10^9,2\cdot10^9,3\cdot10^9,4\cdot10^9)$.
+2. Thay phần tử ở vị trí $3$ bằng $-10^9$, được $A=(10^9,2\cdot10^9,-10^9,4\cdot10^9)$.
+3. Tính lại mảng hiệu, được $D=(10^9,10^9,-3\cdot10^9,5\cdot10^9)$. Hai hiệu cuối lần lượt là $-10^9-2\cdot10^9$ và $4\cdot10^9-(-10^9)$.
