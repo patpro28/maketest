@@ -100,6 +100,9 @@ def main(args: List[str]):
     upload_mode.add_argument('--only-editorial', action='store_true',
                         help='With --upload, upload only editorial to an existing problem; '
                              'skip testcase generation and all other uploads')
+    parser.add_argument('--skip-testcase', action='store_true',
+                        help='With --upload, keep existing server testcases; '
+                             'skip testcase generation, hash checks and ZIP upload')
     parser.add_argument('--testcase-points', type=int, default=None,
                         help='With --upload, set points for every testcase (non-negative integer); '
                              'default: [[tests]].points, [upload].testcase_points, then 1')
@@ -110,11 +113,18 @@ def main(args: List[str]):
         parser.error('--skip-statement requires --upload')
     if opts.only_editorial and opts.upload is None:
         parser.error('--only-editorial requires --upload')
+    if opts.skip_testcase:
+        if opts.upload is None:
+            parser.error('--skip-testcase requires --upload')
+        if opts.only_editorial:
+            parser.error('--skip-testcase cannot be combined with --only-editorial')
     if opts.testcase_points is not None:
         if opts.upload is None:
             parser.error('--testcase-points requires --upload')
         if opts.only_editorial:
             parser.error('--testcase-points cannot be combined with --only-editorial')
+        if opts.skip_testcase:
+            parser.error('--testcase-points cannot be combined with --skip-testcase')
         if opts.testcase_points < 0:
             parser.error('--testcase-points must be a non-negative integer')
 
@@ -173,7 +183,8 @@ def main(args: List[str]):
                 if path not in uploads:
                     uploads[path] = ProblemUpload(problem, skip_statement=opts.skip_statement,
                                                  testcase_points=opts.testcase_points,
-                                                 only_editorial=opts.only_editorial)
+                                                 only_editorial=opts.only_editorial,
+                                                 skip_testcase=opts.skip_testcase)
         except (UploadError, OSError, ValueError) as exc:
             parser.error(str(exc))
         problems = list({p.basedir.resolve(): p for p in problems}.values())
@@ -202,7 +213,7 @@ def main(args: List[str]):
         mode = Problem.Mode.HTML
 
     for problem in problems:
-        if not opts.only_editorial:
+        if not opts.only_editorial and not opts.skip_testcase:
             problem.generate(mode, Path(opts.htmldir) if opts.htmldir else None)
         if opts.upload is not None:
             try:

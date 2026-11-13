@@ -174,8 +174,10 @@ def audit_coverage(problem, kind):
         assert '6' in (p / 'out/edge_11.out').read_text().split()
         assert b == 10**18
     template = toml.load(ROOT / 'custom/segtree012/info.toml')['upload']
-    shared_fields = ('group', 'classes', 'types', 'allowed_languages', 'partial')
-    assert all(problem.config['upload'][key] == template[key] for key in shared_fields)
+    upload = problem.config['upload']
+    assert upload['group'] == '03'
+    shared_fields = ('classes', 'types', 'allowed_languages', 'partial')
+    assert all(upload[key] == template[key] for key in shared_fields)
     assert problem.config['timelimit'] == problem.config['upload']['time_limit'] == 1.0
 
 

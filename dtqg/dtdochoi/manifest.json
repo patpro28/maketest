@@ -1,0 +1,131 @@
+{
+  "checker": "standard",
+  "cases": [
+    {
+      "input_file": "example_00.in",
+      "output_file": "example_00.out",
+      "points": 0,
+      "is_pretest": true
+    },
+    {
+      "input_file": "example_01.in",
+      "output_file": "example_01.out",
+      "points": 0,
+      "is_pretest": true
+    },
+    {
+      "type": "S",
+      "points": 10
+    },
+    {
+      "input_file": "cases_00.in",
+      "output_file": "cases_00.out"
+    },
+    {
+      "input_file": "cases_01.in",
+      "output_file": "cases_01.out"
+    },
+    {
+      "input_file": "cases_02.in",
+      "output_file": "cases_02.out"
+    },
+    {
+      "type": "E"
+    },
+    {
+      "type": "S",
+      "points": 20
+    },
+    {
+      "input_file": "cases_03.in",
+      "output_file": "cases_03.out"
+    },
+    {
+      "input_file": "cases_04.in",
+      "output_file": "cases_04.out"
+    },
+    {
+      "input_file": "cases_05.in",
+      "output_file": "cases_05.out"
+    },
+    {
+      "type": "E"
+    },
+    {
+      "type": "S",
+      "points": 20
+    },
+    {
+      "input_file": "cases_06.in",
+      "output_file": "cases_06.out"
+    },
+    {
+      "input_file": "cases_07.in",
+      "output_file": "cases_07.out"
+    },
+    {
+      "input_file": "cases_08.in",
+      "output_file": "cases_08.out"
+    },
+    {
+      "type": "E"
+    },
+    {
+      "type": "S",
+      "points": 20
+    },
+    {
+      "input_file": "cases_09.in",
+      "output_file": "cases_09.out"
+    },
+    {
+      "input_file": "cases_10.in",
+      "output_file": "cases_10.out"
+    },
+    {
+      "input_file": "cases_11.in",
+      "output_file": "cases_11.out"
+    },
+    {
+      "type": "E"
+    },
+    {
+      "type": "S",
+      "points": 20
+    },
+    {
+      "input_file": "cases_12.in",
+      "output_file": "cases_12.out"
+    },
+    {
+      "input_file": "cases_13.in",
+      "output_file": "cases_13.out"
+    },
+    {
+      "input_file": "cases_14.in",
+      "output_file": "cases_14.out"
+    },
+    {
+      "type": "E"
+    },
+    {
+      "type": "S",
+      "points": 10
+    },
+    {
+      "input_file": "cases_15.in",
+      "output_file": "cases_15.out"
+    },
+    {
+      "input_file": "cases_16.in",
+      "output_file": "cases_16.out"
+    },
+    {
+      "input_file": "cases_17.in",
+      "output_file": "cases_17.out"
+    },
+    {
+      "type": "E"
+    }
+  ]
+}

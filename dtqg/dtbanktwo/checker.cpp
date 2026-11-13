@@ -1,0 +1,14 @@
+#include "testlib.h"
+int main(int argc, char** argv) {
+    registerTestlibCmd(argc, argv);
+    int count = 1;
+    // BANK has one answer for every dataset; the board problems have one answer.
+    count = inf.readInt();
+    for (int i = 0; i < count; ++i) {
+        long long expected = ans.readLong();
+        long long actual = ouf.readLong();
+        if (actual != expected) quitf(_wa, "Wrong answer on dataset %d", i + 1);
+    }
+    if (!ouf.seekEof()) quitf(_wa, "Extra output");
+    quitf(_ok, "Correct");
+}

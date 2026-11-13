@@ -1,0 +1,31 @@
+title = 'DTOCSEN — Ốc sên'
+timelimit = 1.0
+
+[[tests]]
+    name = 'example.in'
+    number = 4
+    points = 0
+
+[[tests]]
+    name = 'cases.cpp'
+    number = 16
+    points = 1
+
+[[solutions]]
+    name = 'correct.cpp'
+    type = 'correct'
+
+[params]
+    H_MAX = 1000000000000
+    N_MAX = 10000
+    P_MAX = 1000000000000
+
+[upload]
+    time_limit = 1.0
+    memory_limit = 256000
+    points = 100
+    group = '04'
+    classes = 'E'
+    types = ['doituyen']
+    allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+    partial = true

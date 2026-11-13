@@ -53,6 +53,8 @@ export PROBLEM_IMPORT_API_KEY='<khóa nhập đề>'
 ./generate.py custom/knapsack00/info.toml -u
 # Tải lại test và lời giải, giữ nguyên đề và thông tin bài trên máy chủ:
 ./generate.py -u knapsack00 --skip-statement
+# Cập nhật đề, checker riêng và lời giải, giữ nguyên bộ test trên máy chủ:
+./generate.py -u knapsack00 --skip-testcase
 # Chỉ tải lời giải, không sinh test hay cập nhật các phần khác:
 ./generate.py -u knapsack00 --only-editorial
 # Đặt 5 điểm cho mỗi testcase khi tải lại:
@@ -78,6 +80,39 @@ testcase_points = 1  # Điểm mặc định cho mỗi testcase
 partial = true
 checker = 'standard'
 ```
+
+Với bài đọc/ghi tệp có tên, thêm các trường sau vào `[upload]`:
+
+```toml
+io_method = 'file'
+io_input_file = 'SUM.INP'
+io_output_file = 'SUM.OUT'
+```
+
+Ba trường này được gửi trong JSON tạo/cập nhật đề, không đặt trong manifest
+testcase. Tên tệp phân biệt hoa/thường và phải khớp đề, lời giải. Khi sinh đáp án
+hoặc kiểm tra lời giải cục bộ, công cụ chép đầu vào sang đúng tên trong thư mục
+chạy riêng và lấy kết quả từ tệp đầu ra. Gửi `io_method = 'standard'` và bỏ hai
+tên tệp để trở về `stdin`/`stdout`; bỏ cả ba trường để giữ cấu hình I/O trên máy
+chủ. `--skip-statement` cũng giữ cấu hình I/O hiện tại.
+
+Với testcase nhị phân, thêm vào `[upload]`:
+
+```toml
+binary_data = true
+```
+
+`-u` đưa cờ này vào **manifest của request upload testcase**, không gửi trong
+JSON tạo/cập nhật đề. Cờ áp dụng cho cả bộ test và giữ nguyên byte input/output
+khi judge đọc dữ liệu. Chỉ nhận boolean `true` hoặc `false`; đặt `false` để trở
+về xử lý văn bản, bỏ trường để giữ cờ trên máy chủ. Công cụ không tự suy đoán
+dữ liệu nhị phân theo tên tệp hoặc `io_method`.
+
+Nếu dùng `[upload].manifest`, `binary_data` trong JSON được ưu tiên hơn TOML;
+nếu JSON không có cờ thì dùng giá trị TOML. Cờ vẫn được gửi khi dùng
+`--skip-statement`. `--skip-testcase` và `--only-editorial` không upload testcase
+nên không thay đổi cờ. Khi sinh dữ liệu hoặc chạy lời giải cục bộ với cờ bật,
+công cụ dùng chế độ byte và bỏ bước chuẩn hóa xuống dòng trên Windows.
 
 - Mã bài là tên thư mục chuyển sang chữ thường; chỉ nhận chữ cái và chữ số,
   tối đa 20 ký tự theo API.
@@ -105,6 +140,16 @@ checker = 'standard'
 - Upload không xuất HTML và không dùng cùng `--dev`, `--test`, `--clean`,
   `--only-html`, `--htmldir`, `--new` hoặc `--zip`.
 
+Thêm `--skip-testcase` để giữ nguyên bộ test và điểm testcase trên máy chủ.
+Công cụ bỏ qua sinh test, đọc/đối chiếu `hash.json`, đóng gói và gửi ZIP; không cần
+`[[tests]]`, dữ liệu `in/`, `out/` hay mã nguồn sinh test/lời giải chuẩn ở máy này.
+Đề và thông tin bài vẫn được tạo/cập nhật, checker riêng vẫn được tải nếu cấu hình,
+editorial vẫn cập nhật nếu có file. File `[upload].manifest`, điểm testcase trong
+TOML được bỏ qua; checker và `checker_args` lấy trực tiếp từ `[upload]`.
+Có thể kết hợp `--skip-statement --skip-testcase` để chỉ tải checker riêng và
+editorial. Khi dùng cả hai, bài phải tồn tại trên máy chủ. Tùy chọn chỉ dùng cùng
+`-u` / `--upload`, không dùng cùng `--testcase-points` hoặc `--only-editorial`.
+
 Để chỉ cập nhật lời giải, dùng `-u ... --only-editorial` (cũng hỗ trợ chọn bài bằng
 `-p` hoặc đường dẫn `info.toml`). Công cụ chỉ gửi editorial theo thứ tự ưu tiên
 file nêu trên, giữ nguyên đề, thông tin bài, checker và testcase trên máy chủ.
@@ -112,8 +157,8 @@ Chế độ này không sinh test, không đọc hay đối chiếu `hash.json`,
 `task.md`, `[[tests]]`, mã nguồn hoặc các trường thông tin đề trong `[upload]`;
 vẫn cần `info.toml` để đọc cấu hình đường dẫn editorial nếu có.
 Thiếu file hoặc file rỗng sẽ báo lỗi trước khi upload. Bài phải tồn tại trên máy
-chủ, nếu chưa có thì API báo lỗi `404`. Không dùng cùng `--skip-statement` hoặc
-`--testcase-points`.
+chủ, nếu chưa có thì API báo lỗi `404`. Không dùng cùng `--skip-statement`,
+`--skip-testcase` hoặc `--testcase-points`.
 
 `checker` mặc định là `standard`. Ngoài các checker tích hợp được liệt kê trong
 [PROBLEM_IMPORT_API.md](PROBLEM_IMPORT_API.md), `-u` hỗ trợ tải checker C++ testlib

@@ -1,0 +1,32 @@
+title = 'DPALL0006 — Thông điệp chung đúng ngân sách'
+timelimit = 1.0
+
+[[tests]]
+name = "example.in"
+number = 2
+
+[[tests]]
+name = "edge.in"
+number = 5
+
+[[tests]]
+name = "random.cpp"
+number = 18
+
+[[solutions]]
+type = "correct"
+name = "correct.cpp"
+
+[params]
+N_MAX = 220
+M_MAX = 220
+S_MAX = 100
+COST_MAX = 100
+P_MAX = 1000000000
+
+[upload]
+time_limit = 1.0
+group = '03'
+classes = 'C'
+types = ['dp_all']
+allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']

@@ -1,0 +1,26 @@
+title = 'DPSTR503 - Bảng giá chỉnh sửa'
+timelimit = 1.0
+
+[[tests]]
+name = "example.in"
+number = 2
+[[tests]]
+name = "data.cpp"
+number = 30
+
+[[solutions]]
+type = "correct"
+name = "correct.cpp"
+
+[params]
+N_MAX = 5000
+M_MAX = 5000
+
+[upload]
+time_limit = 1.0
+memory_limit = 131072
+group = '03'
+classes = 'C'
+types = ['dp_string']
+allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+partial = true

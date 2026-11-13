@@ -1,0 +1,31 @@
+title = 'DPALL0004 — Robot qua đúng K khúc cua'
+timelimit = 1.0
+
+[[tests]]
+name = "example.in"
+number = 2
+
+[[tests]]
+name = "edge.in"
+number = 7
+
+[[tests]]
+name = "random.cpp"
+number = 18
+
+[[solutions]]
+type = "correct"
+name = "correct.cpp"
+
+[params]
+R_MAX = 200
+C_MAX = 200
+K_MAX = 30
+A_MAX = 1000000000
+
+[upload]
+time_limit = 1.0
+group = '03'
+classes = 'C'
+types = ['dp_all']
+allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']

@@ -1,5 +1,5 @@
 title = 'SEGTREE220 - Cộng đoạn và lấy lớn nhất'
-timelimit = 0.5
+timelimit = 1.0
 
 [[tests]]
     name = "example.in"
@@ -28,7 +28,7 @@ timelimit = 0.5
     VALUE_MAX = 10000
 
 [upload]
-    time_limit = 0.5
+    time_limit = 1.0
     group = '04'
     classes = 'D'
     types = ['ds_segment_tree']

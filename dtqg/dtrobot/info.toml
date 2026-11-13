@@ -1,0 +1,28 @@
+title = 'DTROBOT — Robot đếm lần rẽ'
+timelimit = 2.0
+
+[[tests]]
+    name = 'example.in'
+    number = 1
+    points = 0
+[[tests]]
+    name = 'cases.cpp'
+    number = 16
+    points = 1
+
+[[solutions]]
+    name = 'correct.cpp'
+    type = 'correct'
+
+[params]
+    N_MAX = 70000
+
+[upload]
+    time_limit = 2.0
+    memory_limit = 262144
+    points = 100
+    group = '04'
+    classes = 'E'
+    types = ['doituyen']
+    allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+    partial = true

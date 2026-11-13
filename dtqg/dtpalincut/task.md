@@ -4,7 +4,9 @@
 
 Một chuỗi hạt được biểu diễn bằng xâu $S$ gồm các chữ cái La tinh thường. Người ta muốn cắt chuỗi hạt để nhận được $k$ chuỗi con, trong đó mỗi chuỗi có độ dài xác định trước và là một xâu đối xứng. Một xâu đối xứng là xâu đọc từ trái sang phải giống như đọc từ phải sang trái.
 
-Hãy xác định có tồn tại cách chọn $k$ đoạn liên tiếp không giao nhau của $S$, sao cho chúng đều đối xứng và có các độ dài $l_1,l_2,\ldots,l_k$ hay không. Có thể bỏ các phần hạt thừa ở đầu, cuối hoặc giữa các đoạn được chọn. Thứ tự các đoạn trên chuỗi không bắt buộc trùng thứ tự liệt kê các độ dài. Nếu một độ dài xuất hiện nhiều lần, phải chọn đủ số đoạn tương ứng.
+Hãy xác định có tồn tại cách chọn $k$ đoạn của $S$, sao cho chúng đều đối xứng và có các độ dài $l_1,l_2,\ldots,l_k$ hay không.
+
+Mỗi đoạn gồm các ký tự ở những vị trí liên tiếp trong $S$. Các đoạn được chọn đôi một không giao nhau và **không bắt buộc nằm sát nhau**: giữa hai đoạn có thể có các ký tự không được chọn. Có thể bỏ các phần hạt thừa ở đầu và cuối chuỗi. Thứ tự các đoạn trên chuỗi không bắt buộc trùng thứ tự liệt kê các độ dài. Nếu một độ dài xuất hiện nhiều lần, phải chọn đủ số đoạn tương ứng.
 
 Ví dụ, có thể cắt xâu `asaaabbrcaacw` để nhận được ba xâu đối xứng có độ dài $2,3,4$ là `bb`, `aaa`, `caac`. Trên xâu ban đầu, các đoạn được giữ theo thứ tự `aaa`, `bb`, `caac`.
 

@@ -1,5 +1,7 @@
 # DPSTR — Dãy con chung của hai xâu
 
+Kết quả kiểm tra sau khi thống nhất mã, hai type `dp_string`/`dp_common_substring` và giới hạn 1 giây cho 22 bài nhóm 2–3 được ghi tại [báo cáo đồng bộ mã](rename_results.md).
+
 ## Phân mức và danh sách bài
 
 | Dải mã | Mức độ | Nội dung |
@@ -8,7 +10,7 @@
 | dpstr130–dpstr149 | Trung bình | Trọng số, chi phí và điều kiện ký tự cuối |
 | dpstr150–dpstr199 | Khó | Ký tự bắt buộc, giới hạn nguyên âm và ký tự cuối |
 
-Đã tạo các bài sau; các mã còn lại được để trống cho những bài bổ sung sau này.
+Đã tạo các bài sau; các mã còn lại được để trống cho những bài bổ sung sau này. Mười bài đầu dùng bộ kiểm tra chung; hai bài 153 và 154 có quy trình kiểm tra riêng.
 
 | Mã | Tên bài | Giới hạn mỗi xâu | Thuật toán chính |
 | --- | --- | --- | --- |
@@ -22,19 +24,21 @@
 | [dpstr150](../dpstr150/task.md) | Ký tự bắt buộc | 300 | Trạng thái có chứa ký tự bắt buộc, $O(NM)$ |
 | [dpstr151](../dpstr151/task.md) | Giới hạn nguyên âm | 200 | Thêm giới hạn $K\le5$, $O(NM(K+1))$ |
 | [dpstr152](../dpstr152/task.md) | Thông điệp không lặp cạnh nhau | 250 | Lưu chữ cuối trong ba chữ `a`, `b`, `c`, $O(3^2NM)$ |
+| [dpstr153](../dpstr153/task.md) | Thông điệp chung của nhiều bản ghi | 2–40 xâu, tổng độ dài 100.000, xâu ngắn nhất ≤20 | Duyệt tập con vị trí của xâu ngắn nhất, giữ điểm khớp sớm nhất |
+| [dpstr154](../dpstr154/task.md) | Hai bản ghi lệch độ dài | A ≤5.000, B ≤1.000.000 | Đảo trạng thái LCS, bảng vị trí kế tiếp, $O(26M+N^2)$ |
 
-Mỗi bài có `task.md` theo mẫu knapsack, hai ví dụ, `solution.md`, lời giải C++11 và Python 3, bộ sinh, verifier, checker và `hash.json`. Không thêm Subtask và không xuất HTML. Các lời giải chỉ trình bày thuật toán và chứng minh; tài liệu kiểm thử nằm ở đây.
+Mỗi bài có `task.md` theo mẫu knapsack, ít nhất hai ví dụ, `solution.md`, lời giải C++11, bộ sinh, verifier, checker và `hash.json`. Mười bài đầu có thêm lời giải Python 3. Không thêm Subtask và không xuất HTML. Các lời giải chỉ trình bày thuật toán và chứng minh; tài liệu kiểm thử nằm ở đây.
 
 ## Cấu hình chấm
 
-Tất cả bài dùng `timelimit = 0.5` và cấu hình:
+Tất cả bài dùng `timelimit = 1.0` và cấu hình:
 
 ```toml
 [upload]
-time_limit = 0.5
+time_limit = 1.0
 group = '03'
 classes = 'C'
-types = ['dp_string']
+types = ['dp_string', 'dp_common_substring']
 allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
 partial = true
 ```
@@ -54,6 +58,8 @@ Từ thư mục gốc dự án:
 ```sh
 python3 custom/dpstr_lcs_tests/check.py
 python3 custom/dpstr_lcs_tests/check.py --problem dpstr101 dpstr151
+python3 custom/dpstr153/tests/check.py
+python3 custom/dpstr154/tests/check.py
 ```
 
 Chỉ khi đã chủ động thay đổi dữ liệu và cần cập nhật mã băm:
@@ -64,10 +70,10 @@ python3 custom/dpstr_lcs_tests/check.py --update-hashes
 
 Có thể chạy riêng `tests/check.py` trong từng bài. Quy trình gọi trực tiếp các bước của `Problem`, không dùng `--dev` hoặc `--test`, không xuất HTML và không kết nối máy chủ.
 
-Mỗi bài có 32 cặp test nền: 2 ví dụ, 10 biên, 8 nhỏ, 6 ngẫu nhiên, 6 lớn. Riêng `dpstr150` có thêm 8 cặp hồi quy, tổng cộng 40 cặp; xem `custom/dpstr150/tests/README.md`. Bộ kiểm tra thực hiện:
+Mười bài trong bộ kiểm tra chung có 32 cặp test nền mỗi bài: 2 ví dụ, 10 biên, 8 nhỏ, 6 ngẫu nhiên, 6 lớn. Riêng `dpstr150` có thêm 8 cặp hồi quy, tổng cộng 40 cặp; xem `custom/dpstr150/tests/README.md`. Hai bài 153/154 lần lượt có 35/37 cặp test, tài liệu chi tiết ở thư mục `tests/` của từng bài. Bộ kiểm tra chung thực hiện:
 
 - Biên dịch lời giải C++ theo C++11; biên dịch bộ sinh và công cụ theo C++17, bật cảnh báo lỗi.
-- Sinh và xác thực mọi đầu vào, tạo đáp án bằng C++, chấm cả C++ và Python trong 0,5 giây mỗi test.
+- Sinh và xác thực mọi đầu vào, tạo đáp án bằng C++, chấm cả C++ và Python trong 1 giây mỗi test.
 - Đối chiếu mọi đáp án với lời giải Python: DP xóa trực tiếp cho bài 102; DP siêu dãy trực tiếp cho bài 103; tối đa chi phí giữ lại cho bài 131; đảo xâu cho bài 132; ghép hai phía của một ký tự bắt buộc cho bài 150; đếm nguyên âm chính xác cho bài 151; vị trí xuất hiện kế tiếp cho bài 152.
 - Vét cạn tất cả 20 test ví dụ/biên/nhỏ của mỗi bài bằng cách liệt kê các dãy con của cả hai xâu; với `dpstr150`, kiểm tra thêm 6 test hồi quy ngắn, tổng cộng 26 test. Với chi phí theo vị trí, lưu tổng chi phí giữ lại lớn nhất cho mỗi xâu con ở từng phía.
 - Vét cạn mọi cặp xâu nhị phân có độ dài từ 1 đến 3: 196 cặp mỗi bài; thêm 100 trường hợp ngẫu nhiên và các trường hợp đặc trưng.

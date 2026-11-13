@@ -159,12 +159,12 @@ def audit_statement(p, code, reference):
 
 
 def audit_config(problem, code):
-    upload = dict(time_limit=0.5, group='03', classes='C', types=['dp_string'],
+    upload = dict(time_limit=1.0, group='03', classes='C', types=['dp_string','dp_common_substring'],
                   allowed_languages=LANGUAGES, partial=True)
     if code == 101:
         upload['checker'] = 'custom'
     assert problem.config['upload'] == upload, problem.basedir
-    assert problem.config['timelimit'] == 0.5
+    assert problem.config['timelimit'] == 1.0
     assert sum(t['number'] for t in problem.config['tests']) == (40 if code == 150 else 32)
     metadata = ProblemUpload(problem)
     if code == 101:
@@ -371,7 +371,7 @@ def main():
             (p/'hash.json').write_text(json.dumps(problem.calc_hashes(),indent=2,sort_keys=True)+'\n')
         problem.assert_hashes()
         pairs = sum(test['number'] for test in problem.config['tests'])
-        print(f'{p.name}: {pairs} pairs, C++/Python AC at 0.5s; {generated_brute} generated brute checks; '
+        print(f'{p.name}: {pairs} pairs, C++/Python AC at 1s; {generated_brute} generated brute checks; '
               f'{count} additional brute checks; statements, metadata, checker, verifier, '
               f'reproducibility and hashes OK ({time.monotonic()-started:.1f}s).', flush=True)
     print('All checks passed. No HTML generated or problems uploaded. dpstr101 requires its custom checker.',flush=True)

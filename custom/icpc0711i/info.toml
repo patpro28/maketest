@@ -1,0 +1,26 @@
+title = 'ICPC0711I — Thu thập kho báu'
+timelimit = 1.0
+
+[[tests]]
+name = "example.in"
+number = 2
+
+[[tests]]
+name = "cases.cpp"
+number = 16
+
+[[solutions]]
+name = "correct.cpp"
+type = "correct"
+
+[params]
+
+[upload]
+group = '04'
+classes = 'D'
+types = ['unknown']
+allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+partial = true
+time_limit = 1.0
+memory_limit = 262144
+checker = 'standard'

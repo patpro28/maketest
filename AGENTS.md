@@ -13,10 +13,13 @@
   6. Các cặp `### Sample Input 1`, `### Sample Output 1`, tiếp tục đánh số tăng dần cho các ví dụ còn lại.
   7. `### Giải thích`
 - Viết nội dung bằng tiếng Việt, rõ ràng và thống nhất ký hiệu. Mô tả dữ liệu vào theo từng dòng bằng danh sách; mô tả chính xác yêu cầu đầu ra; trình bày ràng buộc bằng danh sách và công thức LaTeX `$...$`.
+- Mọi bài khi tạo mới hoặc cập nhật đề phải dùng định dạng nhiều bộ test. Dòng đầu ghi số nguyên `$T$` là số bộ test, tiếp theo là dữ liệu của `$T$` bộ. Ghi rõ giới hạn của `$T$` và in kết quả của từng bộ theo thứ tự đầu vào. Mỗi ví dụ cũng dùng định dạng này, kể cả khi `$T=1$`.
+- Ghi rõ giới hạn tổng kích thước trên tất cả bộ test trong một đầu vào. Nếu `$N_i$` là kích thước của bộ thứ `$i$`, quy định `$\sum_{i=1}^{T} N_i \le L$` và ghi giá trị cụ thể của `$L$` phù hợp với bài. Nếu bài dùng ký hiệu kích thước khác, áp dụng giới hạn tổng tương ứng.
 - Chỉ thêm mục `Subtask` khi người dùng yêu cầu rõ ràng. Mặc định không thêm mục này, kể cả subtask 100% hoặc khi đề nguồn có subtask. Khi được yêu cầu thêm, dùng bảng với ba cột `Subtask | Tỉ lệ | Ràng buộc bổ sung`, tổng tỉ lệ bằng 100%; dòng áp dụng toàn bộ ràng buộc ghi `Không có ràng buộc bổ sung`. Nếu đề nguồn có subtask và người dùng yêu cầu giữ, giữ đúng cách chia của nguồn.
-- Mỗi Sample Input/Output đặt trong khối mã có nhãn `text`, giữ nguyên định dạng và thứ tự ví dụ từ đề nguồn. Với bài tự biên soạn, cung cấp ít nhất hai ví dụ phù hợp.
+- Mỗi Sample Input/Output đặt trong khối mã có nhãn `text`. Với đề chuyển từ nguồn, giữ nguyên dữ liệu, kết quả và thứ tự ví dụ, đồng thời bổ sung dòng `$T$` nếu đầu vào gốc chỉ có một bộ test. Với bài tự biên soạn, cung cấp ít nhất hai ví dụ phù hợp.
 - Gom giải thích các ví dụ vào một mục `### Giải thích` ở cuối, chỉ rõ đang giải thích ví dụ nào; không đặt mục giải thích xen giữa các cặp Sample Input/Output.
-- Khi chuyển bài từ PDF hoặc nguồn khác, giữ nguyên ý nghĩa, giới hạn và ví dụ, đồng thời chuyển cách trình bày sang cấu trúc trên. Có thể thêm mục `### Nguồn` sau `### Giải thích` để ghi xuất xứ.
+- Khi chuyển bài từ PDF hoặc nguồn khác, giữ nguyên ý nghĩa và giới hạn của từng bộ test, đồng thời trình bày đề và ví dụ theo cấu trúc trên.
+- Không thêm mục `### Nguồn` hoặc ghi xuất xứ trong `task.md`. Mục cuối của đề là `### Giải thích`.
 - Trước khi hoàn tất, đối chiếu `task.md` với mẫu knapsack để kiểm tra tiêu đề, cấp heading, thứ tự mục và định dạng ví dụ; chỉ kiểm tra bảng subtask khi người dùng yêu cầu có mục này. Quy tắc này áp dụng cho các bài trong mọi thư mục của dự án.
 
 ## Mã bài trong thư mục dtqg
@@ -31,11 +34,17 @@
 - `solution.md` không được có mục kiểm thử, kiểm chứng bằng test hoặc nội dung mô tả bộ sinh, oracle, verifier, checker, benchmark và kết quả chạy test. Lưu các nội dung này trong tài liệu kiểm thử riêng, chẳng hạn `tests/README.md` hoặc README của bộ kiểm thử dùng chung.
 - Lời giải tập trung vào ý tưởng, thuật toán, chứng minh tính đúng đắn, độ phức tạp và lưu ý cài đặt. Chứng minh tính đúng đắn của thuật toán vẫn được phép và cần phân biệt với kiểm chứng bằng test.
 
+## Cấu hình giới hạn thời gian
+
+- Mặc định giới hạn thời gian của tất cả bài tập trong mọi thư mục dự án là **1 giây**. Khi tạo mới hoặc cập nhật cấu hình bài, đặt `timelimit = 1.0` và `time_limit = 1.0` trong mục `[upload]` của `info.toml`, giữ hai giá trị thống nhất.
+- Chỉ dùng giới hạn thời gian khác khi người dùng yêu cầu rõ ràng; không tự tăng giới hạn để lời giải vượt qua kiểm thử. Khi kiểm tra lời giải, dùng đúng giới hạn thời gian đã cấu hình.
+
 ## Đề bài và kiểm thử
 
 - Khi tạo hoặc cập nhật bài tập, lưu đề bài trong `task.md` và bỏ qua bước xuất HTML đề bài, trừ khi người dùng yêu cầu rõ ràng.
 - Không cài thêm thư viện chỉ để xuất HTML và không coi việc thiếu HTML là lỗi hay công việc chưa hoàn thành.
 - Vẫn thực hiện đầy đủ việc sinh test, kiểm tra dữ liệu đầu vào, kiểm tra lời giải, checker và cập nhật hoặc đối chiếu `hash.json` khi cần.
+- Bộ sinh, verifier, lời giải và checker phải nhất quán với định dạng `$T$` bộ test. Verifier kiểm tra cả giới hạn từng bộ và giới hạn tổng kích thước. Bộ test cần có đầu vào với nhiều bộ test để kiểm tra việc đọc dữ liệu và thứ tự kết quả.
 - Các chế độ `--dev` và `--test` hiện tự gọi bước xuất HTML. Khi dùng quy trình này, hãy chạy riêng các bước sinh và kiểm tra cần thiết để bỏ qua bước HTML; không bỏ qua kiểm thử chỉ vì không xuất HTML.
 
 ## Phân nhóm bài segment tree

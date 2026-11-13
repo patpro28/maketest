@@ -1,0 +1,30 @@
+title = 'STR67C — Bàn phím bị hỏng'
+timelimit = 1.0
+
+[[tests]]
+name = "example.in"
+number = 1
+
+[[tests]]
+name = "edge.cpp"
+number = 6
+
+[[tests]]
+name = "random.cpp"
+number = 20
+
+[[solutions]]
+name = "correct.cpp"
+type = "correct"
+
+[params]
+T_MAX = 100
+N_MAX = 500
+
+[upload]
+    time_limit = 1.0
+    group = '02'
+    classes = 'B'
+    types = ['phuongphapduyetcoban']
+    allowed_languages = ['PY3', 'CPP11', 'CPP14', 'CPP17', 'CPP20', 'JAVA8', 'C', 'PAS']
+    partial = true

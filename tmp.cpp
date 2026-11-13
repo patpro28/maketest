@@ -8,25 +8,34 @@ using namespace std;
 
 const int N = 101;
 
-int a[N][N], n, m;
-
-void sub1() {
-    for (int i = 1; i <= n; ++i) {
-        int s = 0;
-        for (int j = 1; j <= n; ++j)
-            s += a[i][j];
-        cout << s << ' ';
-    }
+// Hàm kiểm tra số chính phương
+bool scp(long long n) {
+    long long k = sqrtl(n);
+    return k * k == n;
 }
 
-void sub2() {
-    cout << n << '\n';
-    for (int i = 1; i <= n; ++i) {
-        cout << count(a[i] + 1, a[i] + n + 1, 1) << ' ';
-        for (int j = 1; j <= n; ++j)
-            if (a[i][j]) cout << j << ' ';
-        cout << '\n';
+// Hàm trả về số đảo ngược
+long long daonguoc(long long n) {
+    long long m = 0;
+    while (n > 0) {
+        m = m * 10 + n % 10;
+        n /= 10;
     }
+    return m;
+}
+
+// Hàm kiểm tra số đối xứng
+bool doixung(long long n) {
+    return n == daonguoc(n);
+}
+
+// Hàm kiểm tra số chứa 7
+bool has7(long long n) {
+    while (n > 0) {
+        if (n % 10 == 7) return true;
+        n /= 10;
+    }
+    return false;
 }
 
 int main() {

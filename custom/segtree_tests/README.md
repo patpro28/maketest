@@ -143,13 +143,71 @@ python3 custom/segtree033/tests/check.py
 
 Dùng `--update-hashes` khi chủ động thay đổi dữ liệu hoặc đáp án chuẩn. Các bộ kiểm thử cũ vẫn dùng `CASE_KINDS` và các mã đã chuyển; bộ mới dùng `oracle_refill.cpp`, nên không nhầm nội dung khi tái sử dụng mã bài.
 
-Mỗi bài có 36 test: 2 ví dụ, 12 biên, 8 nhỏ, 8 ngẫu nhiên, 6 lớn; toàn nhóm có 216 test chính. Đề không có Subtask và không xuất HTML. Phần `[upload]` được sao chép từ cấu hình hiện tại của `segtree012`, bao gồm `time_limit = 1.0`; `timelimit` kiểm tra tại máy cũng là 1 giây. Bộ kiểm thử đối chiếu các trường upload dùng chung và xác nhận hai giới hạn thời gian khớp nhau.
+Mỗi bài có 36 test: 2 ví dụ, 12 biên, 8 nhỏ, 8 ngẫu nhiên, 6 lớn; toàn nhóm có 216 test chính. Đề không có Subtask và không xuất HTML. Bộ kiểm thử xác nhận `[upload].group` là `03`, đối chiếu `classes`, `types`, `allowed_languages` và `partial` với `segtree012`, đồng thời kiểm tra `timelimit` và `[upload].time_limit` đều bằng 1 giây.
 
 Lời giải độc lập dùng bảng thưa cho GCD tĩnh, Fenwick cho tổng cộng thêm, tổng modulo và đếm bội. Bài bậc thang dùng chia căn lưu chênh lệch lớn nhất bên trong khối cùng hai độ cao ở đầu/cuối; cập nhật dựng lại một khối, truy vấn tự ghép bậc ở biên khối, thay vì cập nhật mảng hiệu như lời giải segment tree. Bài LCM dùng chia căn và phép nhân số nguyên 128 bit để đối chiếu cách chặn bằng phép chia của lời giải chính.
 
 Ngoài test chính, có 2.826 trường hợp đối chiếu trực tiếp: mọi mảng độ dài 1–4 trên bảng ba giá trị, mọi đoạn, các cập nhật đơn và nhiều môđun/ngưỡng/số chia; mỗi bài thêm 150 test ngẫu nhiên. Bài LCM có thêm các ca đúng bằng ngưỡng, ngay dưới/trên ngưỡng, LCM thực vượt 64 bit, chu kỳ đơn lẻ vượt ngưỡng và cập nhật phục hồi từ vượt ngưỡng về hợp lệ. Bài bậc thang có thêm cập nhật tại biên khối.
 
 Các kiểm tra còn bao gồm cộng dồn làm phần tử vượt $10^9$, tổng vượt 32 bit, cộng thêm 0, môđun bằng 1, số chia bằng 1, bội âm và số 0, chênh lệch đạt $2\cdot10^9$, chỉ cập nhật hoặc chỉ truy vấn. Verifier phải từ chối dữ liệu ngoài giới hạn, chỉ số sai, đoạn đảo ngược, thiếu hoặc thừa dữ liệu và tham số cố định không hợp lệ. Checker, cấu trúc đề, ví dụ, khả năng tái lập bộ sinh và toàn bộ hash cũng được kiểm tra.
+
+## SEG0 — Tổng đoạn với cập nhật điểm
+
+Nhóm Range Sum `segtree010–019` thuộc chủ đề `TOP-ZX6N9JZ9KY`.
+
+| Mã bài | Nội dung |
+| --- | --- |
+| segtree010 | Đảo trạng thái một đèn, đếm đèn sáng |
+| segtree011 | Gán lượng hàng tại một kho, truy vấn tổng đoạn |
+| segtree012 | Tổng thu và tổng chi không âm |
+| segtree013 | Tổng đan dấu, bắt đầu bằng dấu cộng tại đầu đoạn |
+| segtree014 | Cộng thêm doanh số tại một điểm, tính tổng đoạn |
+| segtree015 | Gán tại một điểm, tính tổng modulo cố định |
+| segtree016 | Chuyển hàng giữa hai kho, tính tổng số dư |
+| segtree017 | Cộng tại một điểm, tính tổng trên đoạn vòng |
+| segtree018 | Gán tại một điểm, tính tổng có hệ số cố định |
+| segtree019 | Gán tại một điểm, tính tổng theo bước nhảy cố định |
+
+Chạy các lệnh sau từ thư mục gốc để kiểm tra cả mười bài.
+
+```sh
+python3 custom/segtree010/tests/check.py
+python3 custom/segtree011/tests/check.py
+python3 custom/segtree_tests/check_remaining.py --problem segtree012 segtree013
+python3 custom/segtree_tests/check_refill.py --problem segtree014 segtree015
+python3 custom/segtree_tests/check_point_range_sum.py
+```
+
+Mỗi bài `016–019` có 36 test, gồm 2 ví dụ, 12 biên, 8 nhỏ, 8 ngẫu nhiên và 6 lớn, với $N,Q\le200000$ và thời gian 1 giây. Các test lớn kiểm tra tích lũy 64 bit và hệ số âm hoặc bằng 0. Bộ kiểm thử đối chiếu toàn bộ đáp án với lời giải Fenwick, kiểm tra thêm bằng duyệt trực tiếp trên các trường hợp nhỏ, rồi kiểm tra verifier, checker, tính tái lập của bộ sinh và `hash.json`. Dùng `--update-hashes` sau khi chủ động sửa dữ liệu hoặc đáp án chuẩn.
+
+## SEG0 — Min và max đoạn với cập nhật điểm
+
+Nhóm Range Min-Max `segtree020–029` thuộc chủ đề `TOP-F4DA53XX74`.
+
+| Mã bài | Nội dung |
+| --- | --- |
+| `segtree020` | Min, max và biên độ nhiệt độ |
+| `segtree021` | Min và chỉ số xuất hiện đầu tiên |
+| `segtree022` | Tổng hai giá trị cao nhất ở hai vị trí khác nhau |
+| `segtree023` | Kiểm tra mọi giá trị trong đoạn có nằm giữa hai ngưỡng |
+| `segtree024` | Độ lệch tuyệt đối lớn nhất so với mốc truy vấn |
+| `segtree025` | Chênh lệch tuyệt đối lớn nhất giữa hai vị trí kề nhau |
+| `segtree026` | Max trong đoạn sau khi loại một đoạn con |
+| `segtree027` | Chênh lệch tuyệt đối lớn nhất giữa hai phần tử thuộc hai đoạn |
+| `segtree028` | Max khi đổi dấu xen kẽ, bắt đầu bằng dấu cộng tại đầu đoạn |
+| `segtree029` | Giá trị lớn thứ hai phân biệt |
+
+Chạy các lệnh sau từ thư mục gốc để kiểm tra cả mười bài.
+
+```sh
+python3 custom/segtree020/tests/check.py
+python3 custom/segtree021/tests/check.py
+python3 custom/segtree_tests/check_remaining.py --problem segtree022 segtree023
+python3 custom/segtree025/tests/check.py
+python3 custom/segtree_tests/check_point_range_extrema.py
+```
+
+Các bài mới `024`, `026–029` có giới hạn $N,Q\le200\,000$ và thời gian 1 giây. Mỗi bài có 36 test gồm 2 ví dụ, 12 biên, 8 nhỏ, 8 ngẫu nhiên và 6 lớn. Bộ kiểm tra đối chiếu đáp án với lời giải chia căn, mô phỏng trực tiếp trên dữ liệu nhỏ và kiểm tra cấu trúc đề, verifier, checker, khả năng tái lập bộ sinh và `hash.json`. Dùng `--update-hashes` khi chủ động thay đổi dữ liệu hoặc đáp án chuẩn.
 
 ## SEG1 — Tìm kiếm trực tiếp trên segment tree
 
@@ -402,7 +460,33 @@ Có 36 test chính: 2 ví dụ, 12 biên, 8 nhỏ, 8 ngẫu nhiên và 6 lớn. 
 
 Có thêm 1.155 trường hợp đối chiếu trực tiếp: 363 mảng độ dài 1–5 trên các giá trị −2,0,3, hỏi mọi đoạn trước và sau mỗi lần cộng lên từng đoạn; 584 cặp cập nhật trên mọi cặp đoạn với lượng cộng ±1 khi n=1–4, bao gồm đoạn rời nhau, chồng nhau và lồng nhau; 200 trường hợp ngẫu nhiên với các tỉ lệ cập nhật khác nhau; 7 cấu hình riêng về giá trị biên, dãy đồng nhất và dấu xen kẽ; một ca tại các biên khối 450/451 và 899/900/901. Mỗi ví dụ, test biên và test nhỏ còn được đối chiếu trực tiếp; mọi test chính được đối chiếu với lời giải chia căn.
 
-Verifier được thử bằng dữ liệu sai về loại thao tác, số lượng, giá trị ban đầu, lượng cộng, biên đoạn và định dạng, bao gồm thiếu/thừa số ở hai loại thao tác có độ dài khác nhau. Checker được thử với đáp án đúng, khác khoảng trắng và đáp án sai/thiếu/thừa, gồm trường hợp không có dòng kết quả. Bộ kiểm tra xác nhận số dòng kết quả đúng bằng số thao tác loại 1, cấu trúc đề theo mẫu knapsack, hai ví dụ, metadata, khả năng tái lập bộ sinh và 72 hash SHA-256. `[upload]` lấy từ `segtree000`, riêng types là `['ds_segment_tree']`; giới hạn kiểm tra và upload đều là 0,5 giây.
+Verifier được thử bằng dữ liệu sai về loại thao tác, số lượng, giá trị ban đầu, lượng cộng, biên đoạn và định dạng, bao gồm thiếu/thừa số ở hai loại thao tác có độ dài khác nhau. Checker được thử với đáp án đúng, khác khoảng trắng và đáp án sai/thiếu/thừa, gồm trường hợp không có dòng kết quả. Bộ kiểm tra xác nhận số dòng kết quả đúng bằng số thao tác loại 1, cấu trúc đề theo mẫu knapsack, hai ví dụ, metadata, khả năng tái lập bộ sinh và 72 hash SHA-256. Cấu hình `[upload]` dùng `types = ['ds_segment_tree']`, và cả hai giới hạn thời gian đều là 1 giây.
+
+## SEG2 — Cộng đoạn và truy vấn cực trị
+
+Nhóm `segtree220–229` thuộc Range Add - Range Min-Max (`TOP-FD439S2HWB`).
+
+| Mã | Tên bài | Trọng tâm |
+| --- | --- | --- |
+| `segtree220` | Cộng đoạn và lấy lớn nhất | Max với nhãn cộng |
+| `segtree221` | Mực nước thấp nhất | Min với nhãn cộng |
+| `segtree222` | Biên độ nhiệt | Min, max và hiệu |
+| `segtree223` | Kho có số dư thấp nhất | Min kèm chỉ số nhỏ nhất |
+| `segtree224` | Số người đạt điểm cao nhất | Max kèm số lần xuất hiện |
+| `segtree225` | Tải lớn nhất trên vành đai | Tách cập nhật và truy vấn qua biên vòng |
+| `segtree226` | Biên độ sau khi bỏ một số đo | Hai cực trị ở mỗi đầu theo lần xuất hiện |
+| `segtree227` | Hiệu chỉnh đường dốc | Cực trị sau khi trừ độ dốc cố định, chọn mốc nguyên |
+| `segtree228` | Chênh lệch giữa hai trạm đối xứng | Cực trị trên hiệu của các cặp, cập nhật phản chiếu |
+| `segtree229` | San bằng hai khu vực với ngân sách chung | Ghép cực trị của hai khu vực và phần ngoài để tính biên độ tối ưu |
+
+Chạy bộ kiểm tra của cả nhóm từ thư mục gốc.
+
+```sh
+python3 custom/segtree220/tests/check.py
+python3 custom/segtree_tests/check_range_add_extrema.py
+```
+
+Mỗi bài có 36 test, gồm 2 ví dụ, 12 biên, 8 nhỏ, 8 ngẫu nhiên và 6 lớn. Cả nhóm dùng giới hạn 1 giây và kiểm tra tới $N,Q=100\,000$. Với `221–229`, các giá trị ban đầu và lượng cộng có trị tuyệt đối tối đa $10^9$. Bộ kiểm tra xác nhận cấu trúc đề, kết quả mẫu, verifier, checker, tính tái lập của bộ sinh và toàn bộ `hash.json`. Lời giải chia căn đối chiếu các test chính. Các ca nhỏ còn được kiểm tra bằng cách mô phỏng trực tiếp, gồm cả vét cạn phương án san bằng khi ngân sách nhỏ.
 
 ## Sáu bài SEG200–SEG205 — Lazy cơ bản, hỏi một vị trí
 
@@ -480,3 +564,26 @@ Mảng tổng tiền tố của dữ liệu đầu vào không đủ trả lời
 Có thêm 4.717 trường hợp đối chiếu: 1.572 cho bài 006, 1.573 cho bài 007 và 1.572 cho bài 009. Mỗi bài liệt kê mọi mảng độ dài 1–5 trên bảng bốn giá trị và hỏi mọi đoạn, thêm 200 trường hợp ngẫu nhiên cùng các cấu hình riêng về giá trị biên, phần tử lặp, GCD/LCM có thừa số chung, BCNN sát ngưỡng hoặc vượt ngưỡng, hai mức giá nhỏ nhất trùng nhiều lần và hai món rẻ nhất không kề nhau. Có ca quanh các biên khối 449/450/451 và 899/900/901. Test lớn có N=Q=200.000 hoặc N=199.999, dãy đồng nhất, giá trị nhỏ thứ hai chỉ xuất hiện ở cuối, BCNN vượt ngưỡng và tổng giá cặp 2.000.000.000.
 
 Verifier được thử với 16 dữ liệu sai mỗi bài về N,Q, giá trị, chỉ số, thứ tự biên, định dạng và dữ liệu thiếu/thừa. Checker được thử với đáp án đúng, khác khoảng trắng và đáp án sai/thiếu/thừa. Quy trình xác nhận hai ví dụ, cấu trúc đề, metadata, số dòng kết quả, khả năng tái lập mọi test sinh và 216 hash SHA-256.
+
+## SEGTREE210–219 — Cộng đoạn và truy vấn tổng
+
+Các bài thuộc Range Add - Range Sum (`TOP-KVAR7YJR6F`). Mỗi bài dùng segment tree với nhãn cộng dồn. Hai trường giới hạn thời gian trong cấu hình đều là 1 giây. Bộ phân loại khi upload là `ds_segment_tree`.
+
+| Mã | Bài | Dạng tổng |
+| --- | --- | --- |
+| segtree210 | Sổ thu chi | Tổng đoạn với lượng cộng có dấu |
+| segtree211 | Kho hàng vòng tròn | Tổng trên đoạn có thể đi qua cuối dãy |
+| segtree212 | Hai dãy bàn | Hai tổng theo chỉ số lẻ và chẵn |
+| segtree213 | Điểm theo vị trí | Tổng có trọng số bắt đầu từ 1 tại đầu đoạn |
+| segtree214 | Tổng đan dấu sau cập nhật | Tổng xen kẽ dấu cộng và trừ |
+| segtree215 | Tổng theo môđun | Số dư không âm của tổng |
+| segtree216 | Nhiệt độ trung bình | Tổng chia độ dài, biểu diễn bằng phân số tối giản |
+| segtree217 | Tuyến lấy mẫu cách đều | Tổng trong nhóm vị trí có cùng phần dư |
+| segtree218 | Tổng tải trên trục dài | Tổng theo độ dài thật của từng khối tọa độ |
+| segtree219 | Tổng theo hệ số cố định | Tổng có trọng số cho trước |
+
+Chạy cả nhóm bằng `python3 custom/segtree_tests/check_range_add_sum.py`. Chạy riêng một bài bằng `python3 custom/segtree218/tests/check.py`. Dùng `--update-hashes` khi cập nhật dữ liệu chuẩn.
+
+Mỗi bài có 36 test gồm 2 ví dụ, 12 test biên, 8 test nhỏ, 8 test ngẫu nhiên và 6 test lớn. Test lớn có tối đa 200.000 thao tác. Bài 218 có ca với 400.000 mốc riêng biệt. Các ca biên kiểm tra cập nhật âm và bằng 0, đoạn một phần tử, cập nhật chồng nhau, dãy có độ dài lẻ, các đoạn vòng, môđun bằng 1, hệ số bằng 0 và các cập nhật toàn đoạn dồn đến cận lớn.
+
+`oracle_range_add_sum.cpp` dùng Fenwick trên các sự kiện sai phân. Với tổng trọng số tiền tố `P`, một sự kiện `d` tại `i` đóng góp `d * (P[r] - P[i-1])` vào tổng tiền tố đến `r`. Oracle dùng số nguyên 128 bit cho trung gian. Các ca nhỏ còn được đối chiếu bằng mô phỏng từng phần tử. Riêng bài 218, mô phỏng tính độ dài giao của từng đoạn cập nhật trước đó với đoạn được hỏi. Bộ kiểm tra chạy verifier và checker, đối chiếu ví dụ và xác nhận hash của dữ liệu đã sinh.

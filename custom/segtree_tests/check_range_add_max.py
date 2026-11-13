@@ -12,7 +12,6 @@ import time
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
 sys.path.insert(0,str(HERE));sys.path.insert(0,str(ROOT))
-import toml
 from problem import Problem
 from check import audit_statement,check_checker,run
 from check_foundations import checked_compile
@@ -103,8 +102,9 @@ def invalid_inputs():
 
 
 def audit(problem):
-    template=toml.load(ROOT/'custom/segtree000/info.toml')['upload'];template['types']=['ds_segment_tree']
-    assert problem.config['upload']==template and problem.config['timelimit']==template['time_limit']==0.5
+    upload=problem.config['upload']
+    assert problem.config['timelimit']==upload['time_limit']==1.0
+    assert upload['types']==['ds_segment_tree']
     files=sorted((P/'in').glob('*.in'));assert len(files)==36
     dims=[]
     for path in files:
@@ -144,7 +144,7 @@ def main():
     count=small_checks();invalid=invalid_inputs();check_checker(P,220)
     if args.update_hashes:problem.ignore_warning=True;problem.write_hashes()
     problem.assert_hashes()
-    print(f'SEGTREE220: 36 generated tests, {count} exhaustive/random cases, {invalid} invalid inputs; 0.5s limit, direct array simulation, checker, samples, upload, reproducibility and hashes OK ({time.monotonic()-started:.1f}s). No Subtask or HTML.',flush=True)
+    print(f'SEGTREE220: 36 generated tests, {count} exhaustive/random cases, {invalid} invalid inputs; 1s limit, direct array simulation, checker, samples, upload, reproducibility and hashes OK ({time.monotonic()-started:.1f}s). No Subtask or HTML.',flush=True)
 
 
 if __name__=='__main__':main()

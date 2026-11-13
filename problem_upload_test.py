@@ -117,6 +117,8 @@ memory_limit = 65536
         parts = self.multipart(self.requests[1])
         manifest = json.loads(parts['manifest'])
         self.assertEqual(manifest['checker'], 'standard')
+        self.assertNotIn('binary_data', manifest)
+        self.assertNotIn('binary_data', payload)
         self.assertEqual([c['input_file'] for c in manifest['cases']],
                          ['example_00.in', 'example_01.in'])
         self.assertEqual([c['points'] for c in manifest['cases']], [1, 1])
@@ -136,6 +138,113 @@ memory_limit = 65536
             ('PATCH', '/api/v3/problem-import/problems/demo001'),
             ('POST', '/api/v3/problem-import/problems/demo001/testcases')])
         self.assertNotIn('code', json.loads(self.requests[1][3]))
+
+    def test_file_io_fields_sent_on_create_and_update_not_in_manifest(self):
+        settings = dict(io_method='file', io_input_file='DEMO001.INP', io_output_file='DEMO001.OUT')
+        self.problem.config['upload'].update(settings)
+        for conflict in (False, True):
+            with self.subTest(conflict=conflict):
+                self.requests.clear()
+                self.statuses = [409, 200, 200] if conflict else [201, 200]
+                ProblemUpload(self.problem).upload(self.client)
+                metadata = [r for r in self.requests if not r[1].endswith('/testcases')]
+                self.assertEqual([r[0] for r in metadata], ['POST', 'PATCH'] if conflict else ['POST'])
+                for request in metadata:
+                    payload = json.loads(request[3])
+                    self.assertEqual({key: payload[key] for key in settings}, settings)
+                manifest = json.loads(self.multipart(self.requests[-1])['manifest'])
+                self.assertTrue(set(settings).isdisjoint(manifest))
+                self.assertEqual(manifest['cases'][0]['input_file'], 'example_00.in')
+
+    def test_standard_io_field_sent_without_file_names(self):
+        self.problem.config['upload']['io_method'] = 'standard'
+        ProblemUpload(self.problem).upload(self.client)
+        payload = json.loads(self.requests[0][3])
+        self.assertEqual(payload['io_method'], 'standard')
+        self.assertNotIn('io_input_file', payload)
+        self.assertNotIn('io_output_file', payload)
+
+    def test_skip_statement_preserves_remote_file_io(self):
+        self.problem.config['upload'].update(io_method='file', io_input_file='DEMO001.INP',
+                                             io_output_file='DEMO001.OUT')
+        ProblemUpload(self.problem, skip_statement=True).upload(self.client)
+        self.assertEqual([r[1] for r in self.requests], ['/api/v3/problem-import/problems/demo001/testcases'])
+        manifest = json.loads(self.multipart(self.requests[0])['manifest'])
+        self.assertTrue({'io_method', 'io_input_file', 'io_output_file'}.isdisjoint(manifest))
+
+    def test_binary_data_sent_in_manifest_and_zip_preserves_bytes(self):
+        raw = b'\x00\x0d\x0a\x0d\x1a\xff\x00'
+        (self.directory / 'in/example_00.in').write_bytes(raw)
+        (self.directory / 'hash.json').write_text(json.dumps(self.problem.calc_hashes()))
+        for value in (True, False):
+            for skip_statement in (False, True):
+                with self.subTest(value=value, skip_statement=skip_statement):
+                    self.requests.clear()
+                    self.problem.config['upload']['binary_data'] = value
+                    upload = ProblemUpload(self.problem, skip_statement=skip_statement)
+                    self.assertNotIn('binary_data', upload.payload)
+                    upload.upload(self.client)
+                    parts = self.multipart(self.requests[-1])
+                    self.assertIs(json.loads(parts['manifest'])['binary_data'], value)
+                    with zipfile.ZipFile(io.BytesIO(parts['upload'])) as archive:
+                        self.assertEqual(archive.read('example_00.in'), raw)
+
+    def test_explicit_manifest_binary_data_overrides_toml(self):
+        settings = self.problem.config['upload']
+        settings.update(binary_data=True, manifest='manifest.json')
+        cases = [{'input_file': 'example_00.in', 'output_file': 'example_00.out'}]
+        for manifest, expected in (({'cases': cases, 'binary_data': False}, False),
+                                   ({'cases': cases}, True)):
+            with self.subTest(manifest=manifest):
+                (self.directory / 'manifest.json').write_text(json.dumps(manifest))
+                upload = ProblemUpload(self.problem)
+                self.assertIs(upload.manifest['binary_data'], expected)
+                self.assertIs(self.problem.binary_data(), expected)
+                self.assertNotIn('binary_data', upload.payload)
+
+    def test_binary_data_only_in_explicit_manifest(self):
+        self.problem.config['upload']['manifest'] = 'manifest.json'
+        (self.directory / 'manifest.json').write_text(json.dumps({
+            'binary_data': True,
+            'cases': [{'input_file': 'example_00.in', 'output_file': 'example_00.out'}],
+        }))
+        self.assertIs(ProblemUpload(self.problem).manifest['binary_data'], True)
+        self.assertIs(self.problem.binary_data(), True)
+
+    def test_binary_data_requires_a_boolean_before_requests(self):
+        settings = self.problem.config['upload']
+        for value in (None, 'true', 'false', 0, 1, 1.0, [], {}):
+            for location in ('toml', 'manifest'):
+                with self.subTest(value=value, location=location):
+                    settings.pop('manifest', None)
+                    settings.pop('binary_data', None)
+                    if location == 'toml':
+                        settings['binary_data'] = value
+                    else:
+                        settings.update(binary_data=True, manifest='manifest.json')
+                        (self.directory / 'manifest.json').write_text(json.dumps({'binary_data': value}))
+                    with self.assertRaisesRegex(UploadError, 'binary_data must be a boolean'):
+                        ProblemUpload(self.problem)
+                    with self.assertRaisesRegex(ValueError, 'binary_data must be a boolean'):
+                        self.problem.binary_data()
+        self.assertEqual(self.requests, [])
+
+    def test_binary_data_is_ignored_when_not_uploading_testcases(self):
+        self.problem.config['upload']['binary_data'] = 'unused'
+        upload = ProblemUpload(self.problem, skip_testcase=True)
+        self.assertNotIn('binary_data', upload.payload)
+        self.assertNotIn('binary_data', upload.manifest)
+        (self.directory / 'solution.md').write_text('Editorial')
+        upload = ProblemUpload(self.problem, only_editorial=True)
+        self.assertNotIn('binary_data', upload.payload)
+
+    def test_custom_checker_keeps_binary_data_in_manifest(self):
+        self.custom_checker()
+        self.problem.config['upload']['binary_data'] = True
+        upload = ProblemUpload(self.problem)
+        self.assertIs(upload.manifest['binary_data'], True)
+        self.assertNotIn('checker', upload.manifest)
+        self.assertNotIn('binary_data', upload.payload)
 
     def test_skip_statement_uploads_only_testcases_and_editorial(self):
         (self.directory / 'task.md').unlink()
@@ -160,6 +269,51 @@ memory_limit = 65536
         self.assertEqual(caught.exception.status, 404)
         self.assertEqual([(r[0], r[1]) for r in self.requests], [
             ('POST', '/api/v3/problem-import/problems/demo001/testcases')])
+
+    def test_skip_testcase_updates_statement_and_editorial_without_local_tests(self):
+        self.problem.clean()
+        (self.directory / 'hash.json').unlink()
+        (self.directory / 'solution.md').write_text('Updated editorial')
+        del self.problem.config['tests']
+        self.problem.config['upload'].update(manifest='missing.json', testcase_points=-1)
+        self.statuses = [409, 200, 200]
+        with patch.object(self.problem, 'assert_hashes') as hashes, \
+                patch('problem_upload.zipfile.ZipFile') as archive:
+            ProblemUpload(self.problem, skip_testcase=True).upload(self.client)
+        hashes.assert_not_called()
+        archive.assert_not_called()
+        self.assertEqual([(r[0], r[1]) for r in self.requests], [
+            ('POST', '/api/v3/problem-import/problems'),
+            ('PATCH', '/api/v3/problem-import/problems/demo001'),
+            ('PUT', '/api/v3/problem-import/problems/demo001/editorial')])
+        self.assertEqual(json.loads(self.requests[1][3])['name'], 'Tính tổng hai số')
+        self.assertEqual(json.loads(self.requests[2][3]), {'content': 'Updated editorial'})
+
+    def test_skip_testcase_still_uploads_custom_checker_with_skip_statement(self):
+        _, source = self.custom_checker(checker_args={'time_limit': 3})
+        (self.directory / 'task.md').unlink()
+        (self.directory / 'solution.md').write_text('Editorial')
+        del self.problem.config['tests']
+        self.problem.config['upload']['manifest'] = 'missing.json'
+        ProblemUpload(self.problem, skip_statement=True, skip_testcase=True).upload(self.client)
+        self.assertEqual([r[1] for r in self.requests], [
+            '/api/v3/problem-import/problems/demo001/checker',
+            '/api/v3/problem-import/problems/demo001/editorial'])
+        fields = self.multipart(self.requests[0])
+        self.assertEqual(fields['upload'], source)
+        self.assertEqual(json.loads(fields['checker_args']), {'time_limit': 3})
+
+    def test_skip_testcase_validates_checker_before_updating_statement(self):
+        self.problem.config['upload'].update(checker='custom', custom_checker='missing.cpp')
+        with self.assertRaisesRegex(UploadError, 'Cannot read custom checker'):
+            ProblemUpload(self.problem, skip_testcase=True)
+        self.assertEqual(self.requests, [])
+
+    def test_skip_testcase_rejects_conflicting_options(self):
+        for options in ({'testcase_points': 3}, {'testcase_points': 0}, {'only_editorial': True}):
+            with self.subTest(options=options), self.assertRaisesRegex(UploadError, '--skip-testcase'):
+                ProblemUpload(self.problem, skip_testcase=True, **options)
+        self.assertEqual(self.requests, [])
 
     def test_editorial_takes_priority(self):
         (self.directory / 'solution.md').write_text('fallback')
@@ -536,6 +690,23 @@ memory_limit = 65536
         self.assertFalse((self.directory / 'task.html').exists())
         self.problem.assert_hashes()
 
+    def test_cli_binary_data_upload_and_skip_statement(self):
+        config = self.directory / 'info.toml'
+        config.write_text(config.read_text().replace('[upload]\n', '[upload]\nbinary_data = true\n'))
+        for skip_statement in (False, True):
+            with self.subTest(skip_statement=skip_statement):
+                self.requests.clear()
+                self.problem.clean()
+                args = [str(config), '-u'] + (['--skip-statement'] if skip_statement else [])
+                result = self.run_cli(*args)
+                self.assertEqual(result.returncode, 0, result.stderr.decode())
+                parts = self.multipart(self.requests[-1])
+                self.assertIs(json.loads(parts['manifest'])['binary_data'], True)
+                for request in self.requests[:-1]:
+                    self.assertNotIn('binary_data', json.loads(request[3]))
+                self.assertFalse((self.directory / 'task.html').exists())
+                self.problem.assert_hashes()
+
     def test_cli_skip_statement_generates_and_uploads_without_local_statement(self):
         (self.directory / 'task.md').unlink()
         self.problem.clean()
@@ -561,6 +732,30 @@ memory_limit = 65536
         self.assertFalse((self.directory / 'out').exists())
         self.assertFalse((self.directory / 'task.html').exists())
         self.assertFalse((self.directory / 'params.h').exists())
+
+    def test_cli_skip_testcase_without_local_tests(self):
+        self.problem.clean()
+        (self.directory / 'hash.json').unlink()
+        (self.directory / 'solution.md').write_text('Editorial')
+        config = self.directory / 'info.toml'
+        config.write_text(config.read_text().replace("[[tests]]\nname = 'example.in'\nnumber = 2\n", ''))
+        result = self.run_cli(str(config), '-u', '--skip-testcase')
+        self.assertEqual(result.returncode, 0, result.stderr.decode())
+        self.assertEqual([(r[0], r[1]) for r in self.requests], [
+            ('POST', '/api/v3/problem-import/problems'),
+            ('PUT', '/api/v3/problem-import/problems/demo001/editorial')])
+        for name in ('in', 'out', 'hash.json', 'task.html', 'params.h'):
+            self.assertFalse((self.directory / name).exists(), name)
+
+    def test_cli_skip_testcase_and_statement_deduplicate_without_generation(self):
+        (self.directory / 'solution.md').write_text('Editorial')
+        with patch.dict(os.environ, {'HOST': self.host, 'PROBLEM_IMPORT_API_KEY': 'test-api-key'}), \
+                patch.object(generate, 'find_problem_dir', return_value=self.directory), \
+                patch.object(Problem, 'generate') as generation:
+            generate.main(['-p', 'DEMO001', '-u', 'DEMO001', '--skip-testcase', '--skip-statement'])
+        generation.assert_not_called()
+        self.assertEqual([(r[0], r[1]) for r in self.requests], [
+            ('PUT', '/api/v3/problem-import/problems/demo001/editorial')])
 
     def test_cli_only_editorial_deduplicates_without_generation(self):
         (self.directory / 'solution.md').write_text('Editorial')
@@ -653,7 +848,10 @@ memory_limit = 65536
                      ['--only-editorial'], ['-p', 'DEMO001', '--only-editorial'],
                      ['-u', '--only-editorial'],
                      ['-u', 'DEMO001', '--only-editorial', '--skip-statement'],
-                     ['-u', 'DEMO001', '--only-editorial', '--testcase-points', '3']):
+                     ['-u', 'DEMO001', '--only-editorial', '--testcase-points', '3'],
+                     ['--skip-testcase'], ['-p', 'DEMO001', '--skip-testcase'],
+                     ['-u', 'DEMO001', '--only-editorial', '--skip-testcase'],
+                     ['-u', 'DEMO001', '--skip-testcase', '--testcase-points', '3']):
             with self.subTest(args=args):
                 result = self.run_cli(*args)
                 self.assertNotEqual(result.returncode, 0)

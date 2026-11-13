@@ -4,7 +4,6 @@
 #include <vector>
 #include <utility>
 using i64 = long long;
-// Buffered I/O keeps the 0.5-second limit practical at maximum input size.
 class FastInput {
     char data[1 << 16];
     int pos = 0, size = 0;

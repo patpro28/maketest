@@ -97,15 +97,16 @@ def execcmd(src: Path, arg: List[str] = []) -> List[str]:
             cmd = ['python', str(src)]
         else:
             cmd = ['python3', str(src)]
-        return cmd
+        return cmd + arg
     else:
         raise RuntimeError('Unknown file: {} {}'.format(src, arg))
 
 
-def check_call_to_file(command: List[str], outpath: Path, *args, **kwargs):
+def check_call_to_file(command: List[str], outpath: Path, *args, binary=False, **kwargs):
     logger.debug('check_call_to_file: %s', command)
-    check_call(command, stdout=open(outpath, "w"), *args, **kwargs)
-    if platform.uname().system == 'Windows':
+    with open(outpath, 'wb' if binary else 'w') as output:
+        check_call(command, stdout=output, *args, **kwargs)
+    if not binary and platform.uname().system == 'Windows':
         # handles CRLF stuff on Windows
         with TemporaryDirectory() as tmpdir:
             tmppath = Path(tmpdir).joinpath('file')
@@ -225,9 +226,23 @@ class Problem:
                 return False
         return True
 
+    def binary_data(self) -> bool:
+        settings = self.config.get('upload', {})
+        value = settings.get('binary_data', False)
+        if 'manifest' in settings:
+            with (self.basedir / settings['manifest']).open(encoding='utf-8') as source:
+                manifest = json.load(source)
+            if not isinstance(manifest, dict):
+                raise ValueError('The testcase manifest must be a JSON object')
+            value = manifest.get('binary_data', value)
+        if type(value) is not bool:
+            raise ValueError('binary_data must be a boolean (true or false)')
+        return value
+
     def make_inputs(self):
         indir = self.basedir / 'in'
         gendir = self.basedir / 'gen'
+        binary = self.binary_data()
 
         logger.info('clear input {}'.format(indir))
         if indir.exists():
@@ -241,7 +256,7 @@ class Problem:
             logger.info('gen {} {}cases'.format(name, num))
             for i in range(num):
                 inpath = indir / (casename(name, i) + '.in')
-                check_call_to_file(execcmd(gendir / name, [str(i)]), inpath)
+                check_call_to_file(execcmd(gendir / name, [str(i)]), inpath, binary=binary)
 
     def verify_inputs(self):
         indir = self.basedir / 'in'
@@ -258,6 +273,33 @@ class Problem:
                 if result.returncode != 0:
                     logger.error('verify failed: {}'.format(inname))
                     exit(1)
+
+    def run_solution(self, src: Path, infile: Path, outfile: Path, timeout=None):
+        settings = self.config.get('upload', {})
+        if settings.get('io_method') != 'file':
+            with infile.open('rb') as stream:
+                check_call_to_file(execcmd(src), outfile, stdin=stream, timeout=timeout,
+                                   binary=self.binary_data())
+            return
+
+        names = []
+        for key in ('io_input_file', 'io_output_file'):
+            name = settings.get(key)
+            if (not isinstance(name, str) or not name.strip() or len(name) > 100
+                    or name in ('.', '..') or any(c in '/\\' or ord(c) < 32
+                                                or ord(c) == 127 for c in name)):
+                raise ValueError('Set [upload].{} to a valid file name'.format(key))
+            names.append(name)
+        command = execcmd(src.resolve())
+        with TemporaryDirectory() as directory:
+            directory = Path(directory)
+            shutil.copyfile(infile, directory / names[0])
+            check_call(command, cwd=directory, stdin=DEVNULL, stdout=DEVNULL,
+                       timeout=self.config['timelimit'] if timeout is None else timeout)
+            result = directory / names[1]
+            if not result.is_file():
+                raise CalledProcessError(1, command, stderr='Missing output file: ' + names[1])
+            shutil.copyfile(result, outfile)
 
     def make_outputs(self, check):
         indir = self.basedir / 'in'
@@ -279,8 +321,7 @@ class Problem:
                 infile = indir / (case + '.in')
                 expected = outdir / (case + '.out')
                 start = datetime.now()
-                check_call_to_file(execcmd(self.get_correct_filename()),
-                                   expected, stdin=open(str(infile), 'r'))
+                self.run_solution(self.get_correct_filename(), infile, expected)
                 end = datetime.now()
                 checker_output = bytes()
                 if check:
@@ -397,8 +438,7 @@ class Problem:
                 result = ''
                 checker_output = bytes()
                 try:
-                    check_call_to_file(execcmd(src), actual,
-                                       stdin=open(str(infile), 'r'), timeout=self.config['timelimit'])
+                    self.run_solution(src, infile, actual, timeout=self.config['timelimit'])
                 except TimeoutExpired:
                     result = 'TLE'
                 except CalledProcessError:
